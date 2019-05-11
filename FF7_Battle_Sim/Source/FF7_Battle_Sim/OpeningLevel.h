@@ -13,5 +13,11 @@ UCLASS()
 class FF7_BATTLE_SIM_API AOpeningLevel : public ALevelScriptActor
 {
 	GENERATED_BODY()
+
+public:
+	AOpeningLevel();
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bCombatLevel;
+	
 	
 };

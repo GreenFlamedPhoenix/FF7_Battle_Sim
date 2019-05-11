@@ -3,3 +3,8 @@
 
 #include "OpeningLevel.h"
 
+AOpeningLevel::AOpeningLevel()
+{
+	bCombatLevel = true;
+}
+
