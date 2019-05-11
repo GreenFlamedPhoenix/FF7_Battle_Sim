@@ -2,6 +2,7 @@
 
 
 #include "CombatTrackingComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UCombatTrackingComponent::UCombatTrackingComponent()
@@ -29,4 +30,3 @@ void UCombatTrackingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 	// ...
 }
-

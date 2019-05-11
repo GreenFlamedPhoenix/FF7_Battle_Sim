@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "CombatTrackingComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
