@@ -27,4 +27,8 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ULevel* CurrentLevel;
+
+	void SetMapCombatState(bool bCombatMap);
+
+	bool bCurrentlyInCombatMap;
 };

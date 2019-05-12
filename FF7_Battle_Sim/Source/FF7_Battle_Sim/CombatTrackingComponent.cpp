@@ -18,8 +18,8 @@ void UCombatTrackingComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CurrentLevel = Cast<ULevel>(GetWorld()->GetLevel(0));
-	if (CurrentLevel == nullptr) { UE_LOG(LogTemp, Error, TEXT("Current level is null.")); return; }
+	//CurrentLevel = Cast<ULevel>(GetWorld()->GetLevel(0));
+	//if (CurrentLevel == nullptr) { UE_LOG(LogTemp, Error, TEXT("Current level is null.")); return; }
 }
 
 
@@ -28,5 +28,21 @@ void UCombatTrackingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if (bCurrentlyInCombatMap == true)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("We are in a combat map! Careful!"));
+	}
+	else if (bCurrentlyInCombatMap == false)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("We are safe here!"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Something went wrong determining map combat state!"));
+	}
+}
+
+void UCombatTrackingComponent::SetMapCombatState(bool bCombatMap)
+{
+	bCurrentlyInCombatMap = bCombatMap;
 }

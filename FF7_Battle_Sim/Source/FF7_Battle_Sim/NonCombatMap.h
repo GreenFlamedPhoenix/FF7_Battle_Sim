@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/LevelScriptActor.h"
-#include "OpeningLevel.generated.h"
+#include "NonCombatMap.generated.h"
 class APlayerCharacter;
 class UCombatTrackingComponent;
 
@@ -12,17 +12,17 @@ class UCombatTrackingComponent;
  * 
  */
 UCLASS()
-class FF7_BATTLE_SIM_API AOpeningLevel : public ALevelScriptActor
+class FF7_BATTLE_SIM_API ANonCombatMap : public ALevelScriptActor
 {
 	GENERATED_BODY()
 
 public:
-	AOpeningLevel();
+	ANonCombatMap();
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCombatMap;
-	
+
 	UPROPERTY()
 	APlayerCharacter* ControlledCharacter;
 

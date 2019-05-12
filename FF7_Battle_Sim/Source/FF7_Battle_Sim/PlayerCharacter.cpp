@@ -15,7 +15,7 @@ APlayerCharacter::APlayerCharacter()
 	USpringArmComponent* SpringArm = CreateDefaultSubobject<USpringArmComponent>("Character Camera SpringArm");
 	SpringArm->AttachTo(RootComponent);
 	SpringArm->TargetArmLength = 1000.f;
-	SpringArm->SetRelativeLocationAndRotation(FVector(0.f, 0.f, 50.f), FRotator(-60.f, 0.f, 100.f));
+	SpringArm->SetRelativeLocationAndRotation(FVector(0.f, 0.f, 50.f), FRotator(0.f, 0.f, 100.f));
 
 	UCameraComponent* PlayerCamera = CreateDefaultSubobject<UCameraComponent>("Player Camera");
 	PlayerCamera->AttachTo(SpringArm);
