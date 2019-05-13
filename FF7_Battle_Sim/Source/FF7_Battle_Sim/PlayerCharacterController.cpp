@@ -24,10 +24,20 @@ void APlayerCharacterController::SetupInputComponent()
 
 void APlayerCharacterController::MoveForward(float Axis)
 {
-
+	if (Axis != 0.f)
+	{
+		float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
+		FVector Direction = ControlledCharacter->GetActorForwardVector();
+		ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
+	}
 }
 
 void APlayerCharacterController::MoveRight(float Axis)
 {
-
+	if (Axis != 0.f)
+	{
+		float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
+		FVector Direction = ControlledCharacter->GetActorRightVector();
+		ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
+	}
 }
