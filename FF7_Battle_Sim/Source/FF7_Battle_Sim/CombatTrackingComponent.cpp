@@ -47,6 +47,7 @@ void UCombatTrackingComponent::ManageCombatChance()
 					GetWorld()->GetTimerManager().ClearTimer(RandomNumberCounter);
 					CurrentCombatChance = 0.f;
 					RandomCombatNumber = 0.f;
+					CombatTriggered = true;
 				}
 				else
 				{

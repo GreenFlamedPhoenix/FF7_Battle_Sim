@@ -45,8 +45,12 @@ public:
 	void ManageCombatChance();
 
 	FTimerHandle RandomNumberCounter;
+
 	float RandomCombatNumber = 0.f;
+
 	UFUNCTION()
 	void GenerateRandomCombatRoll();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool CombatTriggered = false;
 };
