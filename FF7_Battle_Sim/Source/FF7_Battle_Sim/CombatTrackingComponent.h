@@ -43,4 +43,10 @@ public:
 	float MaxCombatChance = 100.f;
 
 	void ManageCombatChance();
+
+	FTimerHandle RandomNumberCounter;
+	float RandomCombatNumber = 0.f;
+	UFUNCTION()
+	void GenerateRandomCombatRoll();
+
 };
