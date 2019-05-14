@@ -4,13 +4,19 @@
 #include "PlayerCharacterController.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
+#include "CombatTrackingComponent.h"
 
 void APlayerCharacterController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	/*Find the character we are controlling*/
 	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("ControlledCharacter from controlled is null!")); return;}
+
+	/*Find the CombatTrackingComponent for our character*/
+	CombatTrackingComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
+	if (CombatTrackingComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("CombatTrackingComponent from controlled is null!")); return;}
 }
 
 void APlayerCharacterController::SetupInputComponent()
@@ -29,6 +35,12 @@ void APlayerCharacterController::MoveForward(float Axis)
 		float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
 		FVector Direction = ControlledCharacter->GetActorForwardVector();
 		ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
+		bIncreasingCombatChance = true;
+		CombatTrackingComponent->ManageCombatChance();
+	}
+	else
+	{
+		bIncreasingCombatChance = false;
 	}
 }
 
@@ -39,5 +51,14 @@ void APlayerCharacterController::MoveRight(float Axis)
 		float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
 		FVector Direction = ControlledCharacter->GetActorRightVector();
 		ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
+		if (bIncreasingCombatChance == false)
+		{
+			bIncreasingCombatChance = true;
+			CombatTrackingComponent->ManageCombatChance();
+		}
+	}
+	else
+	{
+		bIncreasingCombatChance = false;
 	}
 }

@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PlayerCharacterController.generated.h"
 class APlayerCharacter;
+class UCombatTrackingComponent;
 
 /**
  * 
@@ -21,8 +22,13 @@ public:
 
 	UPROPERTY()
 	APlayerCharacter* ControlledCharacter;
+	UPROPERTY()
+	UCombatTrackingComponent* CombatTrackingComponent;
 
 	void MoveForward(float Axis);
 	void MoveRight(float Axis);
+
+	UPROPERTY()
+	bool bIncreasingCombatChance;
 	
 };

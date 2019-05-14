@@ -30,5 +30,17 @@ public:
 
 	void SetMapCombatState(bool bCombatMap);
 
+	/*Whether we are in a combat map or a safe map with no combat chance.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCurrentlyInCombatMap;
+
+	/*Our current chance between 1 & 100 to enter combat.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float CurrentCombatChance = 0.f;
+
+	/*Our highest possible chance to enter combat, obviously 100% chance.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float MaxCombatChance = 100.f;
+
+	void ManageCombatChance();
 };

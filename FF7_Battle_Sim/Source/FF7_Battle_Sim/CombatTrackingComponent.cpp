@@ -28,21 +28,27 @@ void UCombatTrackingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (bCurrentlyInCombatMap == true)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("We are in a combat map! Careful!"));
-	}
-	else if (bCurrentlyInCombatMap == false)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("We are safe here!"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Something went wrong determining map combat state!"));
-	}
+	/*Determine the type of map we are in.*/
+	//if (bCurrentlyInCombatMap == true){UE_LOG(LogTemp, Warning, TEXT("We are in a combat map! Careful!"));}
+	//else if (bCurrentlyInCombatMap == false){UE_LOG(LogTemp, Warning, TEXT("We are safe here!"));}
+	//else {UE_LOG(LogTemp, Warning, TEXT("Something went wrong determining map combat state!"));}
 }
 
 void UCombatTrackingComponent::SetMapCombatState(bool bCombatMap)
 {
 	bCurrentlyInCombatMap = bCombatMap;
+}
+
+void UCombatTrackingComponent::ManageCombatChance()
+{
+	if (bCurrentlyInCombatMap == true)
+	{
+
+		CurrentCombatChance += .15f;
+		int SimpleCombatChance = (int)CurrentCombatChance;
+		//UE_LOG(LogTemp, Warning, TEXT("Current Combat Chance: %i"), SimpleCombatChance);
+
+		//Take the combat chance and roll to see if we enter combat.
+			//If the roll passes, enter combat and reset the combat chance.
+	}
 }
