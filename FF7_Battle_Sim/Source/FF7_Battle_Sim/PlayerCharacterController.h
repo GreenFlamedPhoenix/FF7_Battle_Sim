@@ -7,6 +7,7 @@
 #include "PlayerCharacterController.generated.h"
 class APlayerCharacter;
 class UCombatTrackingComponent;
+//class ACameraActor;
 
 /**
  * 
@@ -30,5 +31,8 @@ public:
 
 	UPROPERTY()
 	bool bIncreasingCombatChance;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	AActor* MyCurrentCamera;
 	
 };

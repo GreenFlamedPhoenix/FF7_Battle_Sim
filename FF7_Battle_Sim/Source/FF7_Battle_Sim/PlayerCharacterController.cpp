@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
 #include "CombatTrackingComponent.h"
+//#include "Runtime/Engine/Classes/Camera/CameraActor.h"
 
 void APlayerCharacterController::BeginPlay()
 {
@@ -17,6 +18,8 @@ void APlayerCharacterController::BeginPlay()
 	/*Find the CombatTrackingComponent for our character*/
 	CombatTrackingComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
 	if (CombatTrackingComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("CombatTrackingComponent from controlled is null!")); return;}
+
+	MyCurrentCamera = this->GetViewTarget();
 }
 
 void APlayerCharacterController::SetupInputComponent()
@@ -30,35 +33,45 @@ void APlayerCharacterController::SetupInputComponent()
 
 void APlayerCharacterController::MoveForward(float Axis)
 {
-	if (Axis != 0.f)
+	if (MyCurrentCamera != nullptr)
 	{
-		float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
-		FVector Direction = ControlledCharacter->GetActorForwardVector();
-		ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
-		bIncreasingCombatChance = true;
-		CombatTrackingComponent->ManageCombatChance();
+		if (Axis != 0.f)
+		{
+			float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
+			FVector Direction = MyCurrentCamera->GetActorForwardVector();
+			ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
+			bIncreasingCombatChance = true;
+			CombatTrackingComponent->ManageCombatChance();
+		}
+		else
+		{
+			bIncreasingCombatChance = false;
+		}
 	}
 	else
 	{
-		bIncreasingCombatChance = false;
+		UE_LOG(LogTemp, Error, TEXT("Null camera from player controller."));
 	}
 }
 
 void APlayerCharacterController::MoveRight(float Axis)
 {
-	if (Axis != 0.f)
+	if (MyCurrentCamera != nullptr)
 	{
-		float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
-		FVector Direction = ControlledCharacter->GetActorRightVector();
-		ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
-		if (bIncreasingCombatChance == false)
+		if (Axis != 0.f)
 		{
-			bIncreasingCombatChance = true;
-			CombatTrackingComponent->ManageCombatChance();
+			float ClampedAxis = FMath::Clamp(Axis, -1.f, 1.f);
+			FVector Direction = MyCurrentCamera->GetActorRightVector();
+			ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
+			if (bIncreasingCombatChance == false)
+			{
+				bIncreasingCombatChance = true;
+				CombatTrackingComponent->ManageCombatChance();
+			}
 		}
-	}
-	else
-	{
-		bIncreasingCombatChance = false;
+		else
+		{
+			bIncreasingCombatChance = false;
+		}
 	}
 }
