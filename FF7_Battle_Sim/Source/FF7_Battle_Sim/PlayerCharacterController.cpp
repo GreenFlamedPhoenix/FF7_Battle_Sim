@@ -5,7 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
 #include "CombatTrackingComponent.h"
-//#include "Runtime/Engine/Classes/Camera/CameraActor.h"
+#include "Runtime/Engine/Classes/Camera/CameraActor.h"
 
 void APlayerCharacterController::BeginPlay()
 {
@@ -18,8 +18,13 @@ void APlayerCharacterController::BeginPlay()
 	/*Find the CombatTrackingComponent for our character*/
 	CombatTrackingComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
 	if (CombatTrackingComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("CombatTrackingComponent from controlled is null!")); return;}
+}
 
-	MyCurrentCamera = this->GetViewTarget();
+/*Function to be able to easily set the camera we are using*/
+void APlayerCharacterController::SetMapCamera(ACameraActor* MapCamera)
+{
+	MyCurrentCamera = MapCamera;
+	UE_LOG(LogTemp, Warning, TEXT("Camera set to %s"), *MyCurrentCamera->GetFullName());
 }
 
 void APlayerCharacterController::SetupInputComponent()
@@ -50,7 +55,7 @@ void APlayerCharacterController::MoveForward(float Axis)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("Null camera from player controller."));
+		UE_LOG(LogTemp, Error, TEXT("Camera null for PlayerController."));
 	}
 }
 
@@ -69,9 +74,13 @@ void APlayerCharacterController::MoveRight(float Axis)
 				CombatTrackingComponent->ManageCombatChance();
 			}
 		}
-		else
+		else if (bIncreasingCombatChance != true)
 		{
 			bIncreasingCombatChance = false;
 		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Camera null for PlayerController."))
 	}
 }

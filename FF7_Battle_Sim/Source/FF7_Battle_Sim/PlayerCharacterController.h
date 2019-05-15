@@ -7,7 +7,7 @@
 #include "PlayerCharacterController.generated.h"
 class APlayerCharacter;
 class UCombatTrackingComponent;
-//class ACameraActor;
+class ACameraActor;
 
 /**
  * 
@@ -33,6 +33,9 @@ public:
 	bool bIncreasingCombatChance;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	AActor* MyCurrentCamera;
+	ACameraActor* MyCurrentCamera;
+
+	UFUNCTION(BlueprintCallable)
+	void SetMapCamera(ACameraActor* MapCamera);
 	
 };
