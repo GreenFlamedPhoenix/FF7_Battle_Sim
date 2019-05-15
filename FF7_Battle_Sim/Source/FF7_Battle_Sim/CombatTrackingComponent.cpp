@@ -35,7 +35,7 @@ void UCombatTrackingComponent::ManageCombatChance()
 {
 	if (bCurrentlyInCombatMap == true)
 	{
-		CurrentCombatChance += .08f;
+		CurrentCombatChance += .09f;
 		
 		if (CurrentCombatChance >= 25.f)
 		{
