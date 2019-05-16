@@ -21,7 +21,7 @@ void AOpeningLevel::BeginPlay()
 	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null ControlledCharacter from Level")); return;}
 
 	PlayersCombatComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
-	if (PlayersCombatComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null ControlledCharacter from Level")); return;}
+	if (PlayersCombatComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null CombatComponent from Level")); return;}
 
 	PlayersCombatComponent->SetMapCombatState(bCombatMap);
 }

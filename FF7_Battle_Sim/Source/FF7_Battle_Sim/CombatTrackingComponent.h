@@ -7,7 +7,6 @@
 #include "CombatTrackingComponent.generated.h"
 class ULevel;
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class FF7_BATTLE_SIM_API UCombatTrackingComponent : public UActorComponent
 {
@@ -53,4 +52,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool CombatTriggered = false;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void CombatTriggerImplementaion();
 };
