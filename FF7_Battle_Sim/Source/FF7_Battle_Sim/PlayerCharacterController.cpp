@@ -4,7 +4,7 @@
 #include "PlayerCharacterController.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
-#include "CombatTrackingComponent.h"
+#include "MainGameInstance.h"
 #include "Runtime/Engine/Classes/Camera/CameraActor.h"
 
 void APlayerCharacterController::BeginPlay()
@@ -13,18 +13,17 @@ void APlayerCharacterController::BeginPlay()
 
 	/*Find the character we are controlling*/
 	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("ControlledCharacter from controlled is null!")); return;}
+	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null Character from PlayerController!")); return;}
 
 	/*Find the CombatTrackingComponent for our character*/
-	CombatTrackingComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
-	if (CombatTrackingComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("CombatTrackingComponent from controlled is null!")); return;}
+	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from PlayerController!")); return;}
 }
 
-/*Function to be able to easily set the camera we are using*/
+/*Function to be able to easily set the camera we are using for character movement.*/
 void APlayerCharacterController::SetMapCamera(ACameraActor* MapCamera)
 {
 	MyCurrentCamera = MapCamera;
-	UE_LOG(LogTemp, Warning, TEXT("Camera set to %s"), *MyCurrentCamera->GetFullName());
 }
 
 void APlayerCharacterController::SetupInputComponent()
@@ -46,7 +45,7 @@ void APlayerCharacterController::MoveForward(float Axis)
 			FVector Direction = MyCurrentCamera->GetActorForwardVector();
 			ControlledCharacter->AddMovementInput(Direction, ClampedAxis);
 			bIncreasingCombatChance = true;
-			CombatTrackingComponent->ManageCombatChance();
+			GameInstance->ManageCombatChance();
 		}
 		else
 		{
@@ -55,7 +54,7 @@ void APlayerCharacterController::MoveForward(float Axis)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("Camera null for PlayerController."));
+		UE_LOG(LogTemp, Error, TEXT("Null camera from PlayerController!"));
 	}
 }
 
@@ -71,7 +70,7 @@ void APlayerCharacterController::MoveRight(float Axis)
 			if (bIncreasingCombatChance == false)
 			{
 				bIncreasingCombatChance = true;
-				CombatTrackingComponent->ManageCombatChance();
+				GameInstance->ManageCombatChance();
 			}
 		}
 		else if (bIncreasingCombatChance != true)
@@ -81,6 +80,6 @@ void APlayerCharacterController::MoveRight(float Axis)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("Camera null for PlayerController."))
+		UE_LOG(LogTemp, Error, TEXT("Null camera from PlayerController!"))
 	}
 }

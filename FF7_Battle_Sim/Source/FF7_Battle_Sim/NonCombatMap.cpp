@@ -3,8 +3,7 @@
 
 #include "NonCombatMap.h"
 #include "Kismet/GameplayStatics.h"
-#include "PlayerCharacter.h"
-#include "CombatTrackingComponent.h"
+#include "MainGameInstance.h"
 
 ANonCombatMap::ANonCombatMap()
 {
@@ -17,11 +16,8 @@ void ANonCombatMap::BeginPlay()
 
 	bCombatMap = false;
 
-	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (ControlledCharacter == nullptr) { UE_LOG(LogTemp, Error, TEXT("Null ControlledCharacter from Level")); return; }
-	else { UE_LOG(LogTemp, Warning, TEXT("Player character good from level!")); }
-	PlayersCombatComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
-	if (PlayersCombatComponent == nullptr) { UE_LOG(LogTemp, Error, TEXT("Null ControlledCharacter from Level")); return; }
-	else { UE_LOG(LogTemp, Warning, TEXT("Characters combat component good from level!")); }
-	PlayersCombatComponent->SetMapCombatState(bCombatMap);
+	GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from level!")); return;}
+	
+	GameInstance->SetMapCombatState(bCombatMap);
 }

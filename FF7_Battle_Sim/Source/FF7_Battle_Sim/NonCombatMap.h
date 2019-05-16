@@ -5,8 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/LevelScriptActor.h"
 #include "NonCombatMap.generated.h"
-class APlayerCharacter;
-class UCombatTrackingComponent;
+class UMainGameInstance;
 
 /**
  * 
@@ -24,8 +23,5 @@ public:
 	bool bCombatMap;
 
 	UPROPERTY()
-	APlayerCharacter* ControlledCharacter;
-
-	UPROPERTY()
-	UCombatTrackingComponent* PlayersCombatComponent;
+	UMainGameInstance* GameInstance;
 };

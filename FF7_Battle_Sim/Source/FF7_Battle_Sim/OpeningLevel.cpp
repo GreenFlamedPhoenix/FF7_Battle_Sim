@@ -2,9 +2,8 @@
 
 
 #include "OpeningLevel.h"
-#include "PlayerCharacter.h"
-#include "CombatTrackingComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "MainGameInstance.h"
 
 AOpeningLevel::AOpeningLevel()
 {
@@ -17,11 +16,8 @@ void AOpeningLevel::BeginPlay()
 
 	bCombatMap = true;
 
-	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null ControlledCharacter from Level")); return;}
+	GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from level!")); return;}
 
-	PlayersCombatComponent = ControlledCharacter->FindComponentByClass<UCombatTrackingComponent>();
-	if (PlayersCombatComponent == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null CombatComponent from Level")); return;}
-
-	PlayersCombatComponent->SetMapCombatState(bCombatMap);
+	GameInstance->SetMapCombatState(bCombatMap);
 }

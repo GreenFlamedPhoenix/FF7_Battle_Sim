@@ -6,8 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "PlayerCharacterController.generated.h"
 class APlayerCharacter;
-class UCombatTrackingComponent;
 class ACameraActor;
+class UMainGameInstance;
 
 /**
  * 
@@ -24,7 +24,7 @@ public:
 	UPROPERTY()
 	APlayerCharacter* ControlledCharacter;
 	UPROPERTY()
-	UCombatTrackingComponent* CombatTrackingComponent;
+	UMainGameInstance* GameInstance;
 
 	void MoveForward(float Axis);
 	void MoveRight(float Axis);

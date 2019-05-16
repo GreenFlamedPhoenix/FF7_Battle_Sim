@@ -5,8 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/LevelScriptActor.h"
 #include "OpeningLevel.generated.h"
-class APlayerCharacter;
-class UCombatTrackingComponent;
+class UMainGameInstance;
 
 /**
  * 
@@ -23,9 +22,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCombatMap;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	APlayerCharacter* ControlledCharacter;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UCombatTrackingComponent* PlayersCombatComponent;
+	UPROPERTY()
+	UMainGameInstance* GameInstance;
 };
