@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "MainGameInstance.generated.h"
+class APlayerCharacter;
 
 /**
  * 
@@ -15,6 +16,12 @@ class FF7_BATTLE_SIM_API UMainGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
+	UFUNCTION()
+	void SetCharacterReference();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	APlayerCharacter* ControlledCharacter;
+
 	UFUNCTION()
 	void SetMapCombatState(bool bCombatMap);
 
@@ -45,5 +52,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bCombatTriggered;
 
-	
+	/*Keep track of the characters location for respawn after combat.*/
+	UPROPERTY()
+	FVector SavedCombatLocation;
 };

@@ -18,6 +18,8 @@ void APlayerCharacterController::BeginPlay()
 	/*Find the CombatTrackingComponent for our character*/
 	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from PlayerController!")); return;}
+
+	GameInstance->SetCharacterReference();
 }
 
 /*Function to be able to easily set the camera we are using for character movement.*/

@@ -21,19 +21,23 @@ public:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;
-	UPROPERTY()
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	UMainGameInstance* GameInstance;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "References")
+	ACameraActor* MyCurrentCamera;
+
+	UFUNCTION()
 	void MoveForward(float Axis);
+
+	UFUNCTION()
 	void MoveRight(float Axis);
 
 	UPROPERTY()
 	bool bIncreasingCombatChance;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	ACameraActor* MyCurrentCamera;
 
 	UFUNCTION(BlueprintCallable)
 	void SetMapCamera(ACameraActor* MapCamera);

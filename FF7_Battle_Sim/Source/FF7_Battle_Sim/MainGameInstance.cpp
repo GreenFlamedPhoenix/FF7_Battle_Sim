@@ -2,6 +2,14 @@
 
 
 #include "MainGameInstance.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlayerCharacter.h"
+
+void UMainGameInstance::SetCharacterReference()
+{
+	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Warning, TEXT("Set ControlledCharacter to %s"))}
+}
 
 /*Gets whether or not this is a combat map from the level*/
 void UMainGameInstance::SetMapCombatState(bool bCombatMap)
@@ -48,4 +56,8 @@ void UMainGameInstance::BeginCombat()
 	CurrentCombatChance = 0.f;
 	CombatChanceRoll = 0.f;
 	bCombatTriggered = true;
+
+	SavedCombatLocation = ControlledCharacter->GetActorLocation();
+	//UE_LOG(LogTemp, Warning, TEXT("My saved location %s"), SavedCombatLocation().ToString());
+	
 }
