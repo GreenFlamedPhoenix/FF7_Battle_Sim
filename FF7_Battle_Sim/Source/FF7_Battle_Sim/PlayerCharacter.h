@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
-class UCombatTrackingComponent;
 
 UCLASS()
 class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
@@ -26,8 +25,4 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UCombatTrackingComponent* CombatTrackingComponent;
-
 };
