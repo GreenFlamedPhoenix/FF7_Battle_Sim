@@ -19,6 +19,7 @@ void ACombatPlayerCharacterController::CountUpActionTimer()
 	}
 	else
 	{
-		GetWorldTimerManager().ClearTimer(ActionCountTimer);
+		bReadyForAction = true;
+		GetWorldTimerManager().PauseTimer(ActionCountTimer);
 	}
 }

@@ -17,14 +17,18 @@ class FF7_BATTLE_SIM_API ACombatPlayerCharacterController : public APlayerContro
 public:
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FTimerHandle ActionCountTimer;
 
 	void CountUpActionTimer();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	float CurrentActionTimer;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float MaxActionTimer = 25;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bReadyForAction;
 	
 };
