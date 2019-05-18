@@ -53,6 +53,12 @@ public:
 	bool bCombatTriggered;
 
 	/*Keep track of the characters location for respawn after combat.*/
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FVector SavedCombatLocation;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FString SavedMapName;
+
+	UFUNCTION(BlueprintCallable)
+	void CompleteCombat(FName SavedMapFName);
 };

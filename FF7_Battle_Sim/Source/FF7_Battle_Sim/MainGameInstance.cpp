@@ -57,7 +57,13 @@ void UMainGameInstance::BeginCombat()
 	CombatChanceRoll = 0.f;
 	bCombatTriggered = true;
 
+	SavedMapName = GetWorld()->GetMapName();
 	SavedCombatLocation = ControlledCharacter->GetActorLocation();
-	//UE_LOG(LogTemp, Warning, TEXT("My saved location %s"), SavedCombatLocation().ToString());
-	
+	UGameplayStatics::OpenLevel(this, FName(TEXT("TestCombatMap")));
+}
+
+void UMainGameInstance::CompleteCombat(FName SavedMapFName)
+{
+	UGameplayStatics::OpenLevel(this, SavedMapFName);
+	GetWorld()->SpawnActor(ControlledCharacter, SavedCombatLocation);
 }
