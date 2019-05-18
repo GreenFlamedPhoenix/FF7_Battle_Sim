@@ -30,5 +30,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bReadyForAction;
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float RemianingPhysBarrierDuration;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float RemainingM_BarrierDuration;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float MaxBarrierDuration = 60.f;
 };
