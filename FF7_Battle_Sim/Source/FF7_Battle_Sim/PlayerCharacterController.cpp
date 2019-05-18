@@ -54,10 +54,6 @@ void APlayerCharacterController::MoveForward(float Axis)
 			bIncreasingCombatChance = false;
 		}
 	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Null camera from PlayerController!"));
-	}
 }
 
 void APlayerCharacterController::MoveRight(float Axis)
@@ -79,9 +75,5 @@ void APlayerCharacterController::MoveRight(float Axis)
 		{
 			bIncreasingCombatChance = false;
 		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Null camera from PlayerController!"))
 	}
 }

@@ -65,5 +65,4 @@ void UMainGameInstance::BeginCombat()
 void UMainGameInstance::CompleteCombat(FName SavedMapFName)
 {
 	UGameplayStatics::OpenLevel(this, SavedMapFName);
-	GetWorld()->SpawnActor(ControlledCharacter, SavedCombatLocation);
 }

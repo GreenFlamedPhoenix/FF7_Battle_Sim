@@ -18,9 +18,6 @@ class FF7_BATTLE_SIM_API APlayerCharacterController : public APlayerController
 	GENERATED_BODY()
 
 public:
-	virtual void BeginPlay() override;
-	virtual void SetupInputComponent() override;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;
 
@@ -30,6 +27,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "References")
 	ACameraActor* MyCurrentCamera;
 
+private:
+	UFUNCTION()
+	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	virtual void SetupInputComponent() override;
+
+	UFUNCTION(BlueprintCallable)
+	void SetMapCamera(ACameraActor* MapCamera);
+
 	UFUNCTION()
 	void MoveForward(float Axis);
 
@@ -38,8 +45,4 @@ public:
 
 	UPROPERTY()
 	bool bIncreasingCombatChance;
-
-	UFUNCTION(BlueprintCallable)
-	void SetMapCamera(ACameraActor* MapCamera);
-	
 };

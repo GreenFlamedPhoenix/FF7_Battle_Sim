@@ -13,5 +13,18 @@ UCLASS()
 class FF7_BATTLE_SIM_API ACombatPlayerCharacterController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	virtual void BeginPlay() override;
+
+	FTimerHandle ActionCountTimer;
+
+	void CountUpActionTimer();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float CurrentActionTimer;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float MaxActionTimer = 25;
 	
 };
