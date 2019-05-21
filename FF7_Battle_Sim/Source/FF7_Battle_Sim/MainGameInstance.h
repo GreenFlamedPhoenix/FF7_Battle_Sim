@@ -7,6 +7,8 @@
 #include "MainGameInstance.generated.h"
 class APlayerCharacter;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
+
 /**
  * 
  */
@@ -37,7 +39,7 @@ public:
 	UFUNCTION()
 	void ManageCombatChance();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void BeginCombat();
 
 	UPROPERTY()
@@ -61,4 +63,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CompleteCombat(FName SavedMapFName);
+
+	UPROPERTY(BlueprintAssignable)
+	FCombatTriggered CombatTriggered;
 };

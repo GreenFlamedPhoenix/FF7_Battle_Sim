@@ -24,4 +24,7 @@ public:
 
 	UPROPERTY()
 	UMainGameInstance* GameInstance;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FString MapTheme;
 };

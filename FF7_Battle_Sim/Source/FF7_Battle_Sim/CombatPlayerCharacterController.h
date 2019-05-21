@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "CombatPlayerCharacterController.generated.h"
+class ACombatThemeMaps;
 
 /**
  * 
@@ -39,4 +40,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float MaxBarrierDuration = 60.f;
+
+	ACombatThemeMaps* CurrentMap;
 };

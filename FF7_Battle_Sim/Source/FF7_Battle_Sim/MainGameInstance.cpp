@@ -4,6 +4,7 @@
 #include "MainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
+#include "CurrentMapTheme.h"
 
 void UMainGameInstance::SetCharacterReference()
 {
@@ -59,7 +60,7 @@ void UMainGameInstance::BeginCombat()
 
 	SavedMapName = GetWorld()->GetMapName();
 	SavedCombatLocation = ControlledCharacter->GetActorLocation();
-	UGameplayStatics::OpenLevel(this, FName(TEXT("TestCombatMap")));
+	CombatTriggered.Broadcast();
 }
 
 void UMainGameInstance::CompleteCombat(FName SavedMapFName)
