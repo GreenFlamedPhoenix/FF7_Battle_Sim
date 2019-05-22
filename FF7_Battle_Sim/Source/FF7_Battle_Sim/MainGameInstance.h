@@ -6,23 +6,52 @@
 #include "Engine/GameInstance.h"
 #include "MainGameInstance.generated.h"
 class APlayerCharacter;
+class APlayerCharacterController;
+class ACameraActor;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
 
-/**
- * 
- */
+UENUM(BlueprintType)
+enum class EMapThemeEnum : uint8
+{
+	MidgarStreetsTheme		UMETA(DisplayName = "MidgarStreetsTheme"),
+	ForestTheme				UMETA(DisplayName = "ForestTheme")
+};
+
+UENUM(BlueprintType)
+enum class EMapTransitionEnum : uint8
+{
+	InitialSpawn			UMETA(DisplayName = "InitialSpawn"),
+	SpawnFromCombat			UMETA(DisplayName = "SpawnFromCombat"),
+	SpawnTo1				UMETA(DisplayName = "SpawnTo1"),
+	SpawnTo2				UMETA(DisplayName = "SpawnTo2"),
+	SpawnTo3				UMETA(DisplayName = "SpawnTo3"),
+	SpawnTo4				UMETA(DisplayName = "SpawnTo4")
+};
+
 UCLASS()
 class FF7_BATTLE_SIM_API UMainGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	EMapThemeEnum MapThemeEnum;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	EMapTransitionEnum MapTransitionEnum;
+
 	UFUNCTION()
 	void SetCharacterReference();
 
+	UFUNCTION()
+	void SetPlayerControllerReference();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	APlayerCharacterController* CharacterController;
 
 	UFUNCTION()
 	void SetMapCombatState(bool bCombatMap);
@@ -66,4 +95,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FCombatTriggered CombatTriggered;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ACameraActor* SavedCamera;
 };

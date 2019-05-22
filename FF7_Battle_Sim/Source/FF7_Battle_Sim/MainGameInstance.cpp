@@ -5,11 +5,20 @@
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
 #include "CurrentMapTheme.h"
+#include "PlayerCharacterController.h"
+#include "Engine/World.h"
 
 void UMainGameInstance::SetCharacterReference()
 {
 	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Warning, TEXT("Set ControlledCharacter to %s"))}
+	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null Character from GameInstance")) return;}
+}
+
+void UMainGameInstance::SetPlayerControllerReference()
+{
+	CharacterController = Cast<APlayerCharacterController>(GetWorld()->GetFirstPlayerController());
+	if (CharacterController == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null CharacterController from GameInstance")) return;}
+
 }
 
 /*Gets whether or not this is a combat map from the level*/
@@ -60,6 +69,7 @@ void UMainGameInstance::BeginCombat()
 
 	SavedMapName = GetWorld()->GetMapName();
 	SavedCombatLocation = ControlledCharacter->GetActorLocation();
+	SavedCamera = CharacterController->MyCurrentCamera;
 	CombatTriggered.Broadcast();
 }
 

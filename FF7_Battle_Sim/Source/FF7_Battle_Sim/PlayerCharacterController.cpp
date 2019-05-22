@@ -20,6 +20,7 @@ void APlayerCharacterController::BeginPlay()
 	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from PlayerController!")); return;}
 
 	GameInstance->SetCharacterReference();
+	GameInstance->SetPlayerControllerReference();
 }
 
 /*Function to be able to easily set the camera we are using for character movement.*/

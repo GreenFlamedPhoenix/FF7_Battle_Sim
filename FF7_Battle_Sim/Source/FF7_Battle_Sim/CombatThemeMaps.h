@@ -6,6 +6,7 @@
 #include "NonCombatMap.h"
 #include "CombatThemeMaps.generated.h"
 class ACombatPlayerCharacterController;
+class UMainGameInstance;
 
 /**
  * 
@@ -24,4 +25,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ACombatPlayerCharacterController* CombatPlayerController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UMainGameInstance* MainGameInstance;
 };
