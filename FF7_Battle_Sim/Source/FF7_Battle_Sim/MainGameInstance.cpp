@@ -8,6 +8,11 @@
 #include "PlayerCharacterController.h"
 #include "Engine/World.h"
 
+void UMainGameInstance::Init()
+{
+	UE_LOG(LogTemp, Warning, TEXT("GameInstance made"));
+}
+
 void UMainGameInstance::SetCharacterReference()
 {
 	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
@@ -18,7 +23,6 @@ void UMainGameInstance::SetPlayerControllerReference()
 {
 	CharacterController = Cast<APlayerCharacterController>(GetWorld()->GetFirstPlayerController());
 	if (CharacterController == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null CharacterController from GameInstance")) return;}
-
 }
 
 /*Gets whether or not this is a combat map from the level*/
@@ -61,15 +65,14 @@ void UMainGameInstance::GenerateRandomCombatRoll()
 
 void UMainGameInstance::BeginCombat()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Entered combat!"));
 	GetWorld()->GetTimerManager().ClearTimer(RandomNumberCounter);
 	CurrentCombatChance = 0.f;
 	CombatChanceRoll = 0.f;
 	bCombatTriggered = true;
 
-	SavedMapName = GetWorld()->GetMapName();
-	SavedCombatLocation = ControlledCharacter->GetActorLocation();
-	SavedCamera = CharacterController->MyCurrentCamera;
+	//SavedMapName = GetWorld()->GetMapName();
+	SavedCombatTransform = ControlledCharacter->GetActorTransform();
+	//SavedCamera = CharacterController->MyCurrentCamera;
 	CombatTriggered.Broadcast();
 }
 

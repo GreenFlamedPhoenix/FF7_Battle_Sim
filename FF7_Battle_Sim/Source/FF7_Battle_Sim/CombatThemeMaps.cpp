@@ -2,19 +2,19 @@
 
 
 #include "CombatThemeMaps.h"
-#include "CombatPlayerCharacterController.h"
-#include "MainGameInstance.h"
+#include "Kismet/GameplayStatics.h"
+#include "CombatGameMode.h"
 
 void ACombatThemeMaps::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
-	if (MainGameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from level!")) return;}
+	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (CombatGameMode == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameMode from level!")) return;}
 }
 
 void ACombatThemeMaps::SetPlayerController()
 {
-	CombatPlayerController = Cast<ACombatPlayerCharacterController>(GetWorld()->GetFirstPlayerController());
-	if (CombatPlayerController == nullptr) { UE_LOG(LogTemp, Error, TEXT("Null PlayerController from level!")) return; }
+	//CombatPlayerController = Cast<ACombatPlayerCharacterController>(GetWorld()->GetFirstPlayerController());
+	//if (CombatPlayerController == nullptr) { UE_LOG(LogTemp, Error, TEXT("Null PlayerController from level!")) return; }
 }

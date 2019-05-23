@@ -5,8 +5,7 @@
 #include "CoreMinimal.h"
 #include "NonCombatMap.h"
 #include "CombatThemeMaps.generated.h"
-class ACombatPlayerCharacterController;
-class UMainGameInstance;
+class ACombatGameMode;
 
 /**
  * 
@@ -23,9 +22,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerController();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	ACombatPlayerCharacterController* CombatPlayerController;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	//ACombatPlayerCharacterController* CombatPlayerController;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UMainGameInstance* MainGameInstance;
+	ACombatGameMode* CombatGameMode;
 };

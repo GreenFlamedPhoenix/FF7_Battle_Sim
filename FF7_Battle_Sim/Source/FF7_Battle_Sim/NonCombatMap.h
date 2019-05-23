@@ -22,7 +22,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCombatMap;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UMainGameInstance* GameInstance;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

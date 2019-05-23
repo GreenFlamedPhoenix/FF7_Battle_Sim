@@ -35,16 +35,21 @@ class FF7_BATTLE_SIM_API UMainGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
+	virtual void Init() override;
+
+	bool CharacterCreated = false;
+	bool ControllerCreated = false;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	EMapThemeEnum MapThemeEnum;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	EMapTransitionEnum MapTransitionEnum;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetCharacterReference();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetPlayerControllerReference();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
@@ -85,7 +90,7 @@ public:
 
 	/*Keep track of the characters location for respawn after combat.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FVector SavedCombatLocation;
+	FTransform SavedCombatTransform;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString SavedMapName;

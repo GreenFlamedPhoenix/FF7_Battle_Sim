@@ -2,16 +2,16 @@
 
 
 #include "PlayerCharacter.h"
+#include "PlayerCharacterController.h"
+#include "Kismet/GameplayStatics.h"
 
-// Sets default values
-APlayerCharacter::APlayerCharacter()
+void APlayerCharacter::BeginPlay()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
-}
-
-// Called every frame
-void APlayerCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	Super::BeginPlay();
+	
+	CharacterController = Cast<APlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (CharacterController != nullptr)
+	{
+		CharacterController->SetPlayerCharacter(this);
+	}
 }

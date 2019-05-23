@@ -2,11 +2,20 @@
 
 
 #include "CombatPlayerCharacterController.h"
-#include "CombatThemeMaps.h"
+#include "Kismet/GameplayStatics.h"
+#include "CombatGameMode.h"
+
 
 void ACombatPlayerCharacterController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (CombatGameMode != nullptr)
+	{
+		CombatGameMode->SetCombatPlayerController(this);
+	}
+
 
 	GetWorld()->GetTimerManager().SetTimer(ActionCountTimer, this, &ACombatPlayerCharacterController::CountUpActionTimer, .10f, true, 0.f);
 }

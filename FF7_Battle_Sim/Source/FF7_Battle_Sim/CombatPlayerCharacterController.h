@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "CombatPlayerCharacterController.generated.h"
 class ACombatThemeMaps;
+class ACombatGameMode;
 
 /**
  * 
@@ -17,6 +18,9 @@ class FF7_BATTLE_SIM_API ACombatPlayerCharacterController : public APlayerContro
 
 public:
 	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	ACombatGameMode* CombatGameMode;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FTimerHandle ActionCountTimer;

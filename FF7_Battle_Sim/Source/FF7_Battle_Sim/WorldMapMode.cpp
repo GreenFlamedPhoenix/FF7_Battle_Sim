@@ -2,4 +2,9 @@
 
 
 #include "WorldMapMode.h"
+#include "PlayerCharacterController.h"
 
+void AWorldMapMode::SetWorldPlayerController(APlayerCharacterController* inWorldPlayerController)
+{
+	WorldPlayerController = inWorldPlayerController;
+}

@@ -4,6 +4,7 @@
 #include "OpeningLevel.h"
 #include "Kismet/GameplayStatics.h"
 #include "MainGameInstance.h"
+#include "WorldMapMode.h"
 
 AOpeningLevel::AOpeningLevel()
 {
@@ -20,4 +21,6 @@ void AOpeningLevel::BeginPlay()
 	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from level!")); return;}
 
 	GameInstance->SetMapCombatState(bCombatMap);
+
+	WorldMapMode = Cast<AWorldMapMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }

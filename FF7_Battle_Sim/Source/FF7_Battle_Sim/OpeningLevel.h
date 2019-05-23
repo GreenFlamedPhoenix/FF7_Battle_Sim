@@ -6,6 +6,7 @@
 #include "Engine/LevelScriptActor.h"
 #include "OpeningLevel.generated.h"
 class UMainGameInstance;
+class AWorldMapMode;
 
 /**
  * 
@@ -22,9 +23,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCombatMap;
 	
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	UMainGameInstance* GameInstance;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	FString MapTheme;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	AWorldMapMode* WorldMapMode;
 };

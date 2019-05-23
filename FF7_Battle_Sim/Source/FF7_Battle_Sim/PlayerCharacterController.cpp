@@ -6,27 +6,33 @@
 #include "PlayerCharacter.h"
 #include "MainGameInstance.h"
 #include "Runtime/Engine/Classes/Camera/CameraActor.h"
+#include "WorldMapMode.h"
 
 void APlayerCharacterController::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	WorldMapGameMode = Cast<AWorldMapMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	WorldMapGameMode->SetWorldPlayerController(this);
 
-	/*Find the character we are controlling*/
-	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null Character from PlayerController!")); return;}
-
-	/*Find the CombatTrackingComponent for our character*/
 	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from PlayerController!")); return;}
+	if(GameInstance == nullptr){UE_LOG(LogTemp, Error, TEXT("Null GameInstance from Controller!"))};
+}
 
-	GameInstance->SetCharacterReference();
-	GameInstance->SetPlayerControllerReference();
+/*Sets the ControlledCharacter once the character spawns.*/
+void APlayerCharacterController::SetPlayerCharacter(APlayerCharacter* inPlayerCharacter)
+{
+	UE_LOG(LogTemp, Error, TEXT("Setting Character!"))
+	ControlledCharacter = inPlayerCharacter;
+	if(ControlledCharacter == nullptr){UE_LOG(LogTemp, Error, TEXT("Null Character from Controller!"))};
 }
 
 /*Function to be able to easily set the camera we are using for character movement.*/
 void APlayerCharacterController::SetMapCamera(ACameraActor* MapCamera)
 {
+	UE_LOG(LogTemp, Error, TEXT("Setting Camera!"))
 	MyCurrentCamera = MapCamera;
+	if(MyCurrentCamera == nullptr){UE_LOG(LogTemp, Error, TEXT("Null Camera from Controller!"))};
 }
 
 void APlayerCharacterController::SetupInputComponent()
@@ -40,7 +46,7 @@ void APlayerCharacterController::SetupInputComponent()
 
 void APlayerCharacterController::MoveForward(float Axis)
 {
-	if (MyCurrentCamera != nullptr)
+	if (MyCurrentCamera != nullptr && ControlledCharacter != nullptr && GameInstance != nullptr)
 	{
 		if (Axis != 0.f)
 		{
@@ -55,11 +61,15 @@ void APlayerCharacterController::MoveForward(float Axis)
 			bIncreasingCombatChance = false;
 		}
 	}
+	else
+	{
+		return;
+	}
 }
 
 void APlayerCharacterController::MoveRight(float Axis)
 {
-	if (MyCurrentCamera != nullptr)
+	if (MyCurrentCamera != nullptr && ControlledCharacter != nullptr && GameInstance != nullptr)
 	{
 		if (Axis != 0.f)
 		{
@@ -76,5 +86,9 @@ void APlayerCharacterController::MoveRight(float Axis)
 		{
 			bIncreasingCombatChance = false;
 		}
+	}
+	else
+	{
+		return;
 	}
 }

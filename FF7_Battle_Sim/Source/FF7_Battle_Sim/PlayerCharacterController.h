@@ -8,6 +8,7 @@
 class APlayerCharacter;
 class ACameraActor;
 class UMainGameInstance;
+class AWorldMapMode;
 
 /**
  * 
@@ -18,6 +19,9 @@ class FF7_BATTLE_SIM_API APlayerCharacterController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	UPROPERTY()
+	AWorldMapMode* WorldMapGameMode;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;
 
@@ -26,6 +30,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "References")
 	ACameraActor* MyCurrentCamera;
+
+	UFUNCTION(BlueprintCallable)
+	void SetPlayerCharacter(APlayerCharacter* inPlayerCharacter);
 
 private:
 	UFUNCTION()
@@ -36,6 +43,8 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	void SetMapCamera(ACameraActor* MapCamera);
+
+
 
 	UFUNCTION()
 	void MoveForward(float Axis);
