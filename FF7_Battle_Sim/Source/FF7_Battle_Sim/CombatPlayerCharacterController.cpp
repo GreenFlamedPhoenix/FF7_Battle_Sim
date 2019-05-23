@@ -15,8 +15,11 @@ void ACombatPlayerCharacterController::BeginPlay()
 	{
 		CombatGameMode->SetCombatPlayerController(this);
 	}
+	TriggerCountUpTimer();
+}
 
-
+void ACombatPlayerCharacterController::TriggerCountUpTimer()
+{
 	GetWorld()->GetTimerManager().SetTimer(ActionCountTimer, this, &ACombatPlayerCharacterController::CountUpActionTimer, .10f, true, 0.f);
 }
 

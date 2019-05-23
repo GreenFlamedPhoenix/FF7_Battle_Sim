@@ -25,6 +25,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FTimerHandle ActionCountTimer;
 
+	UFUNCTION(BlueprintCallable)
 	void CountUpActionTimer();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
@@ -46,4 +47,7 @@ public:
 	float MaxBarrierDuration = 60.f;
 
 	ACombatThemeMaps* CurrentMap;
+
+	UFUNCTION(BlueprintCallable)
+	void TriggerCountUpTimer();
 };

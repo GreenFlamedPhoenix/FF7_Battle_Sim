@@ -30,7 +30,6 @@ void UMainGameInstance::ManageCombatChance()
 	if (bCurrentlyInCombatMap == true)
 	{
 		CurrentCombatChance += .09f;
-		UE_LOG(LogTemp, Warning, TEXT("Combat at %f"), CurrentCombatChance);
 
 		if (CurrentCombatChance >= 25.f)
 		{
