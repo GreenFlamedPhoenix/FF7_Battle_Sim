@@ -16,6 +16,9 @@ void ACombatPlayerCharacterController::BeginPlay()
 		CombatGameMode->SetCombatPlayerController(this);
 	}
 	TriggerCountUpTimer();
+
+	this->SetInputMode(FInputModeUIOnly());
+	this->bShowMouseCursor = true;
 }
 
 void ACombatPlayerCharacterController::TriggerCountUpTimer()

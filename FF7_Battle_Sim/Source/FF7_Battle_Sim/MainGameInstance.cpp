@@ -68,6 +68,7 @@ void UMainGameInstance::BeginCombat()
 	SavedCombatTransform = ControlledCharacter->GetActorTransform();
 	SavedCamera = CharacterController->MyCurrentCamera;
 	CombatTriggered.Broadcast();
+	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
 }
 
 void UMainGameInstance::CompleteCombat(FName SavedMapFName)

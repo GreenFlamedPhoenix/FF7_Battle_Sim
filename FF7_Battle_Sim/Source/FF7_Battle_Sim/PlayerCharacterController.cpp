@@ -17,6 +17,9 @@ void APlayerCharacterController::BeginPlay()
 
 	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	GameInstance->SetPlayerControllerReference(this);
+
+	this->SetInputMode(FInputModeGameOnly());
+	this->bShowMouseCursor = false;
 }
 
 /*Sets the ControlledCharacter once the character spawns.*/
