@@ -4,14 +4,17 @@
 #include "PlayerCharacter.h"
 #include "PlayerCharacterController.h"
 #include "Kismet/GameplayStatics.h"
+#include "MainGameInstance.h"
 
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+
 	CharacterController = Cast<APlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	if (CharacterController != nullptr)
-	{
-		CharacterController->SetPlayerCharacter(this);
-	}
+	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+	GameInstance->SetCharacterReference(this);
+	CharacterController->SetPlayerCharacter(this);
+
 }

@@ -19,20 +19,26 @@ class FF7_BATTLE_SIM_API APlayerCharacterController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	/*Getting the GameMode to set references for the level.*/
 	UPROPERTY()
 	AWorldMapMode* WorldMapGameMode;
+
+	/*Sets the ControlledCharacter once the character spawns.*/
+	UFUNCTION()
+	void SetPlayerCharacter(APlayerCharacter* inPlayerCharacter);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;
 
+	/*The GameInstance, which holds info when transitioning between combat.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	UMainGameInstance* GameInstance;
 
+	/*The Camera that I am currently possessing.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "References")
 	ACameraActor* MyCurrentCamera;
 
-	UFUNCTION(BlueprintCallable)
-	void SetPlayerCharacter(APlayerCharacter* inPlayerCharacter);
+	
 
 private:
 	UFUNCTION()
@@ -41,17 +47,20 @@ private:
 	UFUNCTION()
 	virtual void SetupInputComponent() override;
 
+	/*Sets our current camera that we need to possess.*/
 	UFUNCTION(BlueprintCallable)
 	void SetMapCamera(ACameraActor* MapCamera);
 
+	/*Boolean to ensure we don't increase the combat chance twice at once.*/
+	UPROPERTY()
+	bool bIncreasingCombatChance;
 
-
+	/*Basic movement functions.*/
 	UFUNCTION()
 	void MoveForward(float Axis);
 
 	UFUNCTION()
 	void MoveRight(float Axis);
 
-	UPROPERTY()
-	bool bIncreasingCombatChance;
+
 };

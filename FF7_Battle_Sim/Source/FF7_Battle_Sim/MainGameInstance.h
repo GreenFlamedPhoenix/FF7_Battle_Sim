@@ -9,8 +9,10 @@ class APlayerCharacter;
 class APlayerCharacterController;
 class ACameraActor;
 
+/*Event to broadcast when combat triggers.*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
 
+/*Enum for tracking the current map. Used when determining what combat map to open.*/
 UENUM(BlueprintType)
 enum class EMapThemeEnum : uint8
 {
@@ -18,6 +20,7 @@ enum class EMapThemeEnum : uint8
 	ForestTheme				UMETA(DisplayName = "ForestTheme")
 };
 
+/*Enum used for determining what door we entered, to make sure to spawn us at the right door in the next area.*/
 UENUM(BlueprintType)
 enum class EMapTransitionEnum : uint8
 {
@@ -35,10 +38,6 @@ class FF7_BATTLE_SIM_API UMainGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
-	virtual void Init() override;
-
-	bool CharacterCreated = false;
-	bool ControllerCreated = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	EMapThemeEnum MapThemeEnum;
@@ -47,10 +46,10 @@ public:
 	EMapTransitionEnum MapTransitionEnum;
 
 	UFUNCTION(BlueprintCallable)
-	void SetCharacterReference();
+	void SetCharacterReference(APlayerCharacter* inPlayerCharacter);
 
 	UFUNCTION(BlueprintCallable)
-	void SetPlayerControllerReference();
+	void SetPlayerControllerReference(APlayerCharacterController* inPlayerController);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;

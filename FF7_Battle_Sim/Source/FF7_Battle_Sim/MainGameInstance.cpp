@@ -6,23 +6,17 @@
 #include "PlayerCharacter.h"
 #include "CurrentMapTheme.h"
 #include "PlayerCharacterController.h"
-#include "Engine/World.h"
 
-void UMainGameInstance::Init()
+void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
 {
-	UE_LOG(LogTemp, Warning, TEXT("GameInstance made"));
+	ControlledCharacter = inPlayerCharacter;
+	if(ControlledCharacter == nullptr){UE_LOG(LogTemp,Error,TEXT("Null Character from GameInstance")) return;}
 }
 
-void UMainGameInstance::SetCharacterReference()
+void UMainGameInstance::SetPlayerControllerReference(APlayerCharacterController* inPlayerController)
 {
-	ControlledCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (ControlledCharacter == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null Character from GameInstance")) return;}
-}
-
-void UMainGameInstance::SetPlayerControllerReference()
-{
-	CharacterController = Cast<APlayerCharacterController>(GetWorld()->GetFirstPlayerController());
-	if (CharacterController == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null CharacterController from GameInstance")) return;}
+	CharacterController = inPlayerController;
+	if(CharacterController == nullptr){UE_LOG(LogTemp,Error,TEXT("Null CharacterController from GameInstance"))return;}
 }
 
 /*Gets whether or not this is a combat map from the level*/
@@ -36,6 +30,7 @@ void UMainGameInstance::ManageCombatChance()
 	if (bCurrentlyInCombatMap == true)
 	{
 		CurrentCombatChance += .09f;
+		UE_LOG(LogTemp, Warning, TEXT("Combat at %f"), CurrentCombatChance);
 
 		if (CurrentCombatChance >= 25.f)
 		{
@@ -70,9 +65,9 @@ void UMainGameInstance::BeginCombat()
 	CombatChanceRoll = 0.f;
 	bCombatTriggered = true;
 
-	//SavedMapName = GetWorld()->GetMapName();
+	SavedMapName = GetWorld()->GetMapName();
 	SavedCombatTransform = ControlledCharacter->GetActorTransform();
-	//SavedCamera = CharacterController->MyCurrentCamera;
+	SavedCamera = CharacterController->MyCurrentCamera;
 	CombatTriggered.Broadcast();
 }
 

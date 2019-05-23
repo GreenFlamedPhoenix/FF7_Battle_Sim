@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 class APlayerCharacterController;
+class UMainGameInstance;
 
 UCLASS()
 class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
@@ -15,5 +16,9 @@ class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
 public:
 	virtual void BeginPlay() override;
 	
+	UPROPERTY()
 	APlayerCharacterController* CharacterController;
+
+	UPROPERTY()
+	UMainGameInstance* GameInstance;
 };

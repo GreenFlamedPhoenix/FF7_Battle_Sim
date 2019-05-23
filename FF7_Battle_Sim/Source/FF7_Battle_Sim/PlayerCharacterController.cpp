@@ -16,21 +16,19 @@ void APlayerCharacterController::BeginPlay()
 	WorldMapGameMode->SetWorldPlayerController(this);
 
 	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if(GameInstance == nullptr){UE_LOG(LogTemp, Error, TEXT("Null GameInstance from Controller!"))};
+	GameInstance->SetPlayerControllerReference(this);
 }
 
 /*Sets the ControlledCharacter once the character spawns.*/
 void APlayerCharacterController::SetPlayerCharacter(APlayerCharacter* inPlayerCharacter)
 {
-	UE_LOG(LogTemp, Error, TEXT("Setting Character!"))
 	ControlledCharacter = inPlayerCharacter;
 	if(ControlledCharacter == nullptr){UE_LOG(LogTemp, Error, TEXT("Null Character from Controller!"))};
 }
 
-/*Function to be able to easily set the camera we are using for character movement.*/
+/*Sets the camera we are currently possessing for movement.*/
 void APlayerCharacterController::SetMapCamera(ACameraActor* MapCamera)
 {
-	UE_LOG(LogTemp, Error, TEXT("Setting Camera!"))
 	MyCurrentCamera = MapCamera;
 	if(MyCurrentCamera == nullptr){UE_LOG(LogTemp, Error, TEXT("Null Camera from Controller!"))};
 }
