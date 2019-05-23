@@ -101,5 +101,5 @@ public:
 	FCombatTriggered CombatTriggered;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	ACameraActor* SavedCamera;
+	FString SavedCameraName;
 };

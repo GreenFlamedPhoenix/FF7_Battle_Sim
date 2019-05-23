@@ -6,6 +6,7 @@
 #include "PlayerCharacter.h"
 #include "CurrentMapTheme.h"
 #include "PlayerCharacterController.h"
+#include "Camera/CameraActor.h"
 
 void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
 {
@@ -66,7 +67,7 @@ void UMainGameInstance::BeginCombat()
 
 	SavedMapName = GetWorld()->GetMapName();
 	SavedCombatTransform = ControlledCharacter->GetActorTransform();
-	SavedCamera = CharacterController->MyCurrentCamera;
+	SavedCameraName = CharacterController->MyCurrentCamera->GetName();
 	CombatTriggered.Broadcast();
 	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
 }
