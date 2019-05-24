@@ -4,7 +4,6 @@
 #include "MainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCharacter.h"
-#include "CurrentMapTheme.h"
 #include "PlayerCharacterController.h"
 #include "Camera/CameraActor.h"
 
