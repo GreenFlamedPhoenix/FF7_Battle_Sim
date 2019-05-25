@@ -8,6 +8,8 @@
 class ACombatThemeMaps;
 class ACombatGameMode;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FATB_Ready);
+
 /**
  * 
  */
@@ -50,4 +52,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void TriggerCountUpTimer();
+
+	UPROPERTY(BlueprintAssignable)
+	FATB_Ready ATB_Ready;
 };

@@ -37,5 +37,6 @@ void ACombatPlayerCharacterController::CountUpActionTimer()
 	{
 		bReadyForAction = true;
 		GetWorldTimerManager().PauseTimer(ActionCountTimer);
+		ATB_Ready.Broadcast();
 	}
 }

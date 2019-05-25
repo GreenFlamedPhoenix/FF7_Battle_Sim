@@ -6,7 +6,7 @@
 #include "NonCombatMap.h"
 #include "CombatThemeMaps.generated.h"
 class ACombatGameMode;
-
+class USoundCue;
 /**
  * 
  */
@@ -16,6 +16,8 @@ class FF7_BATTLE_SIM_API ACombatThemeMaps : public ALevelScriptActor
 	GENERATED_BODY()
 
 public:
+	ACombatThemeMaps();
+
 	UFUNCTION()
 	virtual void BeginPlay() override;
 
@@ -27,4 +29,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ACombatGameMode* CombatGameMode;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USoundCue* BattleMusicSoundCue;
 };
