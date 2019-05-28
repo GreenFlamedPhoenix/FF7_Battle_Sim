@@ -18,7 +18,6 @@ AEnemyBase::AEnemyBase()
 
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	SkeletalMesh->SetupAttachment(RootComponent);
-	//SkeletalMesh->AddLocalRotation(FRotator(0.f, 0.f, 90.f));
 	SkeletalMesh->OnBeginCursorOver.AddDynamic(this, &AEnemyBase::StartCursorHover);
 	SkeletalMesh->OnEndCursorOver.AddDynamic(this, &AEnemyBase::EndCursorHover);
 }
@@ -29,6 +28,7 @@ void AEnemyBase::BeginPlay()
 	Super::BeginPlay();
 	
 	CombatController = Cast<ACombatPlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	SkeletalMesh->SetRelativeLocationAndRotation(FVector(0.f, 0.f, 0.f), (FRotator(0.f, 90.f, 0.f)));
 }
 
 // Called every frame
