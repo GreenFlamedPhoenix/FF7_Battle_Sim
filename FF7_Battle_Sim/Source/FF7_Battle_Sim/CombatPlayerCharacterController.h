@@ -55,4 +55,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FATB_Ready ATB_Ready;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bHoveringEnemy;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	AActor* HoveredActor;
 };
