@@ -14,6 +14,4 @@ class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter
 public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-
 };

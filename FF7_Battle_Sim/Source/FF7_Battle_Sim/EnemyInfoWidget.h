@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "EnemyInfoWidget.generated.h"
-class ACombatPlayerCharacterController;
+//class ACombatPlayerCharacterController;
 class UMainGameInstance;
 
 class UCanvasPanel;
@@ -26,8 +26,8 @@ public:
 
 	virtual void NativeOnInitialized() override;
 
-	UPROPERTY()
-	ACombatPlayerCharacterController* CombatController;
+	//UPROPERTY()
+	//ACombatPlayerCharacterController* CombatController;
 
 	UPROPERTY()
 	UMainGameInstance* MainGameInstance;

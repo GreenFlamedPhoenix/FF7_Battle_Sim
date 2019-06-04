@@ -2,9 +2,9 @@
 
 
 #include "CombatGameMode.h"
-#include "CombatPlayerCharacterController.h"
+//#include "CombatPlayerCharacterController.h"
 
-void ACombatGameMode::SetCombatPlayerController(ACombatPlayerCharacterController* PlayerController)
-{
-	CombatPlayerController = PlayerController;
-}
+//void ACombatGameMode::SetCombatPlayerController(ACombatPlayerCharacterController* PlayerController)
+//{
+//	CombatPlayerController = PlayerController;
+//}

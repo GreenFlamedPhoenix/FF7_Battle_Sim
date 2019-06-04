@@ -9,7 +9,6 @@ void AMidgarCommander::StartCursorHover(UPrimitiveComponent* TouchComponent)
 {
 	Super::StartCursorHover(TouchComponent);
 
-	bCurrentlyOverEnemy = true;
 	FHitResult ActorHit;
 	CombatController->GetHitResultUnderCursor(ECC_Pawn, true, ActorHit);
 	HoveredActor = ActorHit.GetActor();
@@ -24,7 +23,7 @@ void AMidgarCommander::EndCursorHover(UPrimitiveComponent* TouchComponent)
 {
 	Super::EndCursorHover(TouchComponent);
 
-	bCurrentlyOverEnemy = false;
+
 }
 
 void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey)

@@ -3,7 +3,7 @@
 
 #include "EnemyInfoWidget.h"
 #include <Kismet/GameplayStatics.h>
-#include "CombatPlayerCharacterController.h"
+//#include "CombatPlayerCharacterController.h"
 #include "MainGameInstance.h"
 #include "Image.h"
 #include "TextBlock.h"
@@ -17,8 +17,8 @@ void UEnemyInfoWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
-	CombatController = Cast<ACombatPlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	CombatController->SetEnemyInfoWidget(this);
+	//CombatController = Cast<ACombatPlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	//CombatController->SetEnemyInfoWidget(this);
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	MainGameInstance->SetEnemyInfoWidget(this);
 }
