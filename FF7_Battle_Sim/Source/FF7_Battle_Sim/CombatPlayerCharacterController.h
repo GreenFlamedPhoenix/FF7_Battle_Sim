@@ -86,7 +86,4 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bHoveringEnemy;
-
-	UFUNCTION()
-	void BeginAttack();
 };

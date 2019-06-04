@@ -15,6 +15,8 @@ class FF7_BATTLE_SIM_API AMidgarCommander : public AEnemyBase
 	GENERATED_BODY()
 
 public:
+	virtual void BeginPlay() override;
+
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
 
 	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;

@@ -8,6 +8,7 @@ class UMainGameInstance;
 class ACombatPlayerCharacterController;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
+class ACombatGameMode;
 
 
 
@@ -49,6 +50,9 @@ public:
 	//Reference for the MainGameInstance. Used to get the widget references once Enemy spawns.
 	UPROPERTY()
 	UMainGameInstance* MainGameInstance;
+
+	UPROPERTY()
+	ACombatGameMode* CombatGameMode;
 
 	//////////////////////////////
 	//	Enemy interactions.

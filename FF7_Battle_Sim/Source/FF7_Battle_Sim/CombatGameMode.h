@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "CombatGameMode.generated.h"
-class ACombatPlayerCharacterController;
+class UMainGameInstance;
 
 /**
  * 
@@ -16,9 +16,14 @@ class FF7_BATTLE_SIM_API ACombatGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	//UFUNCTION()
-	//void SetCombatPlayerController(ACombatPlayerCharacterController* PlayerController);
+	virtual void BeginPlay() override;
 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	//ACombatPlayerCharacterController* CombatPlayerController;
+	UPROPERTY()
+	UMainGameInstance* MainGameInstance;
+
+	UFUNCTION()
+	void SetCurrentEnemiesAlive(int32 AmountChange);
+
+	UPROPERTY()
+	int32 CurrentEnemies = 0;
 };

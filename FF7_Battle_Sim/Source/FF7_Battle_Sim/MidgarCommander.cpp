@@ -4,6 +4,18 @@
 #include "MidgarCommander.h"
 #include "CombatPlayerCharacterController.h"
 #include "EnemyInfoWidget.h"
+#include "CombatGameMode.h"
+
+void AMidgarCommander::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (CombatGameMode)
+	{
+		CombatGameMode->SetCurrentEnemiesAlive(1);
+	}
+	else {UE_LOG(LogTemp, Warning, TEXT("No CombatGameMode!"))}
+}
 
 void AMidgarCommander::StartCursorHover(UPrimitiveComponent* TouchComponent)
 {
@@ -30,4 +42,12 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 {
 	Super::ActorBeingTargetted(TouchComponent, inKey);
 
+	CurrentHP -= 75;
+
+	if (CurrentHP <= 0)
+	{
+		this->Destroy();
+		CombatGameMode->SetCurrentEnemiesAlive(-1);
+		//TODO Update the EnemyInfoWidget when dead or taking damage.
+	}
 }

@@ -96,6 +96,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString SavedMapName;
 
+	UPROPERTY()
+	FName MapFName;
+
 	UFUNCTION(BlueprintCallable)
 	void CompleteCombat(FName SavedMapFName);
 

@@ -6,6 +6,7 @@
 #include "EnemyInfoWidget.h"
 #include "MainGameInstance.h"
 #include "ActionMenuWidget.h"
+#include "CombatGameMode.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -26,6 +27,7 @@ void AEnemyBase::BeginPlay()
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	EnemysEnemyInfoWidget = MainGameInstance->EnemyInfoWidget;
 	ActionMenuWidget = MainGameInstance->PlayerActionMenuWidget;
+	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 // Function called when we hover over our enemy. Also called by children overriding this function, which hold most of the functionality.

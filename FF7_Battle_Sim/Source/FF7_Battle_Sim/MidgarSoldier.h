@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
 #include "MidgarSoldier.generated.h"
+class ACombatGameMode;
 
 /**
  * 
@@ -15,6 +16,8 @@ class FF7_BATTLE_SIM_API AMidgarSoldier : public AEnemyBase
 	GENERATED_BODY()
 
 public:
+	virtual void BeginPlay() override;
+
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
 	
 	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;

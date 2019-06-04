@@ -40,8 +40,3 @@ void ACombatPlayerCharacterController::ResetActionTimer()
 	CurrentActionTimer = 0.f;
 	GetWorldTimerManager().UnPauseTimer(ActionCountTimer);
 }
-
-void ACombatPlayerCharacterController::BeginAttack()
-{
-
-}

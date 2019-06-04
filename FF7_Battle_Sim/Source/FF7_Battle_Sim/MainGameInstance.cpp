@@ -77,6 +77,10 @@ void UMainGameInstance::BeginCombat()
 	bCombatTriggered = true;
 
 	SavedMapName = GetWorld()->GetMapName();
+	if (SavedMapName.Contains(TEXT("S1_A1_Level")))
+	{
+		MapFName = "S1_A1_Level";
+	}
 	SavedCombatTransform = ControlledCharacter->GetActorTransform();
 	SavedCameraName = CharacterController->MyCurrentCamera->GetName();
 	CombatTriggered.Broadcast();
