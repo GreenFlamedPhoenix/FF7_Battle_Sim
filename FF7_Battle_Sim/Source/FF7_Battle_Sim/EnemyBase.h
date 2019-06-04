@@ -3,19 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
+#include "CombatInterface.h"
+#include "GameFramework/Character.h"
 #include "EnemyBase.generated.h"
-class USkeletalMeshComponent;
-class USceneComponent;
+class UMainGameInstance;
 class ACombatPlayerCharacterController;
+class UEnemyInfoWidget;
+class UActionMenuWidget;
+
+
 
 UCLASS()
-class FF7_BATTLE_SIM_API AEnemyBase : public APawn
+class FF7_BATTLE_SIM_API AEnemyBase : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
+	// Sets default values for this character's properties
 	AEnemyBase();
 
 protected:
@@ -26,14 +30,20 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 	UPROPERTY()
-	USceneComponent* MyRootComponent;
+	UMainGameInstance* MainGameInstance;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	USkeletalMeshComponent* SkeletalMesh;
+	UCapsuleComponent* CharacterCapsule;
 
 	UPROPERTY()
 	ACombatPlayerCharacterController* CombatController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	AActor* HoveredActor;
 
 	UFUNCTION()
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent);
@@ -42,8 +52,14 @@ public:
 	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	bool bEnemyHovered;
+	bool bCurrentlyOverEnemy;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	AActor* CursorActor;
+	UPROPERTY()
+	UEnemyInfoWidget* EnemysEnemyInfoWidget;
+
+	UPROPERTY()
+	UActionMenuWidget* ActionMenuWidget;
+
+	UFUNCTION()
+	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey);
 };

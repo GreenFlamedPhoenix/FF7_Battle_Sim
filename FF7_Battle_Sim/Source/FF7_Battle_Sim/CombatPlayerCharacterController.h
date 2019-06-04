@@ -3,10 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CombatInterface.h"
 #include "GameFramework/PlayerController.h"
 #include "CombatPlayerCharacterController.generated.h"
 class ACombatThemeMaps;
 class ACombatGameMode;
+class AEnemyBase;
+class UEnemyInfoWidget;
+class UActionMenuWidget;
+class UCombatInterface;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FATB_Ready);
 
@@ -61,4 +66,28 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	AActor* HoveredActor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	AEnemyBase* EnemyBaseReference;
+
+	UFUNCTION()
+	void SetEnemyBaseReference(AEnemyBase* EnemyBase);
+
+	UPROPERTY()
+	UEnemyInfoWidget* EnemyInfoWidget;
+
+	UFUNCTION()
+	void SetEnemyInfoWidget(UEnemyInfoWidget* Widget);
+
+	UPROPERTY()
+	UActionMenuWidget* ActionMenuWidget;
+
+	UFUNCTION()
+	void SetActionMenuWidget(UActionMenuWidget* Widget);
+
+	UFUNCTION()
+	void BeginAttack();
+
+	UFUNCTION()
+	void ResetActionTimer();
 };

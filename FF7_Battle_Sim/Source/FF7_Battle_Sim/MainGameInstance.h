@@ -8,6 +8,8 @@
 class APlayerCharacter;
 class APlayerCharacterController;
 class ACameraActor;
+class UEnemyInfoWidget;
+class UActionMenuWidget;
 
 /*Event to broadcast when combat triggers.*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
@@ -102,4 +104,16 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString SavedCameraName;
+
+	UFUNCTION()
+	void SetEnemyInfoWidget(UEnemyInfoWidget* Widget);
+
+	UPROPERTY()
+	UEnemyInfoWidget* EnemyInfoWidget;
+
+	UFUNCTION()
+	void SetActionMenuWidget(UActionMenuWidget* Widget);
+
+	UPROPERTY()
+	UActionMenuWidget* PlayerActionMenuWidget;
 };

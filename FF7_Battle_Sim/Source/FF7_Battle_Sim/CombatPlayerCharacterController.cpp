@@ -4,6 +4,8 @@
 #include "CombatPlayerCharacterController.h"
 #include "Kismet/GameplayStatics.h"
 #include "CombatGameMode.h"
+#include "EnemyInfoWidget.h"
+#include "ActionMenuWidget.h"
 
 
 void ACombatPlayerCharacterController::BeginPlay()
@@ -17,8 +19,28 @@ void ACombatPlayerCharacterController::BeginPlay()
 	}
 	TriggerCountUpTimer();
 
-	this->SetInputMode(FInputModeUIOnly());
+	this->SetInputMode(FInputModeGameAndUI());
 	this->bShowMouseCursor = true;
+}
+
+void ACombatPlayerCharacterController::SetEnemyBaseReference(AEnemyBase* EnemyBase)
+{
+	EnemyBaseReference = EnemyBase;
+}
+
+void ACombatPlayerCharacterController::SetEnemyInfoWidget(UEnemyInfoWidget* Widget)
+{
+	EnemyInfoWidget = Widget;
+}
+
+void ACombatPlayerCharacterController::SetActionMenuWidget(UActionMenuWidget* Widget)
+{
+	ActionMenuWidget = Widget;
+}
+
+void ACombatPlayerCharacterController::BeginAttack()
+{
+
 }
 
 void ACombatPlayerCharacterController::TriggerCountUpTimer()
@@ -36,7 +58,14 @@ void ACombatPlayerCharacterController::CountUpActionTimer()
 	else
 	{
 		bReadyForAction = true;
+		ActionMenuWidget->SetWidgetVisibility(true);
 		GetWorldTimerManager().PauseTimer(ActionCountTimer);
 		ATB_Ready.Broadcast();
 	}
+}
+
+void ACombatPlayerCharacterController::ResetActionTimer()
+{
+	CurrentActionTimer = 0.f;
+	GetWorldTimerManager().UnPauseTimer(ActionCountTimer);
 }

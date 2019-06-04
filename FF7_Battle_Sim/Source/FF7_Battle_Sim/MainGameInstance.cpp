@@ -6,6 +6,8 @@
 #include "PlayerCharacter.h"
 #include "PlayerCharacterController.h"
 #include "Camera/CameraActor.h"
+#include "EnemyInfoWidget.h"
+#include "ActionMenuWidget.h"
 
 void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
 {
@@ -23,6 +25,16 @@ void UMainGameInstance::SetPlayerControllerReference(APlayerCharacterController*
 void UMainGameInstance::SetMapCombatState(bool bCombatMap)
 {
 	bCurrentlyInCombatMap = bCombatMap;
+}
+
+void UMainGameInstance::SetEnemyInfoWidget(UEnemyInfoWidget* Widget)
+{
+	EnemyInfoWidget = Widget;
+}
+
+void UMainGameInstance::SetActionMenuWidget(UActionMenuWidget* Widget)
+{
+	PlayerActionMenuWidget = Widget;
 }
 
 void UMainGameInstance::ManageCombatChance()

@@ -16,7 +16,18 @@ class FF7_BATTLE_SIM_API AMidgarSoldier : public AEnemyBase
 
 public:
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
-
-	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;
 	
+	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;
+
+	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CurrentHP = 120;
+	UPROPERTY()
+	int32 MaxHP = 120;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CurrentMP = 20;
+	UPROPERTY()
+	int32 MaxMP = 20;
 };
