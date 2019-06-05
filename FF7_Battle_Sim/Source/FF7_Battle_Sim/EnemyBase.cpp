@@ -7,6 +7,7 @@
 #include "MainGameInstance.h"
 #include "ActionMenuWidget.h"
 #include "CombatGameMode.h"
+#include "CombatPlayerCharacter.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -22,6 +23,7 @@ void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	CombatCharacter = Cast<ACombatPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	CombatController = Cast<ACombatPlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	CombatController->SetEnemyBaseReference(this);
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));

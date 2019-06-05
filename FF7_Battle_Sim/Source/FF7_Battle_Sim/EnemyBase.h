@@ -9,6 +9,7 @@ class ACombatPlayerCharacterController;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
 class ACombatGameMode;
+class ACombatPlayerCharacter;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
@@ -53,6 +54,10 @@ public:
 
 	UPROPERTY()
 	ACombatGameMode* CombatGameMode;
+
+	//Our character. Testing usage with moving to enemies and attacking animations.
+	UPROPERTY()
+	ACombatPlayerCharacter* CombatCharacter;
 
 	//////////////////////////////
 	//	Enemy interactions.

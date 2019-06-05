@@ -5,6 +5,7 @@
 #include "CombatPlayerCharacterController.h"
 #include "EnemyInfoWidget.h"
 #include "CombatGameMode.h"
+#include "CombatPlayerCharacter.h"
 
 void AMidgarSoldier::BeginPlay()
 {
@@ -44,10 +45,14 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 
 	CurrentHP -= 75;
 
+	EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
+	EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+	EnemysEnemyInfoWidget->SetWidgetVisibility(true);
+
 	if (CurrentHP <= 0)
 	{
 		OnDeathEvent.Broadcast();
 		CombatGameMode->SetCurrentEnemiesAlive(-1);
-		//TODO Update the EnemyInfoWidget when dead or taking damage.
+		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 	}
 }

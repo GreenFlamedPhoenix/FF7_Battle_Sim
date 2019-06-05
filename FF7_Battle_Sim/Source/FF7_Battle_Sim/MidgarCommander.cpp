@@ -5,6 +5,7 @@
 #include "CombatPlayerCharacterController.h"
 #include "EnemyInfoWidget.h"
 #include "CombatGameMode.h"
+#include "CombatPlayerCharacter.h"
 
 void AMidgarCommander::BeginPlay()
 {
@@ -48,6 +49,6 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 	{
 		OnDeathEvent.Broadcast();
 		CombatGameMode->SetCurrentEnemiesAlive(-1);
-		//TODO Update the EnemyInfoWidget when dead or taking damage.
+		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 	}
 }

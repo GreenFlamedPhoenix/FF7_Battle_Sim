@@ -13,6 +13,8 @@ void ACombatPlayerCharacterController::BeginPlay()
 	this->bShowMouseCursor = true;
 
 	GetWorld()->GetTimerManager().SetTimer(ActionCountTimer, this, &ACombatPlayerCharacterController::CountUpActionTimer, .10f, true, 0.f);
+
+	
 }
 
 void ACombatPlayerCharacterController::SetEnemyBaseReference(AEnemyBase* EnemyBase)
