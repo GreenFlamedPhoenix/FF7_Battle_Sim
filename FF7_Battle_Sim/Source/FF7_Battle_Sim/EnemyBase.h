@@ -11,6 +11,7 @@ class UActionMenuWidget;
 class ACombatGameMode;
 class ACombatPlayerCharacter;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamage);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS()
@@ -80,4 +81,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeathEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnDamage OnDamageEvent;
 };

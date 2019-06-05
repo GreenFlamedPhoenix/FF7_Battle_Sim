@@ -27,6 +27,9 @@ public:
 
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
 
+	UPROPERTY()
+	FString MyLevel;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 CurrentHP;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

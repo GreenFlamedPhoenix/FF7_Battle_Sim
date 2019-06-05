@@ -56,6 +56,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* EnemyMaxMP;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* EnemyLevel;
+
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetVisibility(bool HoveringOverEnemy);
 
@@ -71,4 +74,6 @@ public:
 	void SetEnemyCurrentMP(int32 CurrentMP);
 
 	void SetEnemyMaxMP(int32 MaxMP);
+
+	void SetEnemyLevel(FString Level);
 };
