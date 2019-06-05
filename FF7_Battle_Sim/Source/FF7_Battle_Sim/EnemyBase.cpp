@@ -49,11 +49,5 @@ void AEnemyBase::EndCursorHover(UPrimitiveComponent* TouchComponent)
 // Function called when we click on our actor. Mainly to just test attacking for now. Also called by children overriding this function.
 void AEnemyBase::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey)
 {
-	if (ActionMenuWidget->bAttemptingAttack == true)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Attacking!"));
-		CombatController->ResetActionTimer();
-		ActionMenuWidget->bAttemptingAttack = false;
-	}
-	else { UE_LOG(LogTemp, Warning, TEXT("Not attacking so I am doing nothing!")); return; }
+
 }

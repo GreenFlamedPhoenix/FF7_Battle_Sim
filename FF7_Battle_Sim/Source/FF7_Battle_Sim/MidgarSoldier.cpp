@@ -7,6 +7,7 @@
 #include "CombatGameMode.h"
 #include "CombatPlayerCharacter.h"
 #include "ConstructorHelpers.h"
+#include "ActionMenuWidget.h"
 
 void AMidgarSoldier::BeginPlay()
 {
@@ -50,17 +51,23 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 {
 	Super::ActorBeingTargetted(TouchComponent, inKey);
 
-	CurrentHP -= 75;
-
-	OnDamageEvent.Broadcast();
-	EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
-	EnemysEnemyInfoWidget->SetWidgetVisibility(false);
-	EnemysEnemyInfoWidget->SetWidgetVisibility(true);
-
-	if (CurrentHP <= 0)
+	if (ActionMenuWidget->bAttemptingAttack == true)
 	{
-		OnDeathEvent.Broadcast();
-		CombatGameMode->SetCurrentEnemiesAlive(-1);
+		CurrentHP -= 75;
+
+		OnDamageEvent.Broadcast();
+		EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
 		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+		EnemysEnemyInfoWidget->SetWidgetVisibility(true);
+
+		if (CurrentHP <= 0)
+		{
+			OnDeathEvent.Broadcast();
+			CombatGameMode->SetCurrentEnemiesAlive(-1);
+			EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+		}
+
+		CombatController->ResetActionTimer();
+		ActionMenuWidget->bAttemptingAttack = false;
 	}
 }
