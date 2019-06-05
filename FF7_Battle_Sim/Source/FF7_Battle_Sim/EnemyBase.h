@@ -10,7 +10,7 @@ class UEnemyInfoWidget;
 class UActionMenuWidget;
 class ACombatGameMode;
 
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS()
 class FF7_BATTLE_SIM_API AEnemyBase : public ACharacter
@@ -72,4 +72,7 @@ public:
 	//Used by children of the EnemyBase. Reference for the actor we are hovering to get access to its name and stats.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	AActor* HoveredActor;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnDeath OnDeathEvent;
 };

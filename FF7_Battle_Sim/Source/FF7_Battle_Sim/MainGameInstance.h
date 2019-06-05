@@ -41,11 +41,36 @@ class FF7_BATTLE_SIM_API UMainGameInstance : public UGameInstance
 
 public:
 
+	//////////////////////////////
+	// Enum Variables.
+	// Variable names for our Enums.
+	//////////////////////////////
+
+	//Controls the map theme so we know which combat map to spawn on during combat start.
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	EMapThemeEnum MapThemeEnum;
 
+	//Controls remember what doors we travel through so it knows which door to spawn us on in the next room.
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	EMapTransitionEnum MapTransitionEnum;
+
+	//////////////////////////////
+	// Reference Pointers
+	// Pointers and setters for base references.
+	//////////////////////////////
+
+	//TODO Do we need this?
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	APlayerCharacter* ControlledCharacter;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	APlayerCharacterController* CharacterController;
+
+	UPROPERTY()
+	UEnemyInfoWidget* EnemyInfoWidget;
+
+	UPROPERTY()
+	UActionMenuWidget* PlayerActionMenuWidget;
 
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterReference(APlayerCharacter* inPlayerCharacter);
@@ -53,11 +78,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerControllerReference(APlayerCharacterController* inPlayerController);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
-	APlayerCharacter* ControlledCharacter;
+	UFUNCTION()
+	void SetEnemyInfoWidget(UEnemyInfoWidget* Widget);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
-	APlayerCharacterController* CharacterController;
+	UFUNCTION()
+	void SetActionMenuWidget(UActionMenuWidget* Widget);
 
 	UFUNCTION()
 	void SetMapCombatState(bool bCombatMap);
@@ -108,15 +133,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString SavedCameraName;
 
-	UFUNCTION()
-	void SetEnemyInfoWidget(UEnemyInfoWidget* Widget);
+	
 
-	UPROPERTY()
-	UEnemyInfoWidget* EnemyInfoWidget;
-
-	UFUNCTION()
-	void SetActionMenuWidget(UActionMenuWidget* Widget);
-
-	UPROPERTY()
-	UActionMenuWidget* PlayerActionMenuWidget;
+	
 };

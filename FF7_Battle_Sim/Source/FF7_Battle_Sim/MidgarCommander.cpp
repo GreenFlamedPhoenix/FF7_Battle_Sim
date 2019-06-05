@@ -46,7 +46,7 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 
 	if (CurrentHP <= 0)
 	{
-		this->Destroy();
+		OnDeathEvent.Broadcast();
 		CombatGameMode->SetCurrentEnemiesAlive(-1);
 		//TODO Update the EnemyInfoWidget when dead or taking damage.
 	}
