@@ -11,11 +11,18 @@ void AMidgarSoldier::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetEnemyLevel();
+
 	if (CombatGameMode)
 	{
 		CombatGameMode->SetCurrentEnemiesAlive(1);
 	}
 	else { UE_LOG(LogTemp, Warning, TEXT("No CombatGameMode!")) }
+}
+
+FString AMidgarSoldier::SetEnemyLevel()
+{
+	return FString::FromInt(FMath::RandRange(1, 5));
 }
 
 void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
