@@ -13,5 +13,12 @@ UCLASS()
 class FF7_BATTLE_SIM_API AEnemyBaseController : public AAIController
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	float BaseActionFillRate = .5f;
+
+	//UPROPERTY()
+	//FTimerHandle ActionTimer;
 	
 };

@@ -23,12 +23,18 @@ void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	CombatCharacter = Cast<ACombatPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+
 	CombatController = Cast<ACombatPlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	CombatController->SetEnemyBaseReference(this);
+
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	EnemysEnemyInfoWidget = MainGameInstance->EnemyInfoWidget;
 	ActionMenuWidget = MainGameInstance->PlayerActionMenuWidget;
+
+
 	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
@@ -49,5 +55,5 @@ void AEnemyBase::EndCursorHover(UPrimitiveComponent* TouchComponent)
 // Function called when we click on our actor. Mainly to just test attacking for now. Also called by children overriding this function.
 void AEnemyBase::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey)
 {
-
+	//Functionality mostly handled by child classes.
 }

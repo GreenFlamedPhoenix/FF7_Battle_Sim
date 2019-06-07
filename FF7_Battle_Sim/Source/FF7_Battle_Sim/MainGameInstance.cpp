@@ -39,15 +39,15 @@ void UMainGameInstance::SetActionMenuWidget(UActionMenuWidget* Widget)
 
 void UMainGameInstance::ManageCombatChance()
 {
-	if (bCurrentlyInCombatMap == true)
+	if (bCurrentlyInCombatMap == true) //If we are in a map with combat.
 	{
-		CurrentCombatChance += .09f;
+		CurrentCombatChance += .09f; //Increase the combat chance.
 
-		if (CurrentCombatChance >= 25.f)
+		if (CurrentCombatChance >= 25.f) //If our combat chance is at the minimum level (25% chance).
 		{
-			if (GetWorld()->GetTimerManager().IsTimerActive(RandomNumberCounter))
+			if (GetWorld()->GetTimerManager().IsTimerActive(RandomNumberCounter)) //If our random number counter is active.
 			{
-				if (CurrentCombatChance > CombatChanceRoll && CombatChanceRoll != 0.f)
+				if (CurrentCombatChance > CombatChanceRoll && CombatChanceRoll != 0.f) //If our CurrentCombatChance is greater than our random roll.
 				{
 					BeginCombat();
 				}

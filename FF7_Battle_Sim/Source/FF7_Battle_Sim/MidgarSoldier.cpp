@@ -14,15 +14,22 @@ void AMidgarSoldier::BeginPlay()
 	Super::BeginPlay();
 
 	SetEnemyLevel();
+	//CalculateActionSpeed();
 
 	if (CombatGameMode){CombatGameMode->SetCurrentEnemiesAlive(1);}
 	else { UE_LOG(LogTemp, Warning, TEXT("No CombatGameMode!")) }
 }
 
-FString AMidgarSoldier::SetEnemyLevel()
+
+void AMidgarSoldier::SetEnemyLevel()
 {
-	MyLevel = FString::FromInt(FMath::RandRange(1, 5));
-	return MyLevel;
+	if (MyLevel == ""){MyLevel = FString::FromInt(FMath::RandRange(1, 5));}
+}
+
+void AMidgarSoldier::CalculateActionSpeed()
+{
+	MyActionSpeed = .5f + (0.1f * SpeedStat);
+	UE_LOG(LogTemp, Warning, TEXT("Doing math? My speed should be %f"), MyActionSpeed);
 }
 
 void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)

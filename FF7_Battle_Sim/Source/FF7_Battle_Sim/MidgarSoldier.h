@@ -18,8 +18,8 @@ class FF7_BATTLE_SIM_API AMidgarSoldier : public AEnemyBase
 public:
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintPure)
-	FString SetEnemyLevel();
+	UFUNCTION()
+	void SetEnemyLevel();
 
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
 	
@@ -27,7 +27,13 @@ public:
 
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
 
-	UPROPERTY()
+	UFUNCTION(BlueprintCallable)
+	void CalculateActionSpeed();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float MyActionSpeed;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString MyLevel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -39,4 +45,7 @@ public:
 	int32 CurrentMP;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MaxMP;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	int32 SpeedStat;
 };
