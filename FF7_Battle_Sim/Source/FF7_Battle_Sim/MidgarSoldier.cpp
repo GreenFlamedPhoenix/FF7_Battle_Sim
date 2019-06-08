@@ -28,8 +28,7 @@ void AMidgarSoldier::SetEnemyLevel()
 
 void AMidgarSoldier::CalculateActionSpeed()
 {
-	MyActionSpeed = .5f + (0.1f * SpeedStat);
-	UE_LOG(LogTemp, Warning, TEXT("Doing math? My speed should be %f"), MyActionSpeed);
+	MyActionSpeed = .25f + (0.05f * SpeedStat);
 }
 
 void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
