@@ -27,8 +27,17 @@ public:
 
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
 
+	UFUNCTION()
+	void ResetEnemyInfoStats();
+
 	UFUNCTION(BlueprintCallable)
 	void CalculateActionSpeed();
+
+	UFUNCTION(BlueprintCallable)
+	void DrinkPotion();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	int32 PotionsRemaining = 3;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float MyActionSpeed;

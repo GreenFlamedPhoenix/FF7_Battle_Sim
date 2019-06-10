@@ -62,9 +62,7 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 		CurrentHP -= 75;
 
 		OnDamageEvent.Broadcast();
-		EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
-		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
-		EnemysEnemyInfoWidget->SetWidgetVisibility(true);
+		ResetEnemyInfoStats();
 
 		if (CurrentHP <= 0)
 		{
@@ -76,4 +74,20 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 		CombatController->ResetActionTimer();
 		ActionMenuWidget->bAttemptingAttack = false;
 	}
+}
+
+void AMidgarSoldier::DrinkPotion()
+{
+	if (PotionsRemaining > 0)
+	{
+		CurrentHP += 50;
+		PotionsRemaining -= 1;
+	}
+}
+
+void AMidgarSoldier::ResetEnemyInfoStats()
+{
+	EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
+	EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+	EnemysEnemyInfoWidget->SetWidgetVisibility(true);
 }
