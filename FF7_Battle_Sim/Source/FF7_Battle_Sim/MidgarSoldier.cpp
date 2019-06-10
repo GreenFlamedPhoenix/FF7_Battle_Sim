@@ -81,8 +81,13 @@ void AMidgarSoldier::DrinkPotion()
 	if (PotionsRemaining > 0)
 	{
 		CurrentHP += 50;
+		if (CurrentHP > MaxHP)
+		{
+			CurrentHP = MaxHP;
+		}
 		PotionsRemaining -= 1;
 	}
+	ResetEnemyInfoStats();
 }
 
 void AMidgarSoldier::ResetEnemyInfoStats()
