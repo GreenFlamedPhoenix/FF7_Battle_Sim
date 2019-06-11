@@ -7,6 +7,7 @@
 #include "MainGameInstance.h"
 #include "Runtime/Engine/Classes/Camera/CameraActor.h"
 #include "WorldMapMode.h"
+#include "WorldMenuHUD.h"
 
 void APlayerCharacterController::BeginPlay()
 {
@@ -14,6 +15,7 @@ void APlayerCharacterController::BeginPlay()
 	
 	WorldMapGameMode = Cast<AWorldMapMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	WorldMapGameMode->SetWorldPlayerController(this);
+	MenuHUD = Cast<AWorldMenuHUD>(this->GetHUD());
 
 	GameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	GameInstance->SetPlayerControllerReference(this);
@@ -43,6 +45,7 @@ void APlayerCharacterController::SetupInputComponent()
 	/*Movement Bindings*/
 	InputComponent->BindAxis("MoveForward", this, &APlayerCharacterController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &APlayerCharacterController::MoveRight);
+	InputComponent->BindAction("OpenMenu", IE_Pressed, this, &APlayerCharacterController::ToggleMenu);
 }
 
 void APlayerCharacterController::MoveForward(float Axis)
@@ -92,4 +95,9 @@ void APlayerCharacterController::MoveRight(float Axis)
 	{
 		return;
 	}
+}
+
+void APlayerCharacterController::ToggleMenu()
+{
+	MenuHUD->ToggleMainMenuWidget();
 }

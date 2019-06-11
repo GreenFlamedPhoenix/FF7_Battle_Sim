@@ -9,6 +9,7 @@ class APlayerCharacter;
 class ACameraActor;
 class UMainGameInstance;
 class AWorldMapMode;
+class AWorldMenuHUD;
 
 /**
  * 
@@ -38,6 +39,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "References")
 	ACameraActor* MyCurrentCamera;
 
+	UPROPERTY()
+	AWorldMenuHUD* MenuHUD;
+
 	
 
 private:
@@ -62,5 +66,6 @@ private:
 	UFUNCTION()
 	void MoveRight(float Axis);
 
-
+	UFUNCTION()
+	void ToggleMenu();
 };
