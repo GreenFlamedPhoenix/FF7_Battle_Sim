@@ -8,6 +8,7 @@
 #include "CombatPlayerCharacter.generated.h"
 class ACombatPlayerCharacterController;
 class AEnemyBase;
+class ACombatGameMode;
 
 //TODO Continue work on MoveTo for attacking.
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMoveToAttack, AEnemyBase*, AttackTarget);
@@ -23,9 +24,16 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ACombatGameMode* CombatGameMode;
+
+
 	UPROPERTY(BlueprintAssignable)
 	FMoveToAttack MoveToAttack;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void MoveToAttack_Implementation(AEnemyBase* AttackTarget);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bCombatFinished;
 };

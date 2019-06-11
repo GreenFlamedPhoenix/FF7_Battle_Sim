@@ -61,10 +61,12 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 	{
 		CurrentHP -= 75;
 
-		OnDamageEvent.Broadcast();
-		ResetEnemyInfoStats();
-
-		if (CurrentHP <= 0)
+		if (CurrentHP > 0)
+		{
+			OnDamageEvent.Broadcast();
+			ResetEnemyInfoStats();
+		}
+		else
 		{
 			OnDeathEvent.Broadcast();
 			CombatGameMode->SetCurrentEnemiesAlive(-1);

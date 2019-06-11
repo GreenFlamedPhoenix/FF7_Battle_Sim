@@ -2,6 +2,8 @@
 
 
 #include "CombatPlayerCharacter.h"
+#include "Kismet/GameplayStatics.h"
+#include "CombatGameMode.h"
 
 ACombatPlayerCharacter::ACombatPlayerCharacter()
 {
@@ -13,5 +15,8 @@ void ACombatPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MoveToAttack.AddDynamic(this, &ACombatPlayerCharacter::MoveToAttack_Implementation);
+	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	CombatGameMode->SetCombatCharacter(this);
+
+	//MoveToAttack.AddDynamic(this, &ACombatPlayerCharacter::MoveToAttack_Implementation);
 }

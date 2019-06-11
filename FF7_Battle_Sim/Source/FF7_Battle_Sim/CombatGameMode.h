@@ -6,6 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "CombatGameMode.generated.h"
 class UMainGameInstance;
+class ACombatPlayerCharacter;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatComplete);
 
 /**
  * 
@@ -26,4 +29,19 @@ public:
 
 	UPROPERTY()
 	int32 CurrentEnemies = 0;
+
+	UPROPERTY()
+	FTimerHandle CloseCombatTimer;
+
+	UPROPERTY()
+	int32 CombatCloseCounter = 6;
+
+	UFUNCTION()
+	void CountDownCombatCounter();
+
+	UPROPERTY()
+	ACombatPlayerCharacter* CombatPlayerCharacter;
+
+	UFUNCTION()
+	void SetCombatCharacter(ACombatPlayerCharacter* inCombatPlayerCharacter);
 };

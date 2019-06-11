@@ -2,6 +2,7 @@
 
 #include "CombatGameMode.h"
 #include "MainGameInstance.h"
+#include "CombatPlayerCharacter.h"
 
 void ACombatGameMode::BeginPlay()
 {
@@ -10,12 +11,30 @@ void ACombatGameMode::BeginPlay()
 	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
 }
 
+void ACombatGameMode::SetCombatCharacter(ACombatPlayerCharacter* inCombatPlayerCharacter)
+{
+	CombatPlayerCharacter = inCombatPlayerCharacter;
+}
+
 void ACombatGameMode::SetCurrentEnemiesAlive(int32 AmountChange)
 {
 	CurrentEnemies = CurrentEnemies + AmountChange;
 	if (CurrentEnemies == 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("All enemies killed! You won!"));
+		CombatPlayerCharacter->bCombatFinished = true;
+		GetWorldTimerManager().SetTimer(CloseCombatTimer, this, &ACombatGameMode::CountDownCombatCounter, 1.f, true, 0.f);
+	}
+}
+
+void ACombatGameMode::CountDownCombatCounter()
+{
+	if (CombatCloseCounter > 0)
+	{
+		CombatCloseCounter -= 1;
+	}
+	else
+	{
+		CombatPlayerCharacter->bCombatFinished = false;
 		MainGameInstance->CompleteCombat(MainGameInstance->MapFName);
 	}
 }
