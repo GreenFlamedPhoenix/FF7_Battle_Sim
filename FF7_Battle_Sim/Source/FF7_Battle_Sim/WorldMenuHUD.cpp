@@ -4,11 +4,13 @@
 #include "WorldMenuHUD.h"
 #include "WorldMenuMainWidget.h"
 #include "PlayerCharacterController.h"
-#include "PlayerCharacter.h"
+#include "MainGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 void AWorldMenuHUD::BeginPlay()
 {
 	PlayerCharacterController = Cast<APlayerCharacterController>(GetWorld()->GetFirstPlayerController());
+	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (WorldMainMenuClass){WorldMainMenuWidget = CreateWidget<UWorldMenuMainWidget>(GetWorld(), WorldMainMenuClass);}
 
 }
@@ -22,6 +24,7 @@ void AWorldMenuHUD::ToggleMainMenuWidget()
 			WorldMainMenuWidget->RemoveFromViewport();
 			PlayerCharacterController->SetInputMode(FInputModeGameOnly());
 			PlayerCharacterController->bShowMouseCursor = false;
+			PlayerCharacterController->SetIgnoreMoveInput(false);
 		}
 		else
 		{
@@ -29,6 +32,7 @@ void AWorldMenuHUD::ToggleMainMenuWidget()
 			PlayerCharacterController->SetInputMode(FInputModeGameAndUI());
 			PlayerCharacterController->bShowMouseCursor = true;
 			PlayerCharacterController->SetIgnoreMoveInput(true);
+			WorldMainMenuWidget->SetCharacterOneStats(MainGameInstance->CharacterOneCurrentHP, MainGameInstance->CharacterOneMaxHP, MainGameInstance->CharacterOneCurrentMP, MainGameInstance->CharacterOneMaxMP);
 		}
 
 	}

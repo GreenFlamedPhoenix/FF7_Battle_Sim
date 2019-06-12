@@ -7,6 +7,7 @@
 #include "WorldMenuHUD.generated.h"
 class UWorldMenuMainWidget;
 class APlayerCharacterController;
+class UMainGameInstance;
 
 /**
  * 
@@ -20,6 +21,9 @@ public:
 	virtual void BeginPlay() override;
 
 	UPROPERTY()
+	UMainGameInstance* MainGameInstance;
+
+	UPROPERTY()
 	APlayerCharacterController* PlayerCharacterController;
 
 	UPROPERTY(EditDefaultsOnly)
@@ -30,5 +34,4 @@ public:
 
 	UFUNCTION()
 	void ToggleMainMenuWidget();
-	
 };

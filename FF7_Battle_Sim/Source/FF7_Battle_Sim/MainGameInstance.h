@@ -133,6 +133,18 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString SavedCameraName;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CharacterOneCurrentHP = 140;
+
+	UPROPERTY()
+	int32 CharacterOneMaxHP = 140;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CharacterOneCurrentMP = 40;
+
+	UPROPERTY()
+	int32 CharacterOneMaxMP = 40;
+
 	
 
 	

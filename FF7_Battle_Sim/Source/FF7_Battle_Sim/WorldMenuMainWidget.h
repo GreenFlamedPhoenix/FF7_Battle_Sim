@@ -9,6 +9,7 @@ class AMasterWorldMap;
 class APlayerCharacter;
 class UTextBlock;
 class UImage;
+class UProgressBar;
 
 /**
  * 
@@ -45,10 +46,30 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UImage* PlayerIcon;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* CurrentHP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* MaxHP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* CurrentMP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* MaxMP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UProgressBar* CharacterOneHP_ProgressBar;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UProgressBar* CharacterOneMP_ProgressBar;
+
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerIcon();
 
 	UFUNCTION(BlueprintCallable)
 	void SetLocationNameText(FString inLevelName);
+
+	void SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP, int32 inCurrentMP, int32 inMaxMP);
 	
 };

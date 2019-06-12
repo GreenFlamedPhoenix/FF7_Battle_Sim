@@ -6,6 +6,7 @@
 #include "PlayerCharacter.h"
 #include "TextBlock.h"
 #include "Image.h"
+#include "ProgressBar.h"
 #include "Kismet/GameplayStatics.h"
 
 void UWorldMenuMainWidget::NativeOnInitialized()
@@ -36,4 +37,14 @@ void UWorldMenuMainWidget::SetPlayerIcon()
 void UWorldMenuMainWidget::SetLocationNameText(FString inLevelName)
 {
 	LocationNameText->SetText(FText::FromString(inLevelName));
+}
+
+void UWorldMenuMainWidget::SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP, int32 inCurrentMP, int32 inMaxMP)
+{
+	CurrentHP->SetText(FText::FromString(FString::FromInt(inCurrentHP)));
+	MaxHP->SetText(FText::FromString(FString::FromInt(inMaxHP)));
+	CurrentMP->SetText(FText::FromString(FString::FromInt(inCurrentMP)));
+	MaxMP->SetText(FText::FromString(FString::FromInt(inMaxMP)));
+	CharacterOneHP_ProgressBar->SetPercent(inCurrentHP / inMaxHP);
+	CharacterOneMP_ProgressBar->SetPercent(inCurrentMP / inMaxMP);
 }
