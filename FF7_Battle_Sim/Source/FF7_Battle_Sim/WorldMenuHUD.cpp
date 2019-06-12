@@ -4,10 +4,13 @@
 #include "WorldMenuHUD.h"
 #include "WorldMenuMainWidget.h"
 #include "PlayerCharacterController.h"
+#include "PlayerCharacter.h"
 
 void AWorldMenuHUD::BeginPlay()
 {
 	PlayerCharacterController = Cast<APlayerCharacterController>(GetWorld()->GetFirstPlayerController());
+	if (WorldMainMenuClass){WorldMainMenuWidget = CreateWidget<UWorldMenuMainWidget>(GetWorld(), WorldMainMenuClass);}
+
 }
 
 void AWorldMenuHUD::ToggleMainMenuWidget()
@@ -27,16 +30,6 @@ void AWorldMenuHUD::ToggleMainMenuWidget()
 			PlayerCharacterController->bShowMouseCursor = true;
 			PlayerCharacterController->SetIgnoreMoveInput(true);
 		}
-		
-	}
-	else
-	{
-		if (WorldMainMenuClass)
-		{
-			WorldMainMenuWidget = CreateWidget<UWorldMenuMainWidget>(GetWorld(), WorldMainMenuClass);
-			WorldMainMenuWidget->AddToViewport();
-			PlayerCharacterController->SetInputMode(FInputModeGameAndUI());
-			PlayerCharacterController->bShowMouseCursor = true;
-		}
+
 	}
 }

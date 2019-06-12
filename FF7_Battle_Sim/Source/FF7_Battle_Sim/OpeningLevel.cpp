@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MainGameInstance.h"
 #include "WorldMapMode.h"
+#include "WorldMenuMainWidget.h"
 
 AOpeningLevel::AOpeningLevel()
 {
@@ -23,4 +24,24 @@ void AOpeningLevel::BeginPlay()
 	GameInstance->SetMapCombatState(bCombatMap);
 
 	WorldMapMode = Cast<AWorldMapMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	GetWorldTimerManager().SetTimer(StupidDumbTimer, this, &AOpeningLevel::StupidDumbTimerFunction, 1.f, true, 0.f);
+}
+
+FString AOpeningLevel::GetMapName()
+{
+	return MapName;
+}
+
+void AOpeningLevel::StupidDumbTimerFunction()
+{
+	if (WorldMainMenuWidget)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found it."))
+		WorldMainMenuWidget->SetLocationNameText(MapName);
+	}
+	else
+	{
+		return;
+	}
 }

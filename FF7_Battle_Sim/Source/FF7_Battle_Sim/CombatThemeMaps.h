@@ -7,6 +7,7 @@
 #include "CombatThemeMaps.generated.h"
 class ACombatGameMode;
 class USoundCue;
+
 /**
  * 
  */
@@ -23,9 +24,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerController();
-
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	//ACombatPlayerCharacterController* CombatPlayerController;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ACombatGameMode* CombatGameMode;

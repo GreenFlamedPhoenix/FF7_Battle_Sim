@@ -5,6 +5,16 @@
 #include "PlayerCharacterController.h"
 #include "Kismet/GameplayStatics.h"
 #include "MainGameInstance.h"
+#include "ConstructorHelpers.h"
+
+APlayerCharacter::APlayerCharacter()
+{
+	 ConstructorHelpers::FObjectFinder<UTexture2D> PlayerIconObject(TEXT("Texture2D'/Game/ArtStuff/CharacterIcons/PlayerIcon.PlayerIcon'"));
+	 if (PlayerIconObject.Succeeded())
+	 {
+		 PlayerIcon = PlayerIconObject.Object;
+	 }
+}
 
 void APlayerCharacter::BeginPlay()
 {
