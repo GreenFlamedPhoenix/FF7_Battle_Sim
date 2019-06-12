@@ -10,6 +10,7 @@ class APlayerCharacter;
 class UTextBlock;
 class UImage;
 class UProgressBar;
+class UButton;
 
 /**
  * 
@@ -64,12 +65,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UProgressBar* CharacterOneMP_ProgressBar;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* SaveText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UButton* SaveButton;
+
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerIcon();
 
 	UFUNCTION(BlueprintCallable)
 	void SetLocationNameText(FString inLevelName);
 
+	UFUNCTION()
 	void SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP, int32 inCurrentMP, int32 inMaxMP);
-	
+
+	UFUNCTION(BlueprintCallable)
+	void SetSaveEnabled(bool inbAbleToSave);
 };

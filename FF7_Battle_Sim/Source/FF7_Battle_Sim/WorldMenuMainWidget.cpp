@@ -7,6 +7,7 @@
 #include "TextBlock.h"
 #include "Image.h"
 #include "ProgressBar.h"
+#include "Button.h"
 #include "Kismet/GameplayStatics.h"
 
 void UWorldMenuMainWidget::NativeOnInitialized()
@@ -21,6 +22,7 @@ void UWorldMenuMainWidget::FindMyCharacter()
 	if (PlayerCharacter)
 	{
 		SetPlayerIcon();
+		PlayerCharacter->SetWorldMainMenuWidget(this);
 		GetWorld()->GetTimerManager().ClearTimer(SearchCharacterTimer);
 		UE_LOG(LogTemp, Warning, TEXT("Found the character"));
 	}
@@ -47,4 +49,16 @@ void UWorldMenuMainWidget::SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP
 	MaxMP->SetText(FText::FromString(FString::FromInt(inMaxMP)));
 	CharacterOneHP_ProgressBar->SetPercent(inCurrentHP / inMaxHP);
 	CharacterOneMP_ProgressBar->SetPercent(inCurrentMP / inMaxMP);
+}
+
+void UWorldMenuMainWidget::SetSaveEnabled(bool inbAbleToSave)
+{
+	if (inbAbleToSave == true)
+	{
+		SaveButton->SetIsEnabled(true);
+	}
+	else
+	{
+		SaveButton->SetIsEnabled(false);
+	}
 }

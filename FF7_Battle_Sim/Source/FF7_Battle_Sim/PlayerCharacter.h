@@ -9,6 +9,7 @@
 class APlayerCharacterController;
 class UMainGameInstance;
 class UTexture2D;
+class UWorldMenuMainWidget;
 
 UCLASS()
 class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
@@ -28,4 +29,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UTexture2D* PlayerIcon;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UWorldMenuMainWidget* WorldMainMenuWidget;
+
+	UFUNCTION()
+	void SetWorldMainMenuWidget(UWorldMenuMainWidget* inWidget);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bAbleToSave;
 };

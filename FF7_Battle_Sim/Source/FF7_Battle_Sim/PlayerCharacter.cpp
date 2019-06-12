@@ -28,3 +28,8 @@ void APlayerCharacter::BeginPlay()
 	CharacterController->SetPlayerCharacter(this);
 
 }
+
+void APlayerCharacter::SetWorldMainMenuWidget(UWorldMenuMainWidget* inWidget)
+{
+	WorldMainMenuWidget = inWidget;
+}

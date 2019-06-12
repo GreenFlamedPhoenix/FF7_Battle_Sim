@@ -42,7 +42,8 @@ public:
 	UPROPERTY()
 	AWorldMenuHUD* MenuHUD;
 
-	
+	UPROPERTY()
+	bool bAbleToSave = false;
 
 private:
 	UFUNCTION()
