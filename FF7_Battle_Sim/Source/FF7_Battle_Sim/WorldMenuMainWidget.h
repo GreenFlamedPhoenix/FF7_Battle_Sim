@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "WorldMenuMainWidget.generated.h"
 class AMasterWorldMap;
+class AWorldMenuHUD;
 class APlayerCharacter;
 class UTextBlock;
 class UImage;
@@ -13,7 +14,7 @@ class UProgressBar;
 class UButton;
 
 /**
- * 
+ *
  */
 UCLASS()
 class FF7_BATTLE_SIM_API UWorldMenuMainWidget : public UUserWidget
@@ -23,14 +24,14 @@ class FF7_BATTLE_SIM_API UWorldMenuMainWidget : public UUserWidget
 public:
 	virtual void NativeOnInitialized() override;
 
-	//UPROPERTY()
-	//FTimerHandle SearchMapTimer;
-
-	//UFUNCTION()
-	//void FindMyMap();
-
 	UFUNCTION()
 	void FindMyCharacter();
+
+	UPROPERTY()
+	AWorldMenuHUD* WorldMenuHUD;
+
+	UFUNCTION()
+	void SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD);
 
 	UPROPERTY()
 	FTimerHandle SearchCharacterTimer;
@@ -82,4 +83,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetSaveEnabled(bool inbAbleToSave);
+
+	UFUNCTION()
+	void OpenSaveScreen();
 };

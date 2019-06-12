@@ -6,6 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "WorldMenuHUD.generated.h"
 class UWorldMenuMainWidget;
+class USaveMenuWidget;
 class APlayerCharacterController;
 class UMainGameInstance;
 
@@ -29,9 +30,18 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> WorldMainMenuClass;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> SaveMenuClass;
+
 	UPROPERTY()
 	UWorldMenuMainWidget* WorldMainMenuWidget;
 
+	UPROPERTY()
+	USaveMenuWidget* SaveMenuWidget;
+
 	UFUNCTION()
 	void ToggleMainMenuWidget();
+
+	UFUNCTION()
+	void OpenSaveMenu();
 };

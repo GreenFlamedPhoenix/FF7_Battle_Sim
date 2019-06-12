@@ -2,4 +2,9 @@
 
 
 #include "SaveMenuWidget.h"
+#include "WorldMenuHUD.h"
 
+void USaveMenuWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
+{
+	WorldMenuHUD = inWorldMenuHUD;
+}

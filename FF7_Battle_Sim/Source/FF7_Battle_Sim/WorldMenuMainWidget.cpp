@@ -8,12 +8,18 @@
 #include "Image.h"
 #include "ProgressBar.h"
 #include "Button.h"
+#include "WorldMenuHUD.h"
 #include "Kismet/GameplayStatics.h"
 
 void UWorldMenuMainWidget::NativeOnInitialized()
 {
-	//GetWorld()->GetTimerManager().SetTimer(SearchMapTimer, this, &UWorldMenuMainWidget::FindMyMap, 0.5f, true, 0.f);
 	GetWorld()->GetTimerManager().SetTimer(SearchCharacterTimer, this, &UWorldMenuMainWidget::FindMyCharacter, 0.5f, true, 0.f);
+	SaveButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenSaveScreen);
+}
+
+void UWorldMenuMainWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
+{
+	WorldMenuHUD = inWorldMenuHUD;
 }
 
 void UWorldMenuMainWidget::FindMyCharacter()
@@ -24,7 +30,6 @@ void UWorldMenuMainWidget::FindMyCharacter()
 		SetPlayerIcon();
 		PlayerCharacter->SetWorldMainMenuWidget(this);
 		GetWorld()->GetTimerManager().ClearTimer(SearchCharacterTimer);
-		UE_LOG(LogTemp, Warning, TEXT("Found the character"));
 	}
 }
 
@@ -61,4 +66,9 @@ void UWorldMenuMainWidget::SetSaveEnabled(bool inbAbleToSave)
 	{
 		SaveButton->SetIsEnabled(false);
 	}
+}
+
+void UWorldMenuMainWidget::OpenSaveScreen()
+{
+	WorldMenuHUD->OpenSaveMenu();
 }
