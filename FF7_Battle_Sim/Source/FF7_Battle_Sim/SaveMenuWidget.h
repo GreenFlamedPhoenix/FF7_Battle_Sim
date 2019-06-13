@@ -24,7 +24,7 @@ public:
 
 	UFUNCTION()
 	void SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD);
-
+	/*
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UButton* SaveSlot1;
 
@@ -53,5 +53,5 @@ public:
 	UButton* SaveSlot5;
 
 	UFUNCTION()
-	void SaveToSlot5();
+	void SaveToSlot5(); */
 };

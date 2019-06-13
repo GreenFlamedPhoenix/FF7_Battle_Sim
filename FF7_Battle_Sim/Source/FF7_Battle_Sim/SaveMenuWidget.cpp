@@ -15,6 +15,7 @@ void USaveMenuWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
 	WorldMenuHUD = inWorldMenuHUD;
 }
 
+/*
 void USaveMenuWidget::SaveToSlot1()
 {
 
@@ -39,3 +40,4 @@ void USaveMenuWidget::SaveToSlot5()
 {
 
 }
+*/

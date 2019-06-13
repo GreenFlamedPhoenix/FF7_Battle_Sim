@@ -156,16 +156,16 @@ public:
 	UPROPERTY()
 	FTimerHandle GameTimeCounter;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 SecondsPlayed;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 MinutesPlayed;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 HoursPlayed;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 DaysPlayed;
 
 	UFUNCTION()
