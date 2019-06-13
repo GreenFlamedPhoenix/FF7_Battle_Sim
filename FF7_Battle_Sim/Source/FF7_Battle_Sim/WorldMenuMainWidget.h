@@ -8,6 +8,7 @@
 class AMasterWorldMap;
 class AWorldMenuHUD;
 class APlayerCharacter;
+class UMainGameInstance;
 class UTextBlock;
 class UImage;
 class UProgressBar;
@@ -26,6 +27,9 @@ public:
 
 	UFUNCTION()
 	void FindMyCharacter();
+
+	UPROPERTY()
+	UMainGameInstance* MainGameInstance;
 
 	UPROPERTY()
 	AWorldMenuHUD* WorldMenuHUD;
@@ -72,6 +76,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UButton* SaveButton;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* DaysPlayed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* HoursPlayed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* MinutesPlayed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* SecondsPlayed;
+
+
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerIcon();
 
@@ -86,4 +103,7 @@ public:
 
 	UFUNCTION()
 	void OpenSaveScreen();
+
+	UFUNCTION()
+	void UpdatePlayedTime(int32 inDays, int32 inHours, int32 inMinutes, int32 inSeconds);
 };

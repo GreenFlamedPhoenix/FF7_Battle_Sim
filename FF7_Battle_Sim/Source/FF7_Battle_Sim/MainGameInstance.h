@@ -10,6 +10,7 @@ class APlayerCharacterController;
 class ACameraActor;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
+class UWorldMenuMainWidget;
 
 /*Event to broadcast when combat triggers.*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
@@ -40,6 +41,7 @@ class FF7_BATTLE_SIM_API UMainGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
+	virtual void Init() override;
 
 	//////////////////////////////
 	// Enum Variables.
@@ -72,6 +74,9 @@ public:
 	UPROPERTY()
 	UActionMenuWidget* PlayerActionMenuWidget;
 
+	UPROPERTY()
+	UWorldMenuMainWidget* WorldMainMenuWidget;
+
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterReference(APlayerCharacter* inPlayerCharacter);
 
@@ -83,6 +88,9 @@ public:
 
 	UFUNCTION()
 	void SetActionMenuWidget(UActionMenuWidget* Widget);
+
+	UFUNCTION()
+	void SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget);
 
 	UFUNCTION()
 	void SetMapCombatState(bool bCombatMap);
@@ -145,7 +153,23 @@ public:
 	UPROPERTY()
 	int32 CharacterOneMaxMP = 40;
 
-	
+	UPROPERTY()
+	FTimerHandle GameTimeCounter;
+
+	UPROPERTY()
+	int32 SecondsPlayed;
+
+	UPROPERTY()
+	int32 MinutesPlayed;
+
+	UPROPERTY()
+	int32 HoursPlayed;
+
+	UPROPERTY()
+	int32 DaysPlayed;
+
+	UFUNCTION()
+	void CountUpPlayedTimer();
 
 	
 };

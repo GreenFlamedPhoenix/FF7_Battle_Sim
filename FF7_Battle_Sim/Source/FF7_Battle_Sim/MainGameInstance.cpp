@@ -8,6 +8,39 @@
 #include "Camera/CameraActor.h"
 #include "EnemyInfoWidget.h"
 #include "ActionMenuWidget.h"
+#include "WorldMenuMainWidget.h"
+
+void UMainGameInstance::Init()
+{
+	Super::Init();
+
+	GetWorld()->GetTimerManager().SetTimer(GameTimeCounter, this, &UMainGameInstance::CountUpPlayedTimer, 1.f, true, 0.f);
+}
+
+void UMainGameInstance::CountUpPlayedTimer()
+{
+	SecondsPlayed += 1;
+	
+
+	if (SecondsPlayed == 60)
+	{
+		MinutesPlayed += 1;
+		SecondsPlayed = 0;
+
+		if (MinutesPlayed == 60)
+		{
+			HoursPlayed += 1;
+			MinutesPlayed = 0;
+
+			if (HoursPlayed == 24)
+			{
+				DaysPlayed += 1;
+				HoursPlayed = 0;
+			}
+		}
+	}
+	if (WorldMainMenuWidget){WorldMainMenuWidget->UpdatePlayedTime(DaysPlayed, HoursPlayed, MinutesPlayed, SecondsPlayed);}
+}
 
 void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
 {
@@ -35,6 +68,11 @@ void UMainGameInstance::SetEnemyInfoWidget(UEnemyInfoWidget* Widget)
 void UMainGameInstance::SetActionMenuWidget(UActionMenuWidget* Widget)
 {
 	PlayerActionMenuWidget = Widget;
+}
+
+void UMainGameInstance::SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget)
+{
+	WorldMainMenuWidget = inWidget;
 }
 
 void UMainGameInstance::ManageCombatChance()

@@ -4,15 +4,19 @@
 #include "WorldMenuMainWidget.h"
 #include "MasterWorldMap.h"
 #include "PlayerCharacter.h"
+#include "WorldMenuHUD.h"
+#include "Kismet/GameplayStatics.h"
+#include "MainGameInstance.h"
 #include "TextBlock.h"
 #include "Image.h"
 #include "ProgressBar.h"
 #include "Button.h"
-#include "WorldMenuHUD.h"
-#include "Kismet/GameplayStatics.h"
+
 
 void UWorldMenuMainWidget::NativeOnInitialized()
 {
+	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	MainGameInstance->SetWorldMenuMainWidget(this);
 	GetWorld()->GetTimerManager().SetTimer(SearchCharacterTimer, this, &UWorldMenuMainWidget::FindMyCharacter, 0.5f, true, 0.f);
 	SaveButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenSaveScreen);
 }
@@ -71,4 +75,12 @@ void UWorldMenuMainWidget::SetSaveEnabled(bool inbAbleToSave)
 void UWorldMenuMainWidget::OpenSaveScreen()
 {
 	WorldMenuHUD->OpenSaveMenu();
+}
+
+void UWorldMenuMainWidget::UpdatePlayedTime(int32 inDays, int32 inHours, int32 inMinutes, int32 inSeconds)
+{
+	DaysPlayed->SetText(FText::FromString(FString::FromInt(inDays)));
+	HoursPlayed->SetText(FText::FromString(FString::FromInt(inHours)));
+	MinutesPlayed->SetText(FText::FromString(FString::FromInt(inMinutes)));
+	SecondsPlayed->SetText(FText::FromString(FString::FromInt(inSeconds)));
 }
