@@ -30,5 +30,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UButton* QuitButton;
+
+	UFUNCTION()
+	void QuitButtonClicked();
 	
 };
