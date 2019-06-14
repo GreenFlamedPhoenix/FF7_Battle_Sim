@@ -19,8 +19,8 @@ void UATB_Component::BeginPlay()
 
 void UATB_Component::CalculateATB_FillSpeed(int32 inDexterity, int32 inStatusMultiplier)
 {
-	ATB_FillSpeed = inDexterity / 4 + 450 * .6f * inStatusMultiplier;
-	UE_LOG(LogTemp, Warning, TEXT("My fill %f"), ATB_FillSpeed)
+	ATB_FillSpeed = inDexterity / 3 + 375 * .6f * inStatusMultiplier;
+	//UE_LOG(LogTemp, Warning, TEXT("My fill %f"), ATB_FillSpeed)
 }
 
 void UATB_Component::DetermineATB_InitialFill(bool bIsPlayer)

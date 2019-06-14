@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
 #include "MidgarCommander.generated.h"
+class UATB_Component;
 
 /**
  * 
@@ -15,13 +16,14 @@ class FF7_BATTLE_SIM_API AMidgarCommander : public AEnemyBase
 	GENERATED_BODY()
 
 public:
+	AMidgarCommander();
 	virtual void BeginPlay() override;
-
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
-
 	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;
-
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
+
+	UPROPERTY()
+	UATB_Component* ATB_Component;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 CurrentHP = 200;
@@ -32,4 +34,10 @@ public:
 	int32 CurrentMP = 50;
 	UPROPERTY()
 	int32 MaxMP = 50;
+
+	UPROPERTY()
+	int32 Dexterity = 15000;
+
+	UFUNCTION()
+	void ReadyForAction();
 };

@@ -31,7 +31,7 @@ public:
 	UPROPERTY()
 	float MaxATB_Fill = 1000.f;
 
-	//Possible speed equation (Dexterity / 4 + 450 * 0.6 ) * Status multiplier
+	//Possible speed equation (Dexterity / 3 + 375 * 0.6 ) * Status multiplier
 	UFUNCTION()
 	void CalculateATB_FillSpeed(int32 inDexterity, int32 inStatusMultiplier);
 

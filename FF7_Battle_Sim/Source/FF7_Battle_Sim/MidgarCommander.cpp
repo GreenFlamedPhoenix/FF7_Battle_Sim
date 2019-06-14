@@ -6,16 +6,22 @@
 #include "EnemyInfoWidget.h"
 #include "CombatGameMode.h"
 #include "CombatPlayerCharacter.h"
+#include "ATB_Component.h"
+
+AMidgarCommander::AMidgarCommander()
+{
+	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB Component"));
+	ATB_Component->ATB_Full.AddDynamic(this, &AMidgarCommander::ReadyForAction);
+}
 
 void AMidgarCommander::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (CombatGameMode)
-	{
-		CombatGameMode->SetCurrentEnemiesAlive(1);
-	}
-	else {UE_LOG(LogTemp, Warning, TEXT("No CombatGameMode!"))}
+	if (CombatGameMode){CombatGameMode->SetCurrentEnemiesAlive(1);}
+	else{UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
+	if (ATB_Component){ATB_Component->DetermineATB_InitialFill(false);ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
+	else{UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
 }
 
 void AMidgarCommander::StartCursorHover(UPrimitiveComponent* TouchComponent)
@@ -51,4 +57,9 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 		CombatGameMode->SetCurrentEnemiesAlive(-1);
 		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 	}
+}
+
+void AMidgarCommander::ReadyForAction()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Commander ready!"))
 }
