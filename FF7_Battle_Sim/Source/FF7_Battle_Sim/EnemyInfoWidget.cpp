@@ -54,7 +54,7 @@ void UEnemyInfoWidget::SetEnemyMaxMP(int32 MaxMP)
 	EnemyMaxMP->SetText(FText::FromString(FString::FromInt(MaxMP)));
 }
 
-void UEnemyInfoWidget::SetEnemyLevel(FString Level)
+void UEnemyInfoWidget::SetEnemyLevel(int32 Level)
 {
-	EnemyLevel->SetText(FText::FromString(Level));
+	EnemyLevel->SetText(FText::FromString(FString::FromInt(Level)));
 }

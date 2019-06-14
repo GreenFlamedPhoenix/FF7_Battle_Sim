@@ -75,5 +75,5 @@ public:
 
 	void SetEnemyMaxMP(int32 MaxMP);
 
-	void SetEnemyLevel(FString Level);
+	void SetEnemyLevel(int32 Level);
 };

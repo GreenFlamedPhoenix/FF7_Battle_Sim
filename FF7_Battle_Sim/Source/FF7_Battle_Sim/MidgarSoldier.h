@@ -6,6 +6,7 @@
 #include "EnemyBase.h"
 #include "MidgarSoldier.generated.h"
 class ACombatGameMode;
+class UATB_Component;
 
 /**
  * 
@@ -16,10 +17,9 @@ class FF7_BATTLE_SIM_API AMidgarSoldier : public AEnemyBase
 	GENERATED_BODY()
 
 public:
-	virtual void BeginPlay() override;
+	AMidgarSoldier();
 
-	UFUNCTION()
-	void SetEnemyLevel();
+	virtual void BeginPlay() override;
 
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
 	
@@ -27,34 +27,49 @@ public:
 
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
 
+	UPROPERTY()
+	UATB_Component* ATB_Component;
+
 	UFUNCTION()
 	void ResetEnemyInfoStats();
 
 	UFUNCTION(BlueprintCallable)
-	void CalculateActionSpeed();
-
-	UFUNCTION(BlueprintCallable)
 	void DrinkPotion();
+
+	UFUNCTION()
+	void ReadyToAttack();
+
+	//////////////////////////////
+	//	Stats
+	//	Base stats
+	//////////////////////////////
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 MyLevel = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CurrentHP = 120;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MaxHP = 120;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CurrentMP = 20;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MaxMP = 20;
+
+	UPROPERTY()
+	int32 Dexterity = 10;
+
+	//////////////////////////////
+	//	Inventory
+	//	Inventory items.
+	//////////////////////////////
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 PotionsRemaining = 3;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float MyActionSpeed;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FString MyLevel;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CurrentHP;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxHP;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CurrentMP;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxMP;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	int32 SpeedStat;
+	bool bReadyForAction;
 };

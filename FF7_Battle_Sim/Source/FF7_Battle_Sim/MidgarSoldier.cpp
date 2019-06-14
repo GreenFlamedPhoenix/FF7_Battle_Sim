@@ -6,29 +6,24 @@
 #include "EnemyInfoWidget.h"
 #include "CombatGameMode.h"
 #include "CombatPlayerCharacter.h"
-#include "ConstructorHelpers.h"
 #include "ActionMenuWidget.h"
+#include "ATB_Component.h"
+
+AMidgarSoldier::AMidgarSoldier()
+{
+	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB_Component"));
+	ATB_Component->ATB_Full.AddDynamic(this, &AMidgarSoldier::ReadyToAttack);
+}
 
 void AMidgarSoldier::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetEnemyLevel();
-	//CalculateActionSpeed();
-
 	if (CombatGameMode){CombatGameMode->SetCurrentEnemiesAlive(1);}
-	else { UE_LOG(LogTemp, Warning, TEXT("No CombatGameMode!")) }
-}
-
-
-void AMidgarSoldier::SetEnemyLevel()
-{
-	if (MyLevel == ""){MyLevel = FString::FromInt(FMath::RandRange(1, 5));}
-}
-
-void AMidgarSoldier::CalculateActionSpeed()
-{
-	MyActionSpeed = .25f + (0.05f * SpeedStat);
+	else {UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
+	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
+	else {UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
+	
 }
 
 void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
@@ -90,6 +85,12 @@ void AMidgarSoldier::DrinkPotion()
 		PotionsRemaining -= 1;
 	}
 	ResetEnemyInfoStats();
+}
+
+void AMidgarSoldier::ReadyToAttack()
+{
+	bReadyForAction = true;
+	UE_LOG(LogTemp, Warning, TEXT("Ready!"))
 }
 
 void AMidgarSoldier::ResetEnemyInfoStats()
