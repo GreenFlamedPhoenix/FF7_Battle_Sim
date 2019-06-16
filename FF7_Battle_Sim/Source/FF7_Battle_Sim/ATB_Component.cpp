@@ -6,11 +6,14 @@
 #include "Kismet/GameplayStatics.h"
 #include "CombatPlayerCharacterController.h"
 #include "ActionMenuWidget.h"
+#include "ConstructorHelpers.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values for this component's properties
 UATB_Component::UATB_Component()
 {
-
+	ConstructorHelpers::FObjectFinder<USoundCue>ATB_ReadySoundCueObject (TEXT("SoundCue'/Game/Audio/SFX/ATB_Ready_cue.ATB_Ready_cue'"));
+	if(ATB_ReadySoundCueObject.Succeeded()){ATB_ReadySoundCue = ATB_ReadySoundCueObject.Object;}
 }
 
 // Called when the game starts
@@ -53,6 +56,7 @@ void UATB_Component::TickUpATB()
 		ATB_Full.Broadcast();
 		GetWorld()->GetTimerManager().PauseTimer(ATB_FillTimer);
 		DisplayActionenuWidget();
+		if (bOwnedByPlayer){UGameplayStatics::PlaySound2D(GetWorld(), ATB_ReadySoundCue);}
 	}
 }
 

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "ATB_Component.generated.h"
+class USoundCue;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FATB_Full);
 
@@ -92,4 +93,7 @@ public:
 	//Display the ActionMenuWidget if you are a player character.
 	UFUNCTION()
 	void DisplayActionenuWidget();
+
+	UPROPERTY()
+	USoundCue* ATB_ReadySoundCue;
 };
