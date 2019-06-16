@@ -59,8 +59,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int32 MaxMP = 20;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int32 Dexterity = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int32 ExpWorth = 12;
 
 	//////////////////////////////
 	//	Inventory

@@ -19,7 +19,7 @@ void AMidgarSoldier::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (CombatGameMode){CombatGameMode->SetCurrentEnemiesAlive(1);}
+	if (CombatGameMode){CombatGameMode->SetupEnemyAttributes(1, ExpWorth);}
 	else {UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
 	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
 	else {UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
@@ -54,7 +54,7 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 
 	if (ActionMenuWidget->bAttemptingAttack == true)
 	{
-		CurrentHP -= 75;
+		CurrentHP -= 1000;
 
 		if (CurrentHP > 0)
 		{
@@ -64,7 +64,7 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 		else
 		{
 			OnDeathEvent.Broadcast();
-			CombatGameMode->SetCurrentEnemiesAlive(-1);
+			CombatGameMode->SetupEnemyAttributes(-1, 0);
 			EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 		}
 		CombatCharacter->ATB_Component->ResetATB();

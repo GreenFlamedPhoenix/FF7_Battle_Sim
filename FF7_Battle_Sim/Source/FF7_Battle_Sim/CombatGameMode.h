@@ -25,7 +25,7 @@ public:
 	UMainGameInstance* MainGameInstance;
 
 	UFUNCTION()
-	void SetCurrentEnemiesAlive(int32 AmountChange);
+	void SetupEnemyAttributes(int32 AmountChange, int32 inExp);
 
 	UPROPERTY()
 	int32 CurrentEnemies = 0;
@@ -44,4 +44,7 @@ public:
 
 	UFUNCTION()
 	void SetCombatCharacter(ACombatPlayerCharacter* inCombatPlayerCharacter);
+
+	UPROPERTY()
+	int32 ExpToAward;
 };

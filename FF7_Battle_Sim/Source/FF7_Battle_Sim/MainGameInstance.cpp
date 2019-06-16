@@ -20,7 +20,6 @@ void UMainGameInstance::Init()
 void UMainGameInstance::CountUpPlayedTimer()
 {
 	SecondsPlayed += 1;
-	
 
 	if (SecondsPlayed == 60)
 	{
@@ -40,6 +39,15 @@ void UMainGameInstance::CountUpPlayedTimer()
 		}
 	}
 	if (WorldMainMenuWidget){WorldMainMenuWidget->UpdatePlayedTime(DaysPlayed, HoursPlayed, MinutesPlayed, SecondsPlayed);}
+}
+
+void UMainGameInstance::CalculatePlayerExp(int32 inAwardedExp)
+{
+	PlayerOneCurrentExp += inAwardedExp;
+	if (PlayerOneCurrentExp >= PlayerOneExpToLevel)
+	{
+		LevelUp();
+	}
 }
 
 void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
@@ -128,4 +136,11 @@ void UMainGameInstance::BeginCombat()
 void UMainGameInstance::CompleteCombat(FName SavedMapFName)
 {
 	UGameplayStatics::OpenLevel(this, SavedMapFName);
+}
+
+void UMainGameInstance::LevelUp()
+{
+		PlayerOneLevel += 1;
+		PlayerOneCurrentExp = PlayerOneCurrentExp - PlayerOneExpToLevel;
+		PlayerOneExpToLevel = PlayerOneExpToLevel / 2 * 1.25;
 }

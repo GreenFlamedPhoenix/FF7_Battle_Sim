@@ -171,5 +171,30 @@ public:
 	UFUNCTION()
 	void CountUpPlayedTimer();
 
-	
+	UPROPERTY()
+	int32 ExpToAward;
+
+	UPROPERTY()
+	int32 CharacterOneCurrentExp;
+
+	UPROPERTY()
+	int32 CharacterOneExpToNext;
+
+	UPROPERTY()
+	int32 ExpToHold;
+
+	UFUNCTION()
+	void CalculatePlayerExp(int32 inAwardedExp);
+
+	UPROPERTY()
+	int32 PlayerOneCurrentExp = 1990;
+
+	UPROPERTY()
+	int32 PlayerOneExpToLevel = 2000;
+
+	UFUNCTION()
+	void LevelUp();
+
+	UPROPERTY()
+	int32 PlayerOneLevel = 1;
 };

@@ -19,6 +19,9 @@ void UWorldMenuMainWidget::NativeOnInitialized()
 	MainGameInstance->SetWorldMenuMainWidget(this);
 	GetWorld()->GetTimerManager().SetTimer(SearchCharacterTimer, this, &UWorldMenuMainWidget::FindMyCharacter, 0.5f, true, 0.f);
 	SaveButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenSaveScreen);
+	SetPlayerOneExp();
+	SetPlayerOneLevel();
+	SetPlayerOneExpBar();
 }
 
 void UWorldMenuMainWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
@@ -83,4 +86,20 @@ void UWorldMenuMainWidget::UpdatePlayedTime(int32 inDays, int32 inHours, int32 i
 	HoursPlayed->SetText(FText::FromString(FString::FromInt(inHours)));
 	MinutesPlayed->SetText(FText::FromString(FString::FromInt(inMinutes)));
 	SecondsPlayed->SetText(FText::FromString(FString::FromInt(inSeconds)));
+}
+
+void UWorldMenuMainWidget::SetPlayerOneExp()
+{
+	PlayerOneCurrentExp->SetText(FText::FromString(FString::FromInt(MainGameInstance->PlayerOneCurrentExp)));
+	PlayerOneExpToLevel->SetText(FText::FromString(FString::FromInt(MainGameInstance->PlayerOneExpToLevel)));
+}
+
+void UWorldMenuMainWidget::SetPlayerOneLevel()
+{
+	PlayerOneLevel->SetText(FText::FromString(FString::FromInt(MainGameInstance->PlayerOneLevel)));
+}
+
+void UWorldMenuMainWidget::SetPlayerOneExpBar()
+{
+	PlayerOneExpBar->SetPercent(MainGameInstance->PlayerOneCurrentExp / MainGameInstance->PlayerOneExpToLevel);
 }

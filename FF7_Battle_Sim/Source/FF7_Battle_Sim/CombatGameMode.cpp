@@ -16,13 +16,17 @@ void ACombatGameMode::SetCombatCharacter(ACombatPlayerCharacter* inCombatPlayerC
 	CombatPlayerCharacter = inCombatPlayerCharacter;
 }
 
-void ACombatGameMode::SetCurrentEnemiesAlive(int32 AmountChange)
+void ACombatGameMode::SetupEnemyAttributes(int32 AmountChange, int32 inExp)
 {
 	CurrentEnemies = CurrentEnemies + AmountChange;
+	ExpToAward += inExp;
+
+	UE_LOG(LogTemp, Warning, TEXT("Exp: %i"), ExpToAward)
 	if (CurrentEnemies == 0)
 	{
 		CombatPlayerCharacter->bCombatFinished = true;
 		GetWorldTimerManager().SetTimer(CloseCombatTimer, this, &ACombatGameMode::CountDownCombatCounter, 1.f, true, 0.f);
+		MainGameInstance->CalculatePlayerExp(ExpToAward);
 	}
 }
 

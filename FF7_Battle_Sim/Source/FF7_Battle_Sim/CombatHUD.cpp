@@ -39,9 +39,7 @@ void ACombatHUD::SetATB_Component(UATB_Component* inComponent)
 
 void ACombatHUD::SearchForReferences()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Looking..."))
-
-	if (CombatPlayerCharacter && ATB_Component){bReferencesReady = true; UE_LOG(LogTemp, Warning, TEXT("All Good!")) GetWorld()->GetTimerManager().ClearTimer(ReferenceSearchTimer);}
+	if (CombatPlayerCharacter && ATB_Component){bReferencesReady = true; GetWorld()->GetTimerManager().ClearTimer(ReferenceSearchTimer);}
 }
 
 void ACombatHUD::CreateCombatStatusWidget()

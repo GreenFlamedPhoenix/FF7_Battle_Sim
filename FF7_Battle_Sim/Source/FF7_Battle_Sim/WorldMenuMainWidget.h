@@ -88,6 +88,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* SecondsPlayed;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* PlayerOneCurrentExp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* PlayerOneExpToLevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* PlayerOneLevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UProgressBar* PlayerOneExpBar;
+
 
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerIcon();
@@ -106,4 +118,13 @@ public:
 
 	UFUNCTION()
 	void UpdatePlayedTime(int32 inDays, int32 inHours, int32 inMinutes, int32 inSeconds);
+
+	UFUNCTION()
+	void SetPlayerOneExp();
+
+	UFUNCTION()
+	void SetPlayerOneLevel();
+
+	UFUNCTION()
+	void SetPlayerOneExpBar();
 };

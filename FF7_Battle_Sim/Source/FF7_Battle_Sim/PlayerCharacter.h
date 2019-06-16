@@ -41,6 +41,4 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bAbleToSave;
-
-	
 };

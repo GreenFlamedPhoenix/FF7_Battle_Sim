@@ -25,7 +25,6 @@ void UATB_Component::CalculateATB_FillSpeed(int32 inDexterity, int32 inStatusMul
 {
 	FString Owner = this->GetOwner()->GetName();
 	ATB_FillSpeed = ((inDexterity+200)*.001f/inStatusMultiplier);
-	UE_LOG(LogTemp, Warning, TEXT("%s Speed: %f"), *Owner, ATB_FillSpeed);
 }
 
 void UATB_Component::DetermineATB_InitialFill(bool bIsPlayer)
