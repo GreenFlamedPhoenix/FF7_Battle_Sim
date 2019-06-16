@@ -25,19 +25,32 @@ public:
 	UPROPERTY()
 	UATB_Component* ATB_Component;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CurrentHP = 200;
-	UPROPERTY()
-	int32 MaxHP = 200;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CurrentMP = 50;
-	UPROPERTY()
-	int32 MaxMP = 50;
-
-	UPROPERTY()
-	int32 Dexterity = 15000;
-
 	UFUNCTION()
 	void ReadyForAction();
+
+	UPROPERTY()
+	bool bReadyForAction;
+
+	//////////////////////////////
+	//	Stats
+	//	Base stats
+	//////////////////////////////
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 MyLevel = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+	int32 CurrentHP = 200;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+	int32 MaxHP = 200;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+	int32 CurrentMP = 50;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+	int32 MaxMP = 50;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+	int32 Dexterity = 13;
 };

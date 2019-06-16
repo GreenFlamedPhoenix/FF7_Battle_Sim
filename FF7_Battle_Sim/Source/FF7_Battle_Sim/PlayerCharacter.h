@@ -10,6 +10,7 @@ class APlayerCharacterController;
 class UMainGameInstance;
 class UTexture2D;
 class UWorldMenuMainWidget;
+class UATB_Component;
 
 UCLASS()
 class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
@@ -18,6 +19,8 @@ class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
 
 public:
 	APlayerCharacter();
+
+	
 
 	virtual void BeginPlay() override;
 	
@@ -38,4 +41,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bAbleToSave;
+
+	
 };

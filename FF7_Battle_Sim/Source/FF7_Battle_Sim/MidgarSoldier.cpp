@@ -67,8 +67,8 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 			CombatGameMode->SetCurrentEnemiesAlive(-1);
 			EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 		}
+		CombatCharacter->ATB_Component->ResetATB();
 
-		CombatController->ResetActionTimer();
 		ActionMenuWidget->bAttemptingAttack = false;
 	}
 }

@@ -58,14 +58,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FTimerHandle ActionCountTimer;
 
-	//Function called by our timer that actually controls the functionality of managing the ATB.
-	UFUNCTION()
-	void CountUpActionTimer();
-
-	//Function that resets everything for our ATB. Sets CurrentActionTimer and un-pauses the timer.
-	UFUNCTION()
-	void ResetActionTimer();
-
 	//Event triggered when our CurrentActionTimer hits max, meaning we are ready for our action.
 	UPROPERTY(BlueprintAssignable)
 	FATB_Ready ATB_Ready;

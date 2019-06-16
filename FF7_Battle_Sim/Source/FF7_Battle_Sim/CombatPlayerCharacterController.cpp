@@ -11,10 +11,6 @@ void ACombatPlayerCharacterController::BeginPlay()
 
 	this->SetInputMode(FInputModeGameAndUI());
 	this->bShowMouseCursor = true;
-
-	GetWorld()->GetTimerManager().SetTimer(ActionCountTimer, this, &ACombatPlayerCharacterController::CountUpActionTimer, .10f, true, 0.f);
-
-	
 }
 
 void ACombatPlayerCharacterController::SetEnemyBaseReference(AEnemyBase* EnemyBase)
@@ -22,23 +18,3 @@ void ACombatPlayerCharacterController::SetEnemyBaseReference(AEnemyBase* EnemyBa
 
 void ACombatPlayerCharacterController::SetActionMenuWidget(UActionMenuWidget* Widget)
 {ActionMenuWidget = Widget;}
-
-void ACombatPlayerCharacterController::CountUpActionTimer()
-{
-	if (CurrentActionTimer < MaxActionTimer)
-	{
-		CurrentActionTimer += .5f;
-	}
-	else
-	{
-		ActionMenuWidget->SetWidgetVisibility(true);
-		GetWorldTimerManager().PauseTimer(ActionCountTimer);
-		ATB_Ready.Broadcast();
-	}
-}
-
-void ACombatPlayerCharacterController::ResetActionTimer()
-{
-	CurrentActionTimer = 0.f;
-	GetWorldTimerManager().UnPauseTimer(ActionCountTimer);
-}

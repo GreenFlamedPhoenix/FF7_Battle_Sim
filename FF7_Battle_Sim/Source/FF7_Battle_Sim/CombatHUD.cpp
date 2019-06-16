@@ -2,6 +2,9 @@
 
 
 #include "CombatHUD.h"
+#include "CombatPlayerCharacter.h"
+#include "ATB_Component.h"
+#include "Kismet/GameplayStatics.h"
 
 void ACombatHUD::BeginPlay()
 {
@@ -15,6 +18,8 @@ void ACombatHUD::BeginPlay()
 
 	if (ActionMenuWidgetClass){CreateActionMenuWidget();}
 	else{UE_LOG(LogTemp, Error, TEXT("Issue with ActionMenuWidgetClass"));}
+
+	GetWorld()->GetTimerManager().SetTimer(ReferenceSearchTimer, this, &ACombatHUD::SearchForReferences, 0.1f, true, 0.f);
 }
 
 void ACombatHUD::DrawHUD()
@@ -22,10 +27,28 @@ void ACombatHUD::DrawHUD()
 	Super::DrawHUD();
 }
 
+void ACombatHUD::SetPlayerCharacter(ACombatPlayerCharacter* inCharacter)
+{
+	CombatPlayerCharacter = inCharacter;
+}
+
+void ACombatHUD::SetATB_Component(UATB_Component* inComponent)
+{
+	ATB_Component = inComponent;
+}
+
+void ACombatHUD::SearchForReferences()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Looking..."))
+
+	if (CombatPlayerCharacter && ATB_Component){bReferencesReady = true; UE_LOG(LogTemp, Warning, TEXT("All Good!")) GetWorld()->GetTimerManager().ClearTimer(ReferenceSearchTimer);}
+}
+
 void ACombatHUD::CreateCombatStatusWidget()
 {
 	CombatStatusWidget = CreateWidget<UCombatStatusWidget>(GetWorld(), CombatStatusWidgetClass);
 	CombatStatusWidget->AddToViewport(0);
+	CombatStatusWidget->SetHUD_Reference(this);
 }
 
 void ACombatHUD::CreateEnemyInfoWidget()

@@ -9,9 +9,8 @@
 class ACombatPlayerCharacterController;
 class AEnemyBase;
 class ACombatGameMode;
-
-//TODO Continue work on MoveTo for attacking.
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMoveToAttack, AEnemyBase*, AttackTarget);
+class UATB_Component;
+class ACombatHUD;
 
 UCLASS()
 class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter
@@ -21,19 +20,24 @@ class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter
 public:
 	ACombatPlayerCharacter();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UATB_Component* ATB_Component;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+	int32 Dexterity = 28;
+
+	UFUNCTION()
+	void ReadyForAction();
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ACombatGameMode* CombatGameMode;
 
-
-	UPROPERTY(BlueprintAssignable)
-	FMoveToAttack MoveToAttack;
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void MoveToAttack_Implementation(AEnemyBase* AttackTarget);
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bCombatFinished;
+
+	UPROPERTY()
+	ACombatHUD* CombatHUD;
 };

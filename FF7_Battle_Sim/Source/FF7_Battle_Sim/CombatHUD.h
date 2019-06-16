@@ -8,12 +8,12 @@
 #include "CombatStatusWidget.h"
 #include "EnemyInfoWidget.h"
 #include "ActionMenuWidget.h"
-#include <SubclassOf.h>
-#include <UserWidget.h>
 #include "CombatHUD.generated.h"
 class UCombatStatusWidget;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
+class ACombatPlayerCharacter;
+class UATB_Component;
 
 /**
  * 
@@ -54,4 +54,25 @@ public:
 	
 	UFUNCTION()
 	void CreateActionMenuWidget();
+
+	UPROPERTY()
+	ACombatPlayerCharacter* CombatPlayerCharacter;
+
+	UPROPERTY()
+	FTimerHandle ReferenceSearchTimer;
+
+	UFUNCTION()
+	void SearchForReferences();
+
+	UPROPERTY()
+	UATB_Component* ATB_Component;
+
+	UFUNCTION()
+	void SetPlayerCharacter(ACombatPlayerCharacter* inCharacter);
+
+	UFUNCTION()
+	void SetATB_Component(UATB_Component* inComponent);
+
+	UPROPERTY()
+	bool bReferencesReady;
 };

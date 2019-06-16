@@ -7,7 +7,9 @@
 #include "Runtime\UMG\Public\UMG.h"
 #include "CombatStatusWidget.generated.h"
 class ACombatHUD;
-class ACombatPlayerCharacterController;
+class ACombatPlayerCharacter;
+class UATB_Component;
+class ACombatHUD;
 
 class UCanvasPanel;
 class UTextBlock;
@@ -25,8 +27,13 @@ class FF7_BATTLE_SIM_API UCombatStatusWidget : public UUserWidget
 public:
 	UCombatStatusWidget(const FObjectInitializer& ObjectInitializer);
 
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ACombatPlayerCharacter* CombatCharacter;
+
 	UPROPERTY()
-	ACombatPlayerCharacterController* CombatController;
+	UATB_Component* ATB_Component;
 
 	virtual void NativeConstruct() override;
 
@@ -35,10 +42,16 @@ public:
 	void SetCurrentMP(int32 CurrentMP);
 
 	UFUNCTION(BlueprintCallable)
-	float ATB_TimeBarFill();
+	void ATB_TimeBarFill();
 
 	UFUNCTION(BlueprintCallable)
 	FLinearColor ATB_TimeBarTint();
+
+	UFUNCTION()
+	void SetHUD_Reference(ACombatHUD* inHUD);
+
+	UPROPERTY()
+	ACombatHUD* CombatHUD;
 
 	//*The decorative pieces of our widget.
 	//The main canvas panel that holds everything else.
