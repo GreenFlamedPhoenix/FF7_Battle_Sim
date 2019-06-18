@@ -77,16 +77,34 @@ public:
 	UButton* SaveButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* DaysPlayed;
+	UTextBlock* DaysPlayedOne;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* HoursPlayed;
+	UTextBlock* DaysPlayedTwo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* MinutesPlayed;
+	UTextBlock* DaysPlayedThree;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	UTextBlock* SecondsPlayed;
+	UTextBlock* DaysPlayedFour;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* HoursPlayedOne;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* HoursPlayedTwo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* MinutesPlayedOne;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* MinutesPlayedTwo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* SecondsPlayedOne;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* SecondsPlayedTwo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* PlayerOneCurrentExp;
@@ -117,7 +135,7 @@ public:
 	void OpenSaveScreen();
 
 	UFUNCTION()
-	void UpdatePlayedTime(int32 inDays, int32 inHours, int32 inMinutes, int32 inSeconds);
+	void UpdatePlayedTime(int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo);
 
 	UFUNCTION()
 	void SetPlayerOneExp();

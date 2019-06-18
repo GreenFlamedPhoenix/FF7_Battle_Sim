@@ -3,11 +3,13 @@
 
 #include "SaveMenuWidget.h"
 #include "WorldMenuHUD.h"
+#include "Button.h"
 
 void USaveMenuWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
+	BackButton->OnClicked.AddDynamic(this, &USaveMenuWidget::ExitSaveMenu);
 }
 
 void USaveMenuWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
@@ -15,29 +17,7 @@ void USaveMenuWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
 	WorldMenuHUD = inWorldMenuHUD;
 }
 
-/*
-void USaveMenuWidget::SaveToSlot1()
+void USaveMenuWidget::ExitSaveMenu()
 {
-
+	this->RemoveFromViewport();
 }
-
-void USaveMenuWidget::SaveToSlot2()
-{
-
-}
-
-void USaveMenuWidget::SaveToSlot3()
-{
-
-}
-
-void USaveMenuWidget::SaveToSlot4()
-{
-
-}
-
-void USaveMenuWidget::SaveToSlot5()
-{
-
-}
-*/

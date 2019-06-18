@@ -80,12 +80,18 @@ void UWorldMenuMainWidget::OpenSaveScreen()
 	WorldMenuHUD->OpenSaveMenu();
 }
 
-void UWorldMenuMainWidget::UpdatePlayedTime(int32 inDays, int32 inHours, int32 inMinutes, int32 inSeconds)
+void UWorldMenuMainWidget::UpdatePlayedTime(int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo)
 {
-	DaysPlayed->SetText(FText::FromString(FString::FromInt(inDays)));
-	HoursPlayed->SetText(FText::FromString(FString::FromInt(inHours)));
-	MinutesPlayed->SetText(FText::FromString(FString::FromInt(inMinutes)));
-	SecondsPlayed->SetText(FText::FromString(FString::FromInt(inSeconds)));
+	DaysPlayedOne->SetText(FText::FromString(FString::FromInt(inDaysOne)));
+	DaysPlayedTwo->SetText(FText::FromString(FString::FromInt(inDaysTwo)));
+	DaysPlayedThree->SetText(FText::FromString(FString::FromInt(inDaysThree)));
+	DaysPlayedFour->SetText(FText::FromString(FString::FromInt(inDaysFour)));
+	HoursPlayedOne->SetText(FText::FromString(FString::FromInt(inHoursOne)));
+	HoursPlayedTwo->SetText(FText::FromString(FString::FromInt(inHoursTwo)));
+	MinutesPlayedOne->SetText(FText::FromString(FString::FromInt(inMinutesOne)));
+	MinutesPlayedTwo->SetText(FText::FromString(FString::FromInt(inMinutesTwo)));
+	SecondsPlayedOne->SetText(FText::FromString(FString::FromInt(inSecondsOne)));
+	SecondsPlayedTwo->SetText(FText::FromString(FString::FromInt(inSecondsTwo)));
 }
 
 void UWorldMenuMainWidget::SetPlayerOneExp()

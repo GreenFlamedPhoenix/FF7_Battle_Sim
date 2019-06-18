@@ -157,16 +157,34 @@ public:
 	FTimerHandle GameTimeCounter;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int32 SecondsPlayed;
+	int32 SecondsPlayedOne;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int32 MinutesPlayed;
+	int32 SecondsPlayedTwo;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int32 HoursPlayed;
+	int32 MinutesPlayedOne;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int32 DaysPlayed;
+	int32 MinutesPlayedTwo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 HoursPlayedOne;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 HoursPlayedTwo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 DaysPlayedOne;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 DaysPlayedTwo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 DaysPlayedThree;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 DaysPlayedFour;
 
 	UFUNCTION()
 	void CountUpPlayedTimer();
@@ -195,6 +213,6 @@ public:
 	UFUNCTION()
 	void LevelUp();
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 PlayerOneLevel = 1;
 };
