@@ -11,6 +11,7 @@ class UMainGameInstance;
 class UTexture2D;
 class UWorldMenuMainWidget;
 class UATB_Component;
+class AWorldMenuHUD;
 
 UCLASS()
 class FF7_BATTLE_SIM_API APlayerCharacter : public ACharacter
@@ -41,4 +42,28 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bAbleToSave;
+
+	UPROPERTY()
+	int32 PlayerStrength = 1;
+
+	UPROPERTY()
+	int32 PlayerDexterity = 1;
+
+	UPROPERTY()
+	int32 PlayerVitality = 1;
+
+	UPROPERTY()
+	int32 PlayerMagic = 1;
+
+	UPROPERTY()
+	int32 PlayerSpirit = 1;
+
+	UPROPERTY()
+	int32 PlayerLuck = 1;
+
+	UFUNCTION()
+	void SetStats();
+
+	UPROPERTY()
+	AWorldMenuHUD* WorldMenuHUD;
 };

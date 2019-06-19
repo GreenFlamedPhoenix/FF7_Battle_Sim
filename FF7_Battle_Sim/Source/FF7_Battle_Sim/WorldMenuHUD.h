@@ -9,6 +9,7 @@ class UWorldMenuMainWidget;
 class USaveMenuWidget;
 class APlayerCharacterController;
 class UMainGameInstance;
+class UPlayerStatusWidget;
 
 /**
  * 
@@ -33,15 +34,24 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> SaveMenuClass;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> PlayerStatusClass;
+
 	UPROPERTY()
 	UWorldMenuMainWidget* WorldMainMenuWidget;
 
 	UPROPERTY()
 	USaveMenuWidget* SaveMenuWidget;
 
+	UPROPERTY()
+	UPlayerStatusWidget* PlayerStatusWidget;
+
 	UFUNCTION()
 	void ToggleMainMenuWidget();
 
 	UFUNCTION()
 	void OpenSaveMenu();
+
+	UFUNCTION()
+	void OpenStatusMenu();
 };

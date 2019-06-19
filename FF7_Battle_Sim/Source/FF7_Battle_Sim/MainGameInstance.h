@@ -11,6 +11,7 @@ class ACameraActor;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
 class UWorldMenuMainWidget;
+class UPlayerStatusWidget;
 
 /*Event to broadcast when combat triggers.*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
@@ -76,6 +77,12 @@ public:
 
 	UPROPERTY()
 	UWorldMenuMainWidget* WorldMainMenuWidget;
+
+	UPROPERTY()
+	UPlayerStatusWidget* PlayerStatusWidget;
+
+	UFUNCTION()
+	void SetPlayerStatusWidget(UPlayerStatusWidget* inWidget);
 
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterReference(APlayerCharacter* inPlayerCharacter);
@@ -145,7 +152,7 @@ public:
 	int32 CharacterOneCurrentHP = 140;
 
 	UPROPERTY()
-	int32 CharacterOneMaxHP = 140;
+	int32 MaxHP = 140;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 CharacterOneCurrentMP = 40;
@@ -215,4 +222,22 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 PlayerOneLevel = 1;
+
+	UPROPERTY()
+	int32 GI_PlayerStrength = 1;
+
+	UPROPERTY()
+	int32 GI_PlayerDexterity = 1;
+
+	UPROPERTY()
+	int32 GI_PlayerVitality = 1;
+
+	UPROPERTY()
+	int32 GI_PlayerMagic = 1;
+
+	UPROPERTY()
+	int32 GI_PlayerSpirit = 1;
+
+	UPROPERTY()
+	int32 GI_PlayerLuck = 1;
 };

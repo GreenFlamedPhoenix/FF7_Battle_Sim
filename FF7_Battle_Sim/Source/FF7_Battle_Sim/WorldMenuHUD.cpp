@@ -6,6 +6,7 @@
 #include "PlayerCharacterController.h"
 #include "MainGameInstance.h"
 #include "SaveMenuWidget.h"
+#include "PlayerStatusWidget.h"
 #include "Kismet/GameplayStatics.h"
 
 void AWorldMenuHUD::BeginPlay()
@@ -14,8 +15,12 @@ void AWorldMenuHUD::BeginPlay()
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (WorldMainMenuClass){WorldMainMenuWidget = CreateWidget<UWorldMenuMainWidget>(GetWorld(), WorldMainMenuClass);}
 	if (WorldMainMenuWidget){WorldMainMenuWidget->SetWorldMenuHUD(this);}
+
 	if (SaveMenuClass){SaveMenuWidget = CreateWidget<USaveMenuWidget>(GetWorld(), SaveMenuClass);}
 	if (SaveMenuWidget){SaveMenuWidget->SetWorldMenuHUD(this);}
+
+	if (PlayerStatusClass) {PlayerStatusWidget = CreateWidget<UPlayerStatusWidget>(GetWorld(), PlayerStatusClass);}
+	if (PlayerStatusWidget) {PlayerStatusWidget->SetWorldMenuHUD(this);}
 }
 
 void AWorldMenuHUD::ToggleMainMenuWidget()
@@ -35,7 +40,7 @@ void AWorldMenuHUD::ToggleMainMenuWidget()
 			PlayerCharacterController->SetInputMode(FInputModeGameAndUI());
 			PlayerCharacterController->bShowMouseCursor = true;
 			PlayerCharacterController->SetIgnoreMoveInput(true);
-			WorldMainMenuWidget->SetCharacterOneStats(MainGameInstance->CharacterOneCurrentHP, MainGameInstance->CharacterOneMaxHP, MainGameInstance->CharacterOneCurrentMP, MainGameInstance->CharacterOneMaxMP);
+			WorldMainMenuWidget->SetCharacterOneStats(MainGameInstance->CharacterOneCurrentHP, MainGameInstance->MaxHP, MainGameInstance->CharacterOneCurrentMP, MainGameInstance->CharacterOneMaxMP);
 		}
 
 	}
@@ -50,5 +55,13 @@ void AWorldMenuHUD::OpenSaveMenu()
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Issues with save menu"))
+	}
+}
+
+void AWorldMenuHUD::OpenStatusMenu()
+{
+	if (PlayerStatusWidget)
+	{
+		PlayerStatusWidget->AddToViewport();
 	}
 }

@@ -56,10 +56,11 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 		OnDeathEvent.Broadcast();
 		CombatGameMode->SetupEnemyAttributes(-1, 0);
 		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+		CombatCharacter->ATB_Component->ResetATB();
 	}
 }
 
 void AMidgarCommander::ReadyForAction()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Commander ready!"))
+	//UE_LOG(LogTemp, Warning, TEXT("Commander ready!"))
 }

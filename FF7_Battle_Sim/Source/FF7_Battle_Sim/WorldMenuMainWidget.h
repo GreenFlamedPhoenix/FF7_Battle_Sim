@@ -118,6 +118,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UProgressBar* PlayerOneExpBar;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UButton* StatusButton;
+
 
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerIcon();
@@ -145,4 +148,10 @@ public:
 
 	UFUNCTION()
 	void SetPlayerOneExpBar();
+
+	UFUNCTION()
+	void OpenStatusMenu();
+
+	UFUNCTION()
+	void SetHP_MP_Bars();
 };

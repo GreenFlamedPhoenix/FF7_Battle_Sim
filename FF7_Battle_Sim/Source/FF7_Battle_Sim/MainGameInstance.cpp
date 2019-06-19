@@ -9,6 +9,7 @@
 #include "EnemyInfoWidget.h"
 #include "ActionMenuWidget.h"
 #include "WorldMenuMainWidget.h"
+#include "PlayerStatusWidget.h"
 
 void UMainGameInstance::Init()
 {
@@ -83,6 +84,11 @@ void UMainGameInstance::CalculatePlayerExp(int32 inAwardedExp)
 	{
 		LevelUp();
 	}
+}
+
+void UMainGameInstance::SetPlayerStatusWidget(UPlayerStatusWidget* inWidget)
+{
+
 }
 
 void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
@@ -178,4 +184,24 @@ void UMainGameInstance::LevelUp()
 		PlayerOneLevel += 1;
 		PlayerOneCurrentExp = PlayerOneCurrentExp - PlayerOneExpToLevel;
 		PlayerOneExpToLevel = PlayerOneExpToLevel + (PlayerOneExpToLevel / 2 * 1.25);
+
+		GI_PlayerStrength += FMath::RandRange(1, 3);
+		GI_PlayerDexterity += FMath::RandRange(1, 3);
+		GI_PlayerVitality += FMath::RandRange(1, 3);
+		GI_PlayerMagic += FMath::RandRange(1, 3);
+		GI_PlayerSpirit += FMath::RandRange(1, 3);
+		GI_PlayerLuck += FMath::RandRange(1, 3);
+
+		float LowestIncrease = MaxHP / 10;
+		float HighestIncrease = MaxHP / 8;
+
+		float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
+
+		MaxHP += FMath::FloorToInt(RoughIncreaseAmount);
+		UE_LOG(LogTemp, Warning, TEXT("New Max HP %i"), MaxHP);
+
+		if (PlayerOneCurrentExp > PlayerOneExpToLevel)
+		{
+			LevelUp();
+		}
 }

@@ -5,6 +5,7 @@
 #include "MasterWorldMap.h"
 #include "PlayerCharacter.h"
 #include "WorldMenuHUD.h"
+#include "PlayerStatusWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "MainGameInstance.h"
 #include "TextBlock.h"
@@ -19,6 +20,7 @@ void UWorldMenuMainWidget::NativeOnInitialized()
 	MainGameInstance->SetWorldMenuMainWidget(this);
 	GetWorld()->GetTimerManager().SetTimer(SearchCharacterTimer, this, &UWorldMenuMainWidget::FindMyCharacter, 0.5f, true, 0.f);
 	SaveButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenSaveScreen);
+	StatusButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenStatusMenu);
 	SetPlayerOneExp();
 	SetPlayerOneLevel();
 	SetPlayerOneExpBar();
@@ -59,8 +61,22 @@ void UWorldMenuMainWidget::SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP
 	MaxHP->SetText(FText::FromString(FString::FromInt(inMaxHP)));
 	CurrentMP->SetText(FText::FromString(FString::FromInt(inCurrentMP)));
 	MaxMP->SetText(FText::FromString(FString::FromInt(inMaxMP)));
-	CharacterOneHP_ProgressBar->SetPercent(inCurrentHP / inMaxHP);
-	CharacterOneMP_ProgressBar->SetPercent(inCurrentMP / inMaxMP);
+
+	SetHP_MP_Bars();
+}
+
+void UWorldMenuMainWidget::SetHP_MP_Bars()
+{
+	float CurrentHP = MainGameInstance->CharacterOneCurrentHP;
+	float MaxHP = MainGameInstance->MaxHP;
+	float CurrentMP = MainGameInstance->CharacterOneCurrentMP;
+	float MaxMP = MainGameInstance->CharacterOneMaxMP;
+
+	float HP_Percent = CurrentHP / MaxHP;
+	float MP_Percentage = CurrentMP  / MaxMP;
+
+	CharacterOneHP_ProgressBar->SetPercent(HP_Percent);
+	CharacterOneMP_ProgressBar->SetPercent(MP_Percentage);
 }
 
 void UWorldMenuMainWidget::SetSaveEnabled(bool inbAbleToSave)
@@ -78,6 +94,11 @@ void UWorldMenuMainWidget::SetSaveEnabled(bool inbAbleToSave)
 void UWorldMenuMainWidget::OpenSaveScreen()
 {
 	WorldMenuHUD->OpenSaveMenu();
+}
+
+void UWorldMenuMainWidget::OpenStatusMenu()
+{
+	WorldMenuHUD->OpenStatusMenu();
 }
 
 void UWorldMenuMainWidget::UpdatePlayedTime(int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo)
@@ -107,5 +128,10 @@ void UWorldMenuMainWidget::SetPlayerOneLevel()
 
 void UWorldMenuMainWidget::SetPlayerOneExpBar()
 {
-	PlayerOneExpBar->SetPercent(MainGameInstance->PlayerOneCurrentExp / MainGameInstance->PlayerOneExpToLevel);
+	float CurrentExp = MainGameInstance->PlayerOneCurrentExp;
+	float ExpToLevel = MainGameInstance->PlayerOneExpToLevel;
+
+	float FillPercent = CurrentExp / ExpToLevel;
+	UE_LOG(LogTemp, Warning, TEXT("Exp percentage %f"), FillPercent)
+	PlayerOneExpBar->SetPercent(FillPercent);
 }
