@@ -34,4 +34,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UMainGameInstance* MainGameInstance;
+
+	UFUNCTION()
+	void OpenLoadMenu();
 };

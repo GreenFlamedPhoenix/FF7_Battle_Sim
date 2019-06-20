@@ -41,6 +41,7 @@ void AWorldMenuHUD::ToggleMainMenuWidget()
 			PlayerCharacterController->bShowMouseCursor = true;
 			PlayerCharacterController->SetIgnoreMoveInput(true);
 			WorldMainMenuWidget->SetCharacterOneStats(MainGameInstance->CharacterOneCurrentHP, MainGameInstance->MaxHP, MainGameInstance->CharacterOneCurrentMP, MainGameInstance->CharacterOneMaxMP);
+			WorldMainMenuWidget->MenuOpened();
 		}
 
 	}

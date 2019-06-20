@@ -18,13 +18,22 @@ public:
 	UMySaveGame();
 
 	UFUNCTION(BlueprintCallable)
-	void SaveGame(FString inSlotName, int32 inCharacterLevel, int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo);
+	void SaveGame(FString inSlotName, FName inMapName, FTransform PlayerTransform, int32 inCharacterLevel, TMap<FString, int32> inMap, int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo);
 
 	UFUNCTION(BlueprintCallable)
 	void LoadGame(FString InSlotName);
 
 	UPROPERTY()
 	FString SavedSlotName;
+
+	UPROPERTY()
+	FName SavedMap;
+
+	UPROPERTY()
+	FTransform SavedPlayerTransform;
+
+	UPROPERTY()
+	TMap<FString, int32> SavedCharacterMap;
 
 	UPROPERTY()
 	int32 SavedDaysPlayedOne;
@@ -91,5 +100,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 LoadedCharacterLevel;
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TMap<FString, int32> LoadedCharacterMap;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FTransform LoadedPlayerTransform;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FName LoadedMap;
 };

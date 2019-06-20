@@ -8,6 +8,7 @@
 #include "PlayerStatusWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "MainGameInstance.h"
+#include "PlayerCharacter.h"
 #include "TextBlock.h"
 #include "Image.h"
 #include "ProgressBar.h"
@@ -21,6 +22,10 @@ void UWorldMenuMainWidget::NativeOnInitialized()
 	GetWorld()->GetTimerManager().SetTimer(SearchCharacterTimer, this, &UWorldMenuMainWidget::FindMyCharacter, 0.5f, true, 0.f);
 	SaveButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenSaveScreen);
 	StatusButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenStatusMenu);
+}
+
+void UWorldMenuMainWidget::MenuOpened()
+{
 	SetPlayerOneExp();
 	SetPlayerOneLevel();
 	SetPlayerOneExpBar();
@@ -123,7 +128,7 @@ void UWorldMenuMainWidget::SetPlayerOneExp()
 
 void UWorldMenuMainWidget::SetPlayerOneLevel()
 {
-	PlayerOneLevel->SetText(FText::FromString(FString::FromInt(MainGameInstance->PlayerOneLevel)));
+	PlayerOneLevel->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Level"))));
 }
 
 void UWorldMenuMainWidget::SetPlayerOneExpBar()

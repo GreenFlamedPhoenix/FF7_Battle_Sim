@@ -30,6 +30,7 @@ enum class EMapTransitionEnum : uint8
 {
 	InitialSpawn			UMETA(DisplayName = "InitialSpawn"),
 	SpawnFromCombat			UMETA(DisplayName = "SpawnFromCombat"),
+	SpawnFromLoad			UMETA(DisplayName = "SpawnFromLoad"),
 	SpawnTo1				UMETA(DisplayName = "SpawnTo1"),
 	SpawnTo2				UMETA(DisplayName = "SpawnTo2"),
 	SpawnTo3				UMETA(DisplayName = "SpawnTo3"),
@@ -163,34 +164,34 @@ public:
 	UPROPERTY()
 	FTimerHandle GameTimeCounter;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 SecondsPlayedOne;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 SecondsPlayedTwo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 MinutesPlayedOne;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 MinutesPlayedTwo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 HoursPlayedOne;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 HoursPlayedTwo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 DaysPlayedOne;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 DaysPlayedTwo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 DaysPlayedThree;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 DaysPlayedFour;
 
 	UFUNCTION()
@@ -241,6 +242,9 @@ public:
 	UPROPERTY()
 	int32 GI_PlayerLuck = 1;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TMap<FString, int32> MGI_StatMap;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FTransform LoadedPlayerTransform;
 };

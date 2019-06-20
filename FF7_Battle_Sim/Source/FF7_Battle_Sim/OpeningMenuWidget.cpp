@@ -14,11 +14,17 @@ void UOpeningMenuWidget::NativeOnInitialized()
 	Super::NativeOnInitialized();
 
 	QuitButton->OnClicked.AddDynamic(this, &UOpeningMenuWidget::QuitButtonClicked);
+	ContinueButton->OnClicked.AddDynamic(this, &UOpeningMenuWidget::ContinueButtonClicked);
 }
 
 void UOpeningMenuWidget::SetOpeningMenuHUD(AOpeningMenuHUD* inHUD)
 {
 	OpeningMenuHUD = inHUD;
+}
+
+void UOpeningMenuWidget::ContinueButtonClicked()
+{
+	OpeningMenuHUD->OpenLoadMenu();
 }
 
 void UOpeningMenuWidget::QuitButtonClicked()

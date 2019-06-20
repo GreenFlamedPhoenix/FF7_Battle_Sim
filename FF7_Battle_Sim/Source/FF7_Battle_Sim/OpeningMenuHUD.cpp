@@ -17,3 +17,8 @@ void AOpeningMenuHUD::BeginPlay()
 
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 }
+
+void AOpeningMenuHUD::OpenLoadMenu()
+{
+	LoadGameWidget->AddToViewport();
+}

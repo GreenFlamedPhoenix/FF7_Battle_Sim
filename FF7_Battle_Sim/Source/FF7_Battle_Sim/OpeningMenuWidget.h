@@ -32,6 +32,9 @@ public:
 	UButton* QuitButton;
 
 	UFUNCTION()
+	void ContinueButtonClicked();
+
+	UFUNCTION()
 	void QuitButtonClicked();
 	
 };

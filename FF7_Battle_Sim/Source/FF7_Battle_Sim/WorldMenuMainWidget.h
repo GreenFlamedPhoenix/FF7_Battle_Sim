@@ -154,4 +154,7 @@ public:
 
 	UFUNCTION()
 	void SetHP_MP_Bars();
+
+	UFUNCTION()
+	void MenuOpened();
 };

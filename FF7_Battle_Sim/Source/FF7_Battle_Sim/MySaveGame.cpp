@@ -10,11 +10,14 @@ UMySaveGame::UMySaveGame()
 
 }
 
-void UMySaveGame::SaveGame(FString inSlotName, int32 inCharacterLevel, int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo)
+void UMySaveGame::SaveGame(FString inSlotName, FName inMapName, FTransform PlayerTransform, int32 inCharacterLevel, TMap<FString, int32> inMap, int32 inDaysOne, int32 inDaysTwo, int32 inDaysThree, int32 inDaysFour, int32 inHoursOne, int32 inHoursTwo, int32 inMinutesOne, int32 inMinutesTwo, int32 inSecondsOne, int32 inSecondsTwo)
 {
 	UMySaveGame* SaveGameInstance = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
 	SaveGameInstance->SavedSlotName = inSlotName;
+	SaveGameInstance->SavedMap = inMapName;
+	SaveGameInstance->SavedPlayerTransform = PlayerTransform;
 	SaveGameInstance->SavedCharacterLevel = inCharacterLevel;
+	SaveGameInstance->SavedCharacterMap = inMap;
 	SaveGameInstance->SavedDaysPlayedOne = inDaysOne;
 	SaveGameInstance->SavedDaysPlayedTwo = inDaysTwo;
 	SaveGameInstance->SavedDaysPlayedThree = inDaysThree;
@@ -32,6 +35,9 @@ void UMySaveGame::LoadGame(FString inSlotName)
 {
 	UMySaveGame* LoadGameInstance = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
 	LoadGameInstance = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(inSlotName, 0));
+	LoadedMap = LoadGameInstance->SavedMap;
+	LoadedPlayerTransform = LoadGameInstance->SavedPlayerTransform;
+	LoadedCharacterMap = LoadGameInstance->SavedCharacterMap;
 	LoadedCharacterLevel = LoadGameInstance->SavedCharacterLevel;
 	LoadedDaysPlayedOne = LoadGameInstance->SavedDaysPlayedOne;
 	LoadedDaysPlayedTwo = LoadGameInstance->SavedDaysPlayedTwo;

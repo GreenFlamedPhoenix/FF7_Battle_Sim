@@ -67,5 +67,9 @@ public:
 	UPROPERTY()
 	AWorldMenuHUD* WorldMenuHUD;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TMap<FString, int32> PC_StatMap;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FName SavingMapName;
 };

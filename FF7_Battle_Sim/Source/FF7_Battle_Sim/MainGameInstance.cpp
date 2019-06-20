@@ -183,9 +183,7 @@ void UMainGameInstance::CompleteCombat(FName SavedMapFName)
 
 void UMainGameInstance::LevelUp()
 {
-		
-
-		PlayerOneLevel += 1;
+		MGI_StatMap.Emplace("Level") = *MGI_StatMap.Find("Level") + 1;
 		PlayerOneCurrentExp = PlayerOneCurrentExp - PlayerOneExpToLevel;
 		PlayerOneExpToLevel = PlayerOneExpToLevel + (PlayerOneExpToLevel / 10);
 
