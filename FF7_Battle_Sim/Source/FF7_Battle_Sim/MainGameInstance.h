@@ -247,4 +247,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FTransform LoadedPlayerTransform;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 CureentGil = 100;
 };
