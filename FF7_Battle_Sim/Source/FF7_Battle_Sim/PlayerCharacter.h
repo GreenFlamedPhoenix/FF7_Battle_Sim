@@ -66,4 +66,6 @@ public:
 
 	UPROPERTY()
 	AWorldMenuHUD* WorldMenuHUD;
+
+	TMap<FString, int32> PC_StatMap;
 };

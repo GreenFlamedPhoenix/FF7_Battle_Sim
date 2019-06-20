@@ -26,7 +26,28 @@ void APlayerCharacter::BeginPlay()
 	CharacterController->SetPlayerCharacter(this);
 	SetStats();
 	WorldMenuHUD = Cast<AWorldMenuHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
-	WorldMenuHUD->PlayerStatusWidget->UpdateStats(PlayerStrength, PlayerDexterity, PlayerVitality, PlayerMagic, PlayerSpirit, PlayerLuck);
+	
+	WorldMenuHUD->PlayerStatusWidget->SetPlayerCharacter(this);
+
+	PC_StatMap = GameInstance->MGI_StatMap;
+	if (!PC_StatMap.Contains("CurrentHP"))
+	{
+		PC_StatMap.Add("Level", 1);
+		PC_StatMap.Add("CurrentExp", 290);
+		PC_StatMap.Add("ExpToLevel", 300);
+		PC_StatMap.Add("CurrentHP", 140);
+		PC_StatMap.Add("MaxHP", 140);
+		PC_StatMap.Add("CurrentMP", 25);
+		PC_StatMap.Add("MaxMP", 25);
+		PC_StatMap.Add("Strength", 1);
+		PC_StatMap.Add("Dexterity", 1);
+		PC_StatMap.Add("Vitality", 1);
+		PC_StatMap.Add("Magic", 1);
+		PC_StatMap.Add("Spirit", 1);
+		PC_StatMap.Add("Luck", 1);
+	}
+
+	WorldMenuHUD->PlayerStatusWidget->UpdateStats();
 }
 
 void APlayerCharacter::SetWorldMainMenuWidget(UWorldMenuMainWidget* inWidget)

@@ -7,6 +7,7 @@
 #include "PlayerStatusWidget.generated.h"
 class AWorldMenuHUD;
 class UMainGameInstance;
+class APlayerCharacter;
 class UTextBlock;
 class UButton;
 
@@ -23,6 +24,12 @@ public:
 
 	UPROPERTY()
 	UMainGameInstance* MainGameInstance;
+
+	UPROPERTY()
+	AWorldMenuHUD* WorldMenuHUD;
+
+	UPROPERTY()
+	APlayerCharacter* PlayerCharacter;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* StrengthStat;
@@ -49,7 +56,10 @@ public:
 	void SetWorldMenuHUD(AWorldMenuHUD* inHUD);
 
 	UFUNCTION()
-	void UpdateStats(int32 inStrength, int32 inDexterity, int32 inVitality, int32 inMagic, int32 inSpirit, int32 inLuck);
+	void SetPlayerCharacter(APlayerCharacter* inCharacter);
+
+	UFUNCTION()
+	void UpdateStats();
 
 	UFUNCTION()
 	void CloseMenu();

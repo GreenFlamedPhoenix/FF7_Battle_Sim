@@ -4,6 +4,7 @@
 #include "PlayerStatusWidget.h"
 #include "MainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "PlayerCharacter.h"
 #include "TextBlock.h"
 #include "Button.h"
 
@@ -15,8 +16,6 @@ void UPlayerStatusWidget::NativeOnInitialized()
 	if(MainGameInstance) {MainGameInstance->SetPlayerStatusWidget(this);}
 
 	ExitButton->OnClicked.AddDynamic(this, &UPlayerStatusWidget::CloseMenu);
-
-	UpdateStats(MainGameInstance->GI_PlayerStrength, MainGameInstance->GI_PlayerDexterity, MainGameInstance->GI_PlayerVitality, MainGameInstance->GI_PlayerMagic, MainGameInstance->GI_PlayerSpirit, MainGameInstance->GI_PlayerLuck);
 }
 
 void UPlayerStatusWidget::SetWorldMenuHUD(AWorldMenuHUD* inHUD)
@@ -24,14 +23,19 @@ void UPlayerStatusWidget::SetWorldMenuHUD(AWorldMenuHUD* inHUD)
 
 }
 
-void UPlayerStatusWidget::UpdateStats(int32 inStrength, int32 inDexterity, int32 inVitality, int32 inMagic, int32 inSpirit, int32 inLuck)
+void UPlayerStatusWidget::SetPlayerCharacter(APlayerCharacter* inCharacter)
 {
-	StrengthStat->SetText(FText::FromString(FString::FromInt(inStrength)));
-	DexterityStat->SetText(FText::FromString(FString::FromInt(inDexterity)));
-	VitalityStat->SetText(FText::FromString(FString::FromInt(inVitality)));
-	MagicStat->SetText(FText::FromString(FString::FromInt(inMagic)));
-	SpiritStat->SetText(FText::FromString(FString::FromInt(inSpirit)));
-	LuckStat->SetText(FText::FromString(FString::FromInt(inLuck)));
+	PlayerCharacter = inCharacter;
+}
+
+void UPlayerStatusWidget::UpdateStats()
+{
+	StrengthStat->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Strength"))));
+	DexterityStat->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Dexterity"))));
+	VitalityStat->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Vitality"))));
+	MagicStat->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Magic"))));
+	SpiritStat->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Spirit"))));
+	LuckStat->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("Luck"))));
 }
 
 void UPlayerStatusWidget::CloseMenu()

@@ -240,4 +240,7 @@ public:
 
 	UPROPERTY()
 	int32 GI_PlayerLuck = 1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TMap<FString, int32> MGI_StatMap;
 };

@@ -163,6 +163,8 @@ void UMainGameInstance::BeginCombat()
 	CombatChanceRoll = 0.f;
 	bCombatTriggered = true;
 
+	MGI_StatMap = ControlledCharacter->PC_StatMap;
+
 	SavedMapName = GetWorld()->GetMapName();
 	if (SavedMapName.Contains(TEXT("S1_A1_Level")))
 	{
@@ -181,19 +183,21 @@ void UMainGameInstance::CompleteCombat(FName SavedMapFName)
 
 void UMainGameInstance::LevelUp()
 {
+		
+
 		PlayerOneLevel += 1;
 		PlayerOneCurrentExp = PlayerOneCurrentExp - PlayerOneExpToLevel;
-		PlayerOneExpToLevel = PlayerOneExpToLevel + (PlayerOneExpToLevel / 2 * 1.25);
+		PlayerOneExpToLevel = PlayerOneExpToLevel + (PlayerOneExpToLevel / 10);
 
-		GI_PlayerStrength += FMath::RandRange(1, 3);
-		GI_PlayerDexterity += FMath::RandRange(1, 3);
-		GI_PlayerVitality += FMath::RandRange(1, 3);
-		GI_PlayerMagic += FMath::RandRange(1, 3);
-		GI_PlayerSpirit += FMath::RandRange(1, 3);
-		GI_PlayerLuck += FMath::RandRange(1, 3);
+		MGI_StatMap.Emplace("Strength") = MGI_StatMap.FindOrAdd("Strength") + FMath::RandRange(1, 2);
+		MGI_StatMap.Emplace("Dexterity") = MGI_StatMap.FindOrAdd("Dexterity") + FMath::RandRange(1, 2);
+		MGI_StatMap.Emplace("Vitality") = MGI_StatMap.FindOrAdd("Vitality") + FMath::RandRange(1, 2);
+		MGI_StatMap.Emplace("Magic") = MGI_StatMap.FindOrAdd("Magic") + FMath::RandRange(1, 2);
+		MGI_StatMap.Emplace("Spirit") = MGI_StatMap.FindOrAdd("Spirit") + FMath::RandRange(1, 2);
+		MGI_StatMap.Emplace("Luck") = MGI_StatMap.FindOrAdd("Luck") + FMath::RandRange(1, 2);
 
-		float LowestIncrease = MaxHP / 10;
-		float HighestIncrease = MaxHP / 8;
+		float LowestIncrease = MaxHP / 20;
+		float HighestIncrease = MaxHP / 18;
 
 		float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
 

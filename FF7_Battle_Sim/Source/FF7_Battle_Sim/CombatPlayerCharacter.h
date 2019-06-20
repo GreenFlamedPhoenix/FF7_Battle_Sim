@@ -11,6 +11,7 @@ class AEnemyBase;
 class ACombatGameMode;
 class UATB_Component;
 class ACombatHUD;
+class UMainGameInstance;
 
 UCLASS()
 class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter
@@ -19,6 +20,9 @@ class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter
 
 public:
 	ACombatPlayerCharacter();
+
+	UPROPERTY()
+	UMainGameInstance* MainGameInstance;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UATB_Component* ATB_Component;
@@ -40,4 +44,7 @@ public:
 
 	UPROPERTY()
 	ACombatHUD* CombatHUD;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TMap<FString, int32> CPC_StatMap;
 };

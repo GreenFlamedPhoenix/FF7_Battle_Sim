@@ -6,6 +6,7 @@
 #include "CombatGameMode.h"
 #include "ATB_Component.h"
 #include "CombatHUD.h"
+#include "MainGameInstance.h"
 
 ACombatPlayerCharacter::ACombatPlayerCharacter()
 {
@@ -18,6 +19,8 @@ void ACombatPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	CPC_StatMap = MainGameInstance->MGI_StatMap;
 	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	CombatGameMode->SetCombatCharacter(this);
 	if (ATB_Component) { UE_LOG(LogTemp, Warning, TEXT("Setting up ATB!")) ATB_Component->DetermineATB_InitialFill(true); ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
