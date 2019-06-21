@@ -9,10 +9,13 @@
 #include "Kismet/GameplayStatics.h"
 #include "MainGameInstance.h"
 #include "PlayerCharacter.h"
+#include "PlayerCharacterController.h"
 #include "TextBlock.h"
 #include "Image.h"
 #include "ProgressBar.h"
 #include "Button.h"
+#include "CanvasPanel.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 void UWorldMenuMainWidget::NativeOnInitialized()
@@ -22,6 +25,9 @@ void UWorldMenuMainWidget::NativeOnInitialized()
 	GetWorld()->GetTimerManager().SetTimer(SearchCharacterTimer, this, &UWorldMenuMainWidget::FindMyCharacter, 0.5f, true, 0.f);
 	SaveButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenSaveScreen);
 	StatusButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenStatusMenu);
+	QuitButton->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::OpenConfirmQuit);
+	ConfirmQuit->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::ConfirmQuitGame);
+	CancelQuit->OnClicked.AddDynamic(this, &UWorldMenuMainWidget::CancelQuitGame);
 }
 
 void UWorldMenuMainWidget::MenuOpened()
@@ -139,4 +145,21 @@ void UWorldMenuMainWidget::SetPlayerOneExpBar()
 	float FillPercent = CurrentExp / ExpToLevel;
 	UE_LOG(LogTemp, Warning, TEXT("Exp percentage %f"), FillPercent)
 	PlayerOneExpBar->SetPercent(FillPercent);
+}
+
+void UWorldMenuMainWidget::OpenConfirmQuit()
+{
+	ConfirmQuitCanvas->SetVisibility(ESlateVisibility::Visible);
+	WorldMenuHUD->PlayerCharacterController->DisableInput(GetWorld()->GetFirstPlayerController());
+}
+
+void UWorldMenuMainWidget::ConfirmQuitGame()
+{
+	UKismetSystemLibrary::QuitGame(GetWorld(), 0, EQuitPreference::Quit, false);
+}
+
+void UWorldMenuMainWidget::CancelQuitGame()
+{
+	ConfirmQuitCanvas->SetVisibility(ESlateVisibility::Hidden);
+	WorldMenuHUD->PlayerCharacterController->EnableInput(GetWorld()->GetFirstPlayerController());
 }

@@ -13,6 +13,7 @@ class UTextBlock;
 class UImage;
 class UProgressBar;
 class UButton;
+class UCanvasPanel;
 
 /**
  *
@@ -121,6 +122,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UButton* StatusButton;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UButton* QuitButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UButton* ConfirmQuit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UButton* CancelQuit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UCanvasPanel* ConfirmQuitCanvas;
+
 
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerIcon();
@@ -157,4 +170,13 @@ public:
 
 	UFUNCTION()
 	void MenuOpened();
+
+	UFUNCTION()
+	void OpenConfirmQuit();
+
+	UFUNCTION()
+	void ConfirmQuitGame();
+
+	UFUNCTION()
+	void CancelQuitGame();
 };
