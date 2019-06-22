@@ -58,7 +58,6 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 		float DamageReduction = (float(Vitality * 5) / 1700);
 
 		int32 DamageTaken = FMath::FloorToInt(IncomingDamage - (IncomingDamage * DamageReduction));
-		UE_LOG(LogTemp, Warning, TEXT("Incoming Damage: %f - DamageReduction: %f"), IncomingDamage, DamageReduction);
 		CurrentHP -= DamageTaken;
 		UE_LOG(LogTemp, Warning, TEXT("Damage Taken: %i"), DamageTaken);
 
@@ -91,6 +90,7 @@ void AMidgarSoldier::DrinkPotion()
 		PotionsRemaining -= 1;
 	}
 	ResetEnemyInfoStats();
+	ATB_Component->ResetATB();
 }
 
 void AMidgarSoldier::ReadyToAttack()

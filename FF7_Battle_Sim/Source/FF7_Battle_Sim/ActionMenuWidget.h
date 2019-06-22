@@ -51,6 +51,9 @@ public:
 	UFUNCTION()
 	void SetCombatHUD(ACombatHUD* inHUD);
 
+	UFUNCTION()
+	bool DetermineCriticalHit();
+
 	UPROPERTY()
 	ACombatHUD* CombatHUD;
 

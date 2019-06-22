@@ -79,8 +79,8 @@ void UMainGameInstance::CountUpPlayedTimer()
 
 void UMainGameInstance::CalculatePlayerExp(int32 inAwardedExp)
 {
-	PlayerOneCurrentExp += inAwardedExp;
-	if (PlayerOneCurrentExp >= PlayerOneExpToLevel)
+	MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") + inAwardedExp;
+	if (*MGI_StatMap.Find("CurrentExp") > *MGI_StatMap.Find("ExpToLevel"))
 	{
 		LevelUp();
 	}
@@ -184,8 +184,8 @@ void UMainGameInstance::CompleteCombat(FName SavedMapFName)
 void UMainGameInstance::LevelUp()
 {
 		MGI_StatMap.Emplace("Level") = *MGI_StatMap.Find("Level") + 1;
-		PlayerOneCurrentExp = PlayerOneCurrentExp - PlayerOneExpToLevel;
-		PlayerOneExpToLevel = PlayerOneExpToLevel + (PlayerOneExpToLevel / 10);
+		MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") - *MGI_StatMap.Find("ExpToLevel");
+		MGI_StatMap.Emplace("ExpToLevel") = FMath::FloorToInt(float(*MGI_StatMap.Find("ExpToLevel")) + float((*MGI_StatMap.Find("ExpToLevel") / 10)));
 
 		MGI_StatMap.Emplace("Strength") = MGI_StatMap.FindOrAdd("Strength") + FMath::RandRange(1, 2);
 		MGI_StatMap.Emplace("Dexterity") = MGI_StatMap.FindOrAdd("Dexterity") + FMath::RandRange(1, 2);
@@ -194,15 +194,14 @@ void UMainGameInstance::LevelUp()
 		MGI_StatMap.Emplace("Spirit") = MGI_StatMap.FindOrAdd("Spirit") + FMath::RandRange(1, 2);
 		MGI_StatMap.Emplace("Luck") = MGI_StatMap.FindOrAdd("Luck") + FMath::RandRange(1, 2);
 
-		float LowestIncrease = MaxHP / 20;
-		float HighestIncrease = MaxHP / 18;
+		float LowestIncrease = float(*MGI_StatMap.Find("MaxHP") / 20);
+		float HighestIncrease = float(*MGI_StatMap.Find("MaxHP") / 18);
 
 		float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
 
-		MaxHP += FMath::FloorToInt(RoughIncreaseAmount);
-		UE_LOG(LogTemp, Warning, TEXT("New Max HP %i"), MaxHP);
+		MGI_StatMap.Emplace("MaxHP") += FMath::FloorToInt(RoughIncreaseAmount);
 
-		if (PlayerOneCurrentExp > PlayerOneExpToLevel)
+		if (*MGI_StatMap.Find("CurrentExp") > *MGI_StatMap.Find("ExpToLevel"))
 		{
 			LevelUp();
 		}

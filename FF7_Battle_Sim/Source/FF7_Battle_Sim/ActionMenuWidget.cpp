@@ -63,11 +63,40 @@ float UActionMenuWidget::CalculateDamageDealt()
 				float WeakAttack = BaseDamage*.95;
 				float StrongAttack = BaseDamage*1.05;
 
-				return (FMath::RandRange(WeakAttack, StrongAttack));
+				float FinalDamage = FMath::RandRange(WeakAttack, StrongAttack);
+
+				if (DetermineCriticalHit() == true)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Critical Hit!"))
+					return FinalDamage * 1.5;
+				}
+				else
+				{
+					return FinalDamage;
+				}
 			}
 			else{UE_LOG(LogTemp, Warning, TEXT("Strength not found"))return 0.f;}	
 		}
 		else{UE_LOG(LogTemp, Warning, TEXT("No CPC"))return 0.f;}
 	}
 	else{UE_LOG(LogTemp, Warning, TEXT("No HUD"))return 0.f;}
+}
+
+bool UActionMenuWidget::DetermineCriticalHit()
+{
+	float MyLuck = float(*CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("Luck"));
+	float MyStrength = float(*CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("Strength"));
+	float MyLevel = float(*CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("Level"));
+
+	float CritPercentage = ((MyLuck * 2.75) + (MyStrength * 1.75) + (MyLevel / 1.05)) / 10;
+	float ChanceRoll = FMath::RandRange(0.f, 100.f);
+	UE_LOG(LogTemp, Warning, TEXT("Critical Chance: %f"), CritPercentage)
+	if (ChanceRoll < CritPercentage)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

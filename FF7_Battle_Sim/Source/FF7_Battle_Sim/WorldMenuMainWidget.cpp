@@ -128,8 +128,8 @@ void UWorldMenuMainWidget::UpdatePlayedTime(int32 inDaysOne, int32 inDaysTwo, in
 
 void UWorldMenuMainWidget::SetPlayerOneExp()
 {
-	PlayerOneCurrentExp->SetText(FText::FromString(FString::FromInt(MainGameInstance->PlayerOneCurrentExp)));
-	PlayerOneExpToLevel->SetText(FText::FromString(FString::FromInt(MainGameInstance->PlayerOneExpToLevel)));
+	PlayerOneCurrentExp->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("CurrentExp"))));
+	PlayerOneExpToLevel->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("ExpToLevel"))));
 }
 
 void UWorldMenuMainWidget::SetPlayerOneLevel()
@@ -139,8 +139,8 @@ void UWorldMenuMainWidget::SetPlayerOneLevel()
 
 void UWorldMenuMainWidget::SetPlayerOneExpBar()
 {
-	float CurrentExp = MainGameInstance->PlayerOneCurrentExp;
-	float ExpToLevel = MainGameInstance->PlayerOneExpToLevel;
+	float CurrentExp = float(*PlayerCharacter->PC_StatMap.Find("CurrentExp"));
+	float ExpToLevel = float(*PlayerCharacter->PC_StatMap.Find("ExpToLevel"));
 
 	float FillPercent = CurrentExp / ExpToLevel;
 	PlayerOneExpBar->SetPercent(FillPercent);
