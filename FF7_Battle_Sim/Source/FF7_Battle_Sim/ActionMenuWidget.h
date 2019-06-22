@@ -7,7 +7,7 @@
 #include "ActionMenuWidget.generated.h"
 class ACombatPlayerCharacterController;
 class UMainGameInstance;
-class ACombatPlayerCharacterController;
+class ACombatHUD;
 
 class UCanvasPanel;
 class UImage;
@@ -41,6 +41,18 @@ public:
 
 	UPROPERTY()
 	bool bAttemptingAttack = false;
+
+	UFUNCTION()
+	float CalculateDamageDealt();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float DamageToDeal;
+
+	UFUNCTION()
+	void SetCombatHUD(ACombatHUD* inHUD);
+
+	UPROPERTY()
+	ACombatHUD* CombatHUD;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UCanvasPanel* MainCanvas;

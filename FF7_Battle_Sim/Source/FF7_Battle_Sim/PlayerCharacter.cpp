@@ -39,14 +39,13 @@ void APlayerCharacter::BeginPlay()
 		PC_StatMap.Add("MaxHP", 140);
 		PC_StatMap.Add("CurrentMP", 25);
 		PC_StatMap.Add("MaxMP", 25);
-		PC_StatMap.Add("Strength", 1);
-		PC_StatMap.Add("Dexterity", 1);
-		PC_StatMap.Add("Vitality", 1);
-		PC_StatMap.Add("Magic", 1);
-		PC_StatMap.Add("Spirit", 1);
-		PC_StatMap.Add("Luck", 1);
+		PC_StatMap.Add("Strength", 13);
+		PC_StatMap.Add("Dexterity", 11);
+		PC_StatMap.Add("Vitality", 10);
+		PC_StatMap.Add("Magic", 8);
+		PC_StatMap.Add("Spirit", 7);
+		PC_StatMap.Add("Luck", 9);
 	}
-
 	WorldMenuHUD->PlayerStatusWidget->UpdateStats();
 }
 

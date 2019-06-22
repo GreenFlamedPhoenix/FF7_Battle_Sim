@@ -20,8 +20,6 @@ void ACombatGameMode::SetupEnemyAttributes(int32 AmountChange, int32 inExp)
 {
 	CurrentEnemies = CurrentEnemies + AmountChange;
 	ExpToAward += inExp;
-
-	UE_LOG(LogTemp, Warning, TEXT("Exp: %i"), ExpToAward)
 	if (CurrentEnemies == 0)
 	{
 		CombatPlayerCharacter->bCombatFinished = true;

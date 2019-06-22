@@ -66,22 +66,22 @@ void UWorldMenuMainWidget::SetLocationNameText(FString inLevelName)
 	LocationNameText->SetText(FText::FromString(inLevelName));
 }
 
-void UWorldMenuMainWidget::SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP, int32 inCurrentMP, int32 inMaxMP)
+void UWorldMenuMainWidget::SetCharacterOneStats()
 {
-	CurrentHP->SetText(FText::FromString(FString::FromInt(inCurrentHP)));
-	MaxHP->SetText(FText::FromString(FString::FromInt(inMaxHP)));
-	CurrentMP->SetText(FText::FromString(FString::FromInt(inCurrentMP)));
-	MaxMP->SetText(FText::FromString(FString::FromInt(inMaxMP)));
+	CurrentHP->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("CurrentHP"))));
+	MaxHP->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("MaxHP"))));
+	CurrentMP->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("CurrentMP"))));
+	MaxMP->SetText(FText::FromString(FString::FromInt(*PlayerCharacter->PC_StatMap.Find("MaxMP"))));
 
 	SetHP_MP_Bars();
 }
 
 void UWorldMenuMainWidget::SetHP_MP_Bars()
 {
-	float CurrentHP = MainGameInstance->CharacterOneCurrentHP;
-	float MaxHP = MainGameInstance->MaxHP;
-	float CurrentMP = MainGameInstance->CharacterOneCurrentMP;
-	float MaxMP = MainGameInstance->CharacterOneMaxMP;
+	float CurrentHP = float(*PlayerCharacter->PC_StatMap.Find("CurrentHP"));
+	float MaxHP = float(*PlayerCharacter->PC_StatMap.Find("MaxHP"));
+	float CurrentMP = float(*PlayerCharacter->PC_StatMap.Find("CurrentMP"));
+	float MaxMP = float(*PlayerCharacter->PC_StatMap.Find("MaxMP"));
 
 	float HP_Percent = CurrentHP / MaxHP;
 	float MP_Percentage = CurrentMP  / MaxMP;
@@ -143,7 +143,6 @@ void UWorldMenuMainWidget::SetPlayerOneExpBar()
 	float ExpToLevel = MainGameInstance->PlayerOneExpToLevel;
 
 	float FillPercent = CurrentExp / ExpToLevel;
-	UE_LOG(LogTemp, Warning, TEXT("Exp percentage %f"), FillPercent)
 	PlayerOneExpBar->SetPercent(FillPercent);
 }
 

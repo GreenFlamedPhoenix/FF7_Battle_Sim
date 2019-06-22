@@ -54,7 +54,13 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 
 	if (ActionMenuWidget->bAttemptingAttack == true)
 	{
-		CurrentHP -= 1000;
+		float IncomingDamage = ActionMenuWidget->CalculateDamageDealt();
+		float DamageReduction = (float(Vitality * 5) / 1700);
+
+		int32 DamageTaken = FMath::FloorToInt(IncomingDamage - (IncomingDamage * DamageReduction));
+		UE_LOG(LogTemp, Warning, TEXT("Incoming Damage: %f - DamageReduction: %f"), IncomingDamage, DamageReduction);
+		CurrentHP -= DamageTaken;
+		UE_LOG(LogTemp, Warning, TEXT("Damage Taken: %i"), DamageTaken);
 
 		if (CurrentHP > 0)
 		{
@@ -90,7 +96,6 @@ void AMidgarSoldier::DrinkPotion()
 void AMidgarSoldier::ReadyToAttack()
 {
 	bReadyForAction = true;
-	UE_LOG(LogTemp, Warning, TEXT("Ready!"))
 }
 
 void AMidgarSoldier::ResetEnemyInfoStats()

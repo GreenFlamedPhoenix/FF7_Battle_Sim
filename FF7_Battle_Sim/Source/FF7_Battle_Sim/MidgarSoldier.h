@@ -65,6 +65,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int32 ExpWorth = 12;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int32 Vitality = 10;
+
 	//////////////////////////////
 	//	Inventory
 	//	Inventory items.

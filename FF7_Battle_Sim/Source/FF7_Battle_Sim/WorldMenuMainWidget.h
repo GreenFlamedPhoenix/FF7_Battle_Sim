@@ -142,7 +142,7 @@ public:
 	void SetLocationNameText(FString inLevelName);
 
 	UFUNCTION()
-	void SetCharacterOneStats(int32 inCurrentHP, int32 inMaxHP, int32 inCurrentMP, int32 inMaxMP);
+	void SetCharacterOneStats();
 
 	UFUNCTION(BlueprintCallable)
 	void SetSaveEnabled(bool inbAbleToSave);

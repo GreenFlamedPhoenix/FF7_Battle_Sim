@@ -58,5 +58,6 @@ void ACombatHUD::CreateEnemyInfoWidget()
 void ACombatHUD::CreateActionMenuWidget()
 {
 	ActionMenuWidget = CreateWidget<UActionMenuWidget>(GetWorld(), ActionMenuWidgetClass);
+	ActionMenuWidget->SetCombatHUD(this);
 	ActionMenuWidget->AddToViewport(1);
 }
