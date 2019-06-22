@@ -199,7 +199,7 @@ void UMainGameInstance::LevelUp()
 
 		float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
 
-		MGI_StatMap.Emplace("MaxHP") += FMath::FloorToInt(RoughIncreaseAmount);
+		MGI_StatMap.Emplace("MaxHP") = *MGI_StatMap.Find("MaxHP") + FMath::FloorToInt(RoughIncreaseAmount);
 
 		if (*MGI_StatMap.Find("CurrentExp") > *MGI_StatMap.Find("ExpToLevel"))
 		{
