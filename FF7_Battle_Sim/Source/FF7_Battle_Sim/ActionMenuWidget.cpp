@@ -67,7 +67,7 @@ float UActionMenuWidget::CalculateDamageDealt()
 
 				if (DetermineCriticalHit() == true)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Critical Hit!"))
+					CriticalHitEvent.Broadcast();
 					return FinalDamage * 1.5;
 				}
 				else

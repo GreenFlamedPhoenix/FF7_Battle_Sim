@@ -47,4 +47,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TMap<FString, int32> CPC_StatMap;
+
+
 };

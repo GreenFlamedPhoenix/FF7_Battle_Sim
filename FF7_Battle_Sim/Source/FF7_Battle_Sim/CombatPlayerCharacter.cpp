@@ -22,7 +22,7 @@ void ACombatPlayerCharacter::BeginPlay()
 	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
 	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	CombatGameMode->SetCombatCharacter(this);
-	if (ATB_Component) { UE_LOG(LogTemp, Warning, TEXT("Setting up ATB!")) ATB_Component->DetermineATB_InitialFill(true); ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
+	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(true); ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
 	CombatHUD = Cast<ACombatHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
 	CPC_StatMap = MainGameInstance->MGI_StatMap;
 	if (CombatHUD)

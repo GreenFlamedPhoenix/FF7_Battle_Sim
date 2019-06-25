@@ -37,9 +37,11 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	void SetCurrentHP(int32 CurrentHP);
+	UFUNCTION()
+	void ManageHP();
 
-	void SetCurrentMP(int32 CurrentMP);
+	UFUNCTION()
+	void ManageMP();
 
 	UFUNCTION(BlueprintCallable)
 	void ATB_TimeBarFill();

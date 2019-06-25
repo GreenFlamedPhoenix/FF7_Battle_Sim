@@ -74,7 +74,7 @@ public:
 	//////////////////////////////
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	int32 PotionsRemaining = 3;
+	int32 PotionsRemaining = 1;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bReadyForAction;

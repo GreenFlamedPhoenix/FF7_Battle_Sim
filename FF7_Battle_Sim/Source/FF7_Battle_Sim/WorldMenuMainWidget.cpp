@@ -78,13 +78,13 @@ void UWorldMenuMainWidget::SetCharacterOneStats()
 
 void UWorldMenuMainWidget::SetHP_MP_Bars()
 {
-	float CurrentHP = float(*PlayerCharacter->PC_StatMap.Find("CurrentHP"));
-	float MaxHP = float(*PlayerCharacter->PC_StatMap.Find("MaxHP"));
-	float CurrentMP = float(*PlayerCharacter->PC_StatMap.Find("CurrentMP"));
-	float MaxMP = float(*PlayerCharacter->PC_StatMap.Find("MaxMP"));
+	float StatCurrentHP = float(*PlayerCharacter->PC_StatMap.Find("CurrentHP"));
+	float StatMaxHP = float(*PlayerCharacter->PC_StatMap.Find("MaxHP"));
+	float StatCurrentMP = float(*PlayerCharacter->PC_StatMap.Find("CurrentMP"));
+	float StatMaxMP = float(*PlayerCharacter->PC_StatMap.Find("MaxMP"));
 
-	float HP_Percent = CurrentHP / MaxHP;
-	float MP_Percentage = CurrentMP  / MaxMP;
+	float HP_Percent = StatCurrentHP / StatMaxHP;
+	float MP_Percentage = StatCurrentMP  / StatMaxMP;
 
 	CharacterOneHP_ProgressBar->SetPercent(HP_Percent);
 	CharacterOneMP_ProgressBar->SetPercent(MP_Percentage);

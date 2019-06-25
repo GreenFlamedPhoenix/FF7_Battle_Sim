@@ -80,7 +80,7 @@ void UMainGameInstance::CountUpPlayedTimer()
 void UMainGameInstance::CalculatePlayerExp(int32 inAwardedExp)
 {
 	MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") + inAwardedExp;
-	if (*MGI_StatMap.Find("CurrentExp") > *MGI_StatMap.Find("ExpToLevel"))
+	if (*MGI_StatMap.Find("CurrentExp") >= *MGI_StatMap.Find("ExpToLevel"))
 	{
 		LevelUp();
 	}
@@ -194,8 +194,8 @@ void UMainGameInstance::LevelUp()
 		MGI_StatMap.Emplace("Spirit") = MGI_StatMap.FindOrAdd("Spirit") + FMath::RandRange(1, 2);
 		MGI_StatMap.Emplace("Luck") = MGI_StatMap.FindOrAdd("Luck") + FMath::RandRange(1, 2);
 
-		float LowestIncrease = float(*MGI_StatMap.Find("MaxHP") / 20);
-		float HighestIncrease = float(*MGI_StatMap.Find("MaxHP") / 18);
+		float LowestIncrease = float(*MGI_StatMap.Find("MaxHP") / 18);
+		float HighestIncrease = float(*MGI_StatMap.Find("MaxHP") / 15);
 
 		float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
 

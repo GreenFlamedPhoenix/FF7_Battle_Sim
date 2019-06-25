@@ -6,9 +6,17 @@
 #include "CombatPlayerCharacter.h"
 #include "ATB_Component.h"
 #include "CombatHUD.h"
+#include "TextBlock.h"
+#include "ProgressBar.h"
 
 UCombatStatusWidget::UCombatStatusWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+
+}
+
+void UCombatStatusWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
 
 }
 
@@ -21,13 +29,11 @@ void UCombatStatusWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
 		ATB_TimeBarFill();
 		ATB_TimeBarTint();
 	}
-}
-
-void UCombatStatusWidget::NativeConstruct()
-{
-	Super::NativeConstruct();
-
-	
+	if (CombatHUD->CombatPlayerCharacter)
+	{
+		ManageHP();
+		ManageMP();
+	}
 }
 
 void UCombatStatusWidget::SetHUD_Reference(ACombatHUD* inHUD)
@@ -35,14 +41,33 @@ void UCombatStatusWidget::SetHUD_Reference(ACombatHUD* inHUD)
 	CombatHUD = inHUD;
 }
 
-void UCombatStatusWidget::SetCurrentHP(int32 CurrentHP)
-{
+void UCombatStatusWidget::ManageHP()
+{	
+	int32 CurrentHP = *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("CurrentHP");
+	int32 MaxHP = *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("MaxHP");
 
+	float FCurrentHP = CurrentHP;
+	float FMaxHP = MaxHP;
+
+	float HP_Percentage = FCurrentHP / FMaxHP;
+
+	CharacterCurrentHP->SetText(FText::FromString(FString::FromInt(CurrentHP)));
+	CharacterMaxHP->SetText(FText::FromString(FString::FromInt(MaxHP)));
+
+	HP_ProgressBar->SetPercent(HP_Percentage);
 }
 
-void UCombatStatusWidget::SetCurrentMP(int32 CurrentMP)
+void UCombatStatusWidget::ManageMP()
 {
+	int32 CurrentMP = *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("CurrentMP");
+	int32 MaxMP = *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("MaxMP");
 
+	float MP_Percentage = float(CurrentMP) / float(MaxMP);
+
+	CharacterCurrentMP->SetText(FText::FromString(FString::FromInt(CurrentMP)));
+	CharacterMaxMP->SetText(FText::FromString(FString::FromInt(MaxMP)));
+
+	MP_ProgressBar->SetPercent(MP_Percentage);
 }
 
 void UCombatStatusWidget::ATB_TimeBarFill()

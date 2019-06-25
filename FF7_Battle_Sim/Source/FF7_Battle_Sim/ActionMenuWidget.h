@@ -14,6 +14,8 @@ class UImage;
 class UTextBlock;
 class UButton;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCriticalHit);
+
 /**
  * 
  */
@@ -56,6 +58,9 @@ public:
 
 	UPROPERTY()
 	ACombatHUD* CombatHUD;
+
+	UPROPERTY(BlueprintAssignable)
+	FCriticalHit CriticalHitEvent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UCanvasPanel* MainCanvas;
