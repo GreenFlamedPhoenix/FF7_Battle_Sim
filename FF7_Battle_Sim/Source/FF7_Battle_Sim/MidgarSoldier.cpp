@@ -91,6 +91,7 @@ void AMidgarSoldier::DrinkPotion()
 	}
 	ResetEnemyInfoStats();
 	ATB_Component->ResetATB();
+	bReadyForAction = false;
 }
 
 void AMidgarSoldier::ReadyToAttack()
