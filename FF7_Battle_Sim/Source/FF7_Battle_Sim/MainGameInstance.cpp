@@ -158,6 +158,8 @@ void UMainGameInstance::GenerateRandomCombatRoll()
 
 void UMainGameInstance::BeginCombat()
 {
+	CombatTriggered.Broadcast();
+	CharacterController->bCanIMove = false;
 	GetWorld()->GetTimerManager().ClearTimer(RandomNumberCounter);
 	CurrentCombatChance = 0.f;
 	CombatChanceRoll = 0.f;
@@ -172,7 +174,6 @@ void UMainGameInstance::BeginCombat()
 	}
 	SavedCombatTransform = ControlledCharacter->GetActorTransform();
 	SavedCameraName = CharacterController->MyCurrentCamera->GetName();
-	CombatTriggered.Broadcast();
 	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
 }
 

@@ -8,11 +8,13 @@
 #include "SaveMenuWidget.h"
 #include "PlayerStatusWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "TransitionToCombatWidget.h"
 
 void AWorldMenuHUD::BeginPlay()
 {
 	PlayerCharacterController = Cast<APlayerCharacterController>(GetWorld()->GetFirstPlayerController());
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
 	if (WorldMainMenuClass){WorldMainMenuWidget = CreateWidget<UWorldMenuMainWidget>(GetWorld(), WorldMainMenuClass);}
 	if (WorldMainMenuWidget){WorldMainMenuWidget->SetWorldMenuHUD(this);}
 
@@ -21,6 +23,9 @@ void AWorldMenuHUD::BeginPlay()
 
 	if (PlayerStatusClass) {PlayerStatusWidget = CreateWidget<UPlayerStatusWidget>(GetWorld(), PlayerStatusClass);}
 	if (PlayerStatusWidget) {PlayerStatusWidget->SetWorldMenuHUD(this);}
+
+	if (TranstitionToCombatClass) {TransitionToCombatWidget = CreateWidget<UTransitionToCombatWidget>(GetWorld(), TranstitionToCombatClass);}
+	if (TransitionToCombatWidget) {TransitionToCombatWidget->SetWorldMenuHUD(this); TransitionToCombatWidget->AddToViewport();}
 }
 
 void AWorldMenuHUD::ToggleMainMenuWidget()

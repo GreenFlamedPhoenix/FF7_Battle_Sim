@@ -50,7 +50,7 @@ void APlayerCharacterController::SetupInputComponent()
 
 void APlayerCharacterController::MoveForward(float Axis)
 {
-	if (MyCurrentCamera != nullptr && ControlledCharacter != nullptr && GameInstance != nullptr)
+	if (bCanIMove == true && MyCurrentCamera != nullptr && ControlledCharacter != nullptr && GameInstance != nullptr)
 	{
 		if (Axis != 0.f)
 		{
@@ -73,7 +73,7 @@ void APlayerCharacterController::MoveForward(float Axis)
 
 void APlayerCharacterController::MoveRight(float Axis)
 {
-	if (MyCurrentCamera != nullptr && ControlledCharacter != nullptr && GameInstance != nullptr)
+	if (bCanIMove == true && MyCurrentCamera != nullptr && ControlledCharacter != nullptr && GameInstance != nullptr)
 	{
 		if (Axis != 0.f)
 		{

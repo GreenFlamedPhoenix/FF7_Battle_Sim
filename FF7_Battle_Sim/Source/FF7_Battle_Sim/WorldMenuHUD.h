@@ -10,6 +10,7 @@ class USaveMenuWidget;
 class APlayerCharacterController;
 class UMainGameInstance;
 class UPlayerStatusWidget;
+class UTransitionToCombatWidget;
 
 /**
  * 
@@ -22,7 +23,7 @@ class FF7_BATTLE_SIM_API AWorldMenuHUD : public AHUD
 public:
 	virtual void BeginPlay() override;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UMainGameInstance* MainGameInstance;
 
 	UPROPERTY()
@@ -37,6 +38,9 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> PlayerStatusClass;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> TranstitionToCombatClass;
+
 	UPROPERTY()
 	UWorldMenuMainWidget* WorldMainMenuWidget;
 
@@ -45,6 +49,9 @@ public:
 
 	UPROPERTY()
 	UPlayerStatusWidget* PlayerStatusWidget;
+
+	UPROPERTY()
+	UTransitionToCombatWidget* TransitionToCombatWidget;
 
 	UFUNCTION()
 	void ToggleMainMenuWidget();
