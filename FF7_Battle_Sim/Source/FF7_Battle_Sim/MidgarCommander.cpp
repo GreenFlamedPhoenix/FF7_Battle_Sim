@@ -56,7 +56,7 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 		OnDeathEvent.Broadcast();
 		CombatGameMode->SetupEnemyAttributes(-1, 0);
 		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
-		CombatCharacter->ATB_Component->ResetATB();
+		EnemiesCombatCharacter->ATB_Component->ResetATB();
 	}
 }
 

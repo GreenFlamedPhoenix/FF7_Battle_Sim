@@ -45,7 +45,6 @@ public:
 	UPROPERTY()
 	bool bAbleToSave = false;
 
-
 	UPROPERTY()
 	bool bCanIMove = true;
 

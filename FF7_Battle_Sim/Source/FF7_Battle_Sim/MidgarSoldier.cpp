@@ -13,15 +13,25 @@ AMidgarSoldier::AMidgarSoldier()
 {
 	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB_Component"));
 	ATB_Component->ATB_Full.AddDynamic(this, &AMidgarSoldier::ReadyToAttack);
+
+	EnemyLevel = 2;
+	EnemyCurrentHP = 120;
+	EnemyMaxHP = 120;
+	EnemyCurrentMP = 20;
+	EnemyMaxMP = 20;
+	EnemyStrength = 6;
+	EnemyDexterity = 7;
+	EnemyExpWorth = 12;
+	EnemyVitality = 10;
 }
 
 void AMidgarSoldier::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (CombatGameMode){CombatGameMode->SetupEnemyAttributes(1, ExpWorth);}
+	if (CombatGameMode){CombatGameMode->SetupEnemyAttributes(1, EnemyExpWorth);}
 	else {UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
-	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(Dexterity, 1);}
+	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1);}
 	else {UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
 	
 }
@@ -34,11 +44,11 @@ void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
 	CombatController->GetHitResultUnderCursor(ECC_Pawn, true, ActorHit);
 	HoveredActor = ActorHit.GetActor();
 	EnemysEnemyInfoWidget->SetEnemyName(HoveredActor->GetName());
-	EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
-	EnemysEnemyInfoWidget->SetEnemyMaxHP(MaxHP);
-	EnemysEnemyInfoWidget->SetEnemyCurrentMP(CurrentMP);
-	EnemysEnemyInfoWidget->SetEnemyMaxMP(MaxMP);
-	EnemysEnemyInfoWidget->SetEnemyLevel(MyLevel);
+	EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
+	EnemysEnemyInfoWidget->SetEnemyMaxHP(EnemyMaxHP);
+	EnemysEnemyInfoWidget->SetEnemyCurrentMP(EnemyCurrentMP);
+	EnemysEnemyInfoWidget->SetEnemyMaxMP(EnemyMaxMP);
+	EnemysEnemyInfoWidget->SetEnemyLevel(EnemyLevel);
 }
 
 void AMidgarSoldier::EndCursorHover(UPrimitiveComponent* TouchComponent)
@@ -55,13 +65,13 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 	if (ActionMenuWidget->bAttemptingAttack == true)
 	{
 		float IncomingDamage = ActionMenuWidget->CalculateDamageDealt();
-		float DamageReduction = (float(Vitality * 5) / 1700);
+		float DamageReduction = (float(EnemyVitality * 5) / 1700);
 
 		int32 DamageTaken = FMath::FloorToInt(IncomingDamage - (IncomingDamage * DamageReduction));
-		CurrentHP -= DamageTaken;
+		EnemyCurrentHP -= DamageTaken;
 		UE_LOG(LogTemp, Warning, TEXT("Damage Taken: %i"), DamageTaken);
 
-		if (CurrentHP > 0)
+		if (EnemyCurrentHP > 0)
 		{
 			OnDamageEvent.Broadcast();
 			ResetEnemyInfoStats();
@@ -72,20 +82,27 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 			CombatGameMode->SetupEnemyAttributes(-1, 0);
 			EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 		}
-		CombatCharacter->ATB_Component->ResetATB();
+		EnemiesCombatCharacter->ATB_Component->ResetATB();
 
 		ActionMenuWidget->bAttemptingAttack = false;
 	}
 }
 
+void AMidgarSoldier::Attack()
+{
+	Super::Attack();
+
+}
+
+
 void AMidgarSoldier::DrinkPotion()
 {
 	if (PotionsRemaining > 0)
 	{
-		CurrentHP += 50;
-		if (CurrentHP > MaxHP)
+		EnemyCurrentHP += 50;
+		if (EnemyCurrentHP > EnemyMaxHP)
 		{
-			CurrentHP = MaxHP;
+			EnemyCurrentHP = EnemyMaxHP;
 		}
 		PotionsRemaining -= 1;
 	}
@@ -101,7 +118,7 @@ void AMidgarSoldier::ReadyToAttack()
 
 void AMidgarSoldier::ResetEnemyInfoStats()
 {
-	EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
+	EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
 	EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 	EnemysEnemyInfoWidget->SetWidgetVisibility(true);
 }

@@ -58,7 +58,7 @@ public:
 
 	//Our character. Testing usage with moving to enemies and attacking animations.
 	UPROPERTY()
-	ACombatPlayerCharacter* CombatCharacter;
+	ACombatPlayerCharacter* EnemiesCombatCharacter;
 
 	//////////////////////////////
 	//	Enemy interactions.
@@ -75,6 +75,9 @@ public:
 	UFUNCTION()
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey);
 
+	UFUNCTION(BlueprintCallable)
+	virtual void Attack();
+
 	//Used by children of the EnemyBase. Reference for the actor we are hovering to get access to its name and stats.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	AActor* HoveredActor;
@@ -84,4 +87,25 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnDamage OnDamageEvent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyLevel;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyCurrentHP;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyMaxHP;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyCurrentMP;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyMaxMP;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyStrength;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyDexterity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyVitality;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyLuck;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
+	int32 EnemyExpWorth;
 };

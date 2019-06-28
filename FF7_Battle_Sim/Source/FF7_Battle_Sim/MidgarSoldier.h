@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
+#include "CombatInterface.h"
 #include "MidgarSoldier.generated.h"
 class ACombatGameMode;
 class UATB_Component;
@@ -27,6 +28,8 @@ public:
 
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
 
+	virtual void Attack() override;
+
 	UPROPERTY()
 	UATB_Component* ATB_Component;
 
@@ -44,29 +47,7 @@ public:
 	//	Base stats
 	//////////////////////////////
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 MyLevel = 2;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 CurrentHP = 120;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 MaxHP = 120;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 CurrentMP = 20;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 MaxMP = 20;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 Dexterity = 10;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 ExpWorth = 12;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int32 Vitality = 10;
+	
 
 	//////////////////////////////
 	//	Inventory

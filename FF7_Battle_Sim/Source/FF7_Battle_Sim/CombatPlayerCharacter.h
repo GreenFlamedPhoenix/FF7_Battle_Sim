@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "CombatInterface.h"
 #include "EnemyBase.h"
 #include "CombatPlayerCharacter.generated.h"
 class ACombatPlayerCharacterController;
@@ -14,12 +15,14 @@ class ACombatHUD;
 class UMainGameInstance;
 
 UCLASS()
-class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter
+class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter, public ICombatInterface
 {
 	GENERATED_BODY()
 
 public:
 	ACombatPlayerCharacter();
+
+	//virtual void RecieveDamage(float inDamage) override;
 
 	UPROPERTY()
 	UMainGameInstance* MainGameInstance;
@@ -48,5 +51,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TMap<FString, int32> CPC_StatMap;
 
-
+	UFUNCTION()
+	void PlayerTakeDamage(float inDamage);
 };

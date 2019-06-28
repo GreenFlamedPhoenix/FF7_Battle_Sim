@@ -2,6 +2,7 @@
 
 
 #include "CombatPlayerCharacter.h"
+#include "CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "CombatGameMode.h"
 #include "ATB_Component.h"
@@ -33,6 +34,21 @@ void ACombatPlayerCharacter::BeginPlay()
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No HUD!"))
+	}
+}
+
+
+void ACombatPlayerCharacter::PlayerTakeDamage(float inDamage)
+{
+	float DamageReductionPercentage = (float(*CPC_StatMap.Find("Vitality")) * 5) / 1700;
+	float DamageToMitigate = inDamage * DamageReductionPercentage;
+	int32 FinalDamageTaken = FMath::FloorToInt(inDamage - DamageToMitigate);
+
+	CPC_StatMap.Emplace("CurrentHP") = (*CPC_StatMap.Find("CurrentHP") - FinalDamageTaken);
+
+	if (CPC_StatMap.Find("CurrentHP") <= 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Game over!"));
 	}
 }
 
