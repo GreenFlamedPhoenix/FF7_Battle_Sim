@@ -25,6 +25,7 @@ void ACombatGameMode::SetupEnemyAttributes(int32 AmountChange, int32 inExp)
 		CombatPlayerCharacter->bCombatFinished = true;
 		GetWorldTimerManager().SetTimer(CloseCombatTimer, this, &ACombatGameMode::CountDownCombatCounter, 1.f, true, 0.f);
 		MainGameInstance->CalculatePlayerExp(ExpToAward);
+		MainGameInstance->MGI_StatMap = CombatPlayerCharacter->CPC_StatMap;
 	}
 }
 
