@@ -71,9 +71,11 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 		EnemyCurrentHP -= DamageTaken;
 		UE_LOG(LogTemp, Warning, TEXT("Damage Taken: %i"), DamageTaken);
 
+		DamageTakenNumberEvent.Broadcast(DamageTaken);
+
 		if (EnemyCurrentHP > 0)
 		{
-			OnDamageEvent.Broadcast(DamageTaken);
+			OnDamageEvent.Broadcast();
 			ResetEnemyInfoStats();
 		}
 		else

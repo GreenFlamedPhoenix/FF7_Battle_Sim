@@ -11,8 +11,9 @@ class UActionMenuWidget;
 class ACombatGameMode;
 class ACombatPlayerCharacter;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDamage, int32, DamageTaken);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamage);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDamageTakenNumber, int32, DamageTaken);
 
 UCLASS()
 class FF7_BATTLE_SIM_API AEnemyBase : public ACharacter
@@ -87,6 +88,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnDamage OnDamageEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FDamageTakenNumber DamageTakenNumberEvent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1. Stats")
 	int32 EnemyLevel;
