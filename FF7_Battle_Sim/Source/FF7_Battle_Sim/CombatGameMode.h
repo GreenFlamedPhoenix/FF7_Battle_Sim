@@ -59,4 +59,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FLeaveCombat LeaveCombatEvent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bCombatStopped;
 };

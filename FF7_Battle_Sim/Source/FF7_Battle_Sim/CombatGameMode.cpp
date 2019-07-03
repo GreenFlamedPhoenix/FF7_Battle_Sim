@@ -36,6 +36,7 @@ void ACombatGameMode::ManagePlayerCounts(int32 AmountChange)
 
 	if (CurrentPlayersAlive <= 0)
 	{
+		bCombatStopped = true;
 		bIsGameOver = true;
 		LeaveCombatEvent.Broadcast();
 	}

@@ -15,10 +15,15 @@ void UMainGameInstance::Init()
 {
 	Super::Init();
 
-	GetWorld()->GetTimerManager().SetTimer(GameTimeCounter, this, &UMainGameInstance::CountUpPlayedTimer, 1.f, true, 0.f);
-
 	ItemInventory.Add("Potion", 99);
 }
+
+
+void UMainGameInstance::StartGamePlayedTimer()
+{
+	GetWorld()->GetTimerManager().SetTimer(GameTimeCounter, this, &UMainGameInstance::CountUpPlayedTimer, 1.f, true, 0.f);
+}
+
 
 void UMainGameInstance::CountUpPlayedTimer()
 {

@@ -121,6 +121,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void BeginCombat();
 
+	UFUNCTION(BlueprintCallable)
+	void StartGamePlayedTimer();
+
 	UPROPERTY()
 	FTimerHandle RandomNumberCounter;
 
