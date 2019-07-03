@@ -29,6 +29,18 @@ void ACombatGameMode::SetupEnemyAttributes(int32 AmountChange, int32 inExp)
 	}
 }
 
+void ACombatGameMode::ManagePlayerCounts(int32 AmountChange)
+{
+	CurrentPlayersAlive += AmountChange;
+	UE_LOG(LogTemp, Warning, TEXT("Current players alive: %i"), CurrentPlayersAlive);
+
+	if (CurrentPlayersAlive <= 0)
+	{
+		bIsGameOver = true;
+		LeaveCombatEvent.Broadcast();
+	}
+}
+
 void ACombatGameMode::CountDownCombatCounter()
 {
 	if (CombatCloseCounter > 0)
@@ -38,6 +50,6 @@ void ACombatGameMode::CountDownCombatCounter()
 	else
 	{
 		CombatPlayerCharacter->bCombatFinished = false;
-		MainGameInstance->CompleteCombat(MainGameInstance->MapFName);
+		MainGameInstance->CompleteCombat();
 	}
 }

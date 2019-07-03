@@ -126,6 +126,23 @@ void UMainGameInstance::SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget)
 	WorldMainMenuWidget = inWidget;
 }
 
+void UMainGameInstance::ClearGameInstance()
+{
+	CurrentCombatChance = 0.f;
+	DaysPlayedOne = 0;
+	DaysPlayedTwo = 0;
+	DaysPlayedThree = 0;
+	DaysPlayedFour = 0;
+	HoursPlayedOne = 0;
+	HoursPlayedTwo = 0;
+	MinutesPlayedOne = 0;
+	MinutesPlayedTwo = 0;
+	SecondsPlayedOne = 0;
+	SecondsPlayedTwo = 0;
+	MGI_StatMap.Empty();
+	GetWorld()->GetTimerManager().ClearTimer(GameTimeCounter);
+}
+
 void UMainGameInstance::ManageCombatChance()
 {
 	if (bCurrentlyInCombatMap == true) //If we are in a map with combat.
@@ -179,9 +196,9 @@ void UMainGameInstance::BeginCombat()
 	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
 }
 
-void UMainGameInstance::CompleteCombat(FName SavedMapFName)
+void UMainGameInstance::CompleteCombat()
 {
-	UGameplayStatics::OpenLevel(this, SavedMapFName);
+	UGameplayStatics::OpenLevel(this, MapFName);
 }
 
 void UMainGameInstance::LevelUp()

@@ -35,6 +35,7 @@ void ACombatPlayerCharacter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No HUD!"))
 	}
+	CombatGameMode->ManagePlayerCounts(1);
 }
 
 
@@ -47,9 +48,10 @@ void ACombatPlayerCharacter::PlayerTakeDamage(float inDamage)
 	PlayerDamageTakenEvent.Broadcast(FinalDamageTaken);
 	CPC_StatMap.Emplace("CurrentHP") = (*CPC_StatMap.Find("CurrentHP") - FinalDamageTaken);
 
-	if (CPC_StatMap.Find("CurrentHP") <= 0)
+	if (*CPC_StatMap.Find("CurrentHP") <= 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Game over!"));
+		CPC_StatMap.Emplace("CurrentHP") = 0;
+		CombatGameMode->ManagePlayerCounts(-1);
 	}
 }
 

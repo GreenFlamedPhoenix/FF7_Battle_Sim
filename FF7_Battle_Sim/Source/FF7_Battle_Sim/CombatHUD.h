@@ -17,6 +17,7 @@ class ACombatPlayerCharacter;
 class UATB_Component;
 class UCombatItemMenu;
 class UMainGameInstance;
+class ACombatGameMode;
 
 /**
  * 
@@ -33,6 +34,9 @@ public:
 
 	UPROPERTY()
 	UMainGameInstance* MainGameInstance;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ACombatGameMode* CombatGameMode;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UUserWidget> CombatStatusWidgetClass;

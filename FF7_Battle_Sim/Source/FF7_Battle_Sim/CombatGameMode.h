@@ -8,7 +8,7 @@
 class UMainGameInstance;
 class ACombatPlayerCharacter;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatComplete);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FLeaveCombat);
 
 /**
  * 
@@ -21,11 +21,20 @@ class FF7_BATTLE_SIM_API ACombatGameMode : public AGameModeBase
 public:
 	virtual void BeginPlay() override;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UMainGameInstance* MainGameInstance;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bIsGameOver = false;
 
 	UFUNCTION()
 	void SetupEnemyAttributes(int32 AmountChange, int32 inExp);
+
+	UFUNCTION()
+	void ManagePlayerCounts(int32 AmountChange);
+
+	UPROPERTY()
+	int32 CurrentPlayersAlive;
 
 	UPROPERTY()
 	int32 CurrentEnemies = 0;
@@ -47,4 +56,7 @@ public:
 
 	UPROPERTY()
 	int32 ExpToAward;
+
+	UPROPERTY(BlueprintAssignable)
+	FLeaveCombat LeaveCombatEvent;
 };

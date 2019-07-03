@@ -24,6 +24,7 @@ void ACombatHUD::BeginPlay()
 	else{UE_LOG(LogTemp, Error, TEXT("Issue with ActionMenuWidgetClass")); }
 
 	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	GetWorld()->GetTimerManager().SetTimer(ReferenceSearchTimer, this, &ACombatHUD::SearchForReferences, 0.1f, true, 0.f);
 }

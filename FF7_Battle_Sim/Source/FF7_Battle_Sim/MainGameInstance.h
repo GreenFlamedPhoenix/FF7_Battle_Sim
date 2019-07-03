@@ -112,6 +112,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float MaxCombatChance = 100.f;
 
+	UFUNCTION(BlueprintCallable)
+	void ClearGameInstance();
+
 	UFUNCTION()
 	void ManageCombatChance();
 
@@ -141,7 +144,7 @@ public:
 	FName MapFName;
 
 	UFUNCTION(BlueprintCallable)
-	void CompleteCombat(FName SavedMapFName);
+	void CompleteCombat();
 
 	UPROPERTY(BlueprintAssignable)
 	FCombatTriggered CombatTriggered;
