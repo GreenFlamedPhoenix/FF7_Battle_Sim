@@ -250,4 +250,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 CureentGil = 100;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TMap<FString, int32> ItemInventory;
 };

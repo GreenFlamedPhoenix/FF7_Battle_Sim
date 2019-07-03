@@ -56,7 +56,13 @@ public:
 	UFUNCTION()
 	bool DetermineCriticalHit();
 
-	UPROPERTY()
+	UFUNCTION()
+	void OpenItemMenu();
+
+	UFUNCTION()
+	void Heal();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ACombatHUD* CombatHUD;
 
 	UPROPERTY(BlueprintAssignable)
@@ -88,4 +94,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UButton* ItemCommandButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UButton* HealButton;
 };

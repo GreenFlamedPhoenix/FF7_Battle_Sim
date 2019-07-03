@@ -44,6 +44,7 @@ void ACombatPlayerCharacter::PlayerTakeDamage(float inDamage)
 	float DamageToMitigate = inDamage * DamageReductionPercentage;
 	int32 FinalDamageTaken = FMath::FloorToInt(inDamage - DamageToMitigate);
 
+	PlayerDamageTakenEvent.Broadcast(FinalDamageTaken);
 	CPC_StatMap.Emplace("CurrentHP") = (*CPC_StatMap.Find("CurrentHP") - FinalDamageTaken);
 
 	if (CPC_StatMap.Find("CurrentHP") <= 0)

@@ -73,7 +73,7 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 
 		if (EnemyCurrentHP > 0)
 		{
-			OnDamageEvent.Broadcast();
+			OnDamageEvent.Broadcast(DamageTaken);
 			ResetEnemyInfoStats();
 		}
 		else

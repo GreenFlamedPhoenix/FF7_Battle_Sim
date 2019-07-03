@@ -23,6 +23,8 @@ void UActionMenuWidget::NativeOnInitialized()
 	PlayerController->SetActionMenuWidget(this);
 
 	AttackCommandButton->OnClicked.AddDynamic(this, &UActionMenuWidget::AttackButtonClicked);
+	ItemCommandButton->OnClicked.AddDynamic(this, &UActionMenuWidget::OpenItemMenu);
+	HealButton->OnClicked.AddDynamic(this, &UActionMenuWidget::Heal);
 }
 
 void UActionMenuWidget::SetCombatHUD(ACombatHUD* inHUD)
@@ -98,5 +100,20 @@ bool UActionMenuWidget::DetermineCriticalHit()
 	else
 	{
 		return false;
+	}
+}
+
+void UActionMenuWidget::OpenItemMenu()
+{
+	CombatHUD->CombatItemMenuWidget->AddToViewport(3);
+}
+
+void UActionMenuWidget::Heal()
+{
+	CombatHUD->CombatPlayerCharacter->CPC_StatMap.Emplace("CurrentHP") = *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("CurrentHP") + 50;
+
+	if (*CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("CurrentHP") >= *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("MaxHP"))
+	{
+		CombatHUD->CombatPlayerCharacter->CPC_StatMap.Emplace("CurrentHP") = *CombatHUD->CombatPlayerCharacter->CPC_StatMap.Find("MaxHP");
 	}
 }

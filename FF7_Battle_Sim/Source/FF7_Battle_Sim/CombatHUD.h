@@ -8,12 +8,15 @@
 #include "CombatStatusWidget.h"
 #include "EnemyInfoWidget.h"
 #include "ActionMenuWidget.h"
+#include "CombatItemMenu.h"
 #include "CombatHUD.generated.h"
 class UCombatStatusWidget;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
 class ACombatPlayerCharacter;
 class UATB_Component;
+class UCombatItemMenu;
+class UMainGameInstance;
 
 /**
  * 
@@ -28,6 +31,9 @@ public:
 
 	virtual void DrawHUD() override;
 
+	UPROPERTY()
+	UMainGameInstance* MainGameInstance;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UUserWidget> CombatStatusWidgetClass;
 
@@ -36,6 +42,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UUserWidget> ActionMenuWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+	TSubclassOf<UUserWidget> CombatItemMenuClass;
 
 	UPROPERTY()
 	UCombatStatusWidget* CombatStatusWidget;
@@ -46,6 +55,9 @@ public:
 	UPROPERTY()
 	UActionMenuWidget* ActionMenuWidget;
 
+	UPROPERTY()
+	UCombatItemMenu* CombatItemMenuWidget;
+
 	UFUNCTION()
 	void CreateCombatStatusWidget();
 
@@ -55,7 +67,10 @@ public:
 	UFUNCTION()
 	void CreateActionMenuWidget();
 
-	UPROPERTY()
+	UFUNCTION()
+	void CreateItemMenuWidget();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ACombatPlayerCharacter* CombatPlayerCharacter;
 
 	UPROPERTY()

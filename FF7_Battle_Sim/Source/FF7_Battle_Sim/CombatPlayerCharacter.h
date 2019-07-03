@@ -14,6 +14,8 @@ class UATB_Component;
 class ACombatHUD;
 class UMainGameInstance;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDamageTaken, int32, DamageTaken);
+
 UCLASS()
 class FF7_BATTLE_SIM_API ACombatPlayerCharacter : public ACharacter, public ICombatInterface
 {
@@ -48,9 +50,13 @@ public:
 	UPROPERTY()
 	ACombatHUD* CombatHUD;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TMap<FString, int32> CPC_StatMap;
 
 	UFUNCTION()
 	void PlayerTakeDamage(float inDamage);
+
+	UPROPERTY(BlueprintAssignable)
+	FPlayerDamageTaken PlayerDamageTakenEvent;
+
 };

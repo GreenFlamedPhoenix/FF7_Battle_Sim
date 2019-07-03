@@ -11,7 +11,7 @@ class UActionMenuWidget;
 class ACombatGameMode;
 class ACombatPlayerCharacter;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamage);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDamage, int32, DamageTaken);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS()

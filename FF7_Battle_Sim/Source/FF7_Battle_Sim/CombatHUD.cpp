@@ -5,6 +5,7 @@
 #include "CombatPlayerCharacter.h"
 #include "ATB_Component.h"
 #include "Kismet/GameplayStatics.h"
+#include "MainGameInstance.h"
 
 void ACombatHUD::BeginPlay()
 {
@@ -18,6 +19,11 @@ void ACombatHUD::BeginPlay()
 
 	if (ActionMenuWidgetClass){CreateActionMenuWidget();}
 	else{UE_LOG(LogTemp, Error, TEXT("Issue with ActionMenuWidgetClass"));}
+
+	if(CombatItemMenuClass){CreateItemMenuWidget();}
+	else{UE_LOG(LogTemp, Error, TEXT("Issue with ActionMenuWidgetClass")); }
+
+	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
 
 	GetWorld()->GetTimerManager().SetTimer(ReferenceSearchTimer, this, &ACombatHUD::SearchForReferences, 0.1f, true, 0.f);
 }
@@ -60,4 +66,10 @@ void ACombatHUD::CreateActionMenuWidget()
 	ActionMenuWidget = CreateWidget<UActionMenuWidget>(GetWorld(), ActionMenuWidgetClass);
 	ActionMenuWidget->SetCombatHUD(this);
 	ActionMenuWidget->AddToViewport(1);
+}
+
+void ACombatHUD::CreateItemMenuWidget()
+{
+	CombatItemMenuWidget = CreateWidget<UCombatItemMenu>(GetWorld(), CombatItemMenuClass);
+	CombatItemMenuWidget->SetCombatHUD(this);
 }
