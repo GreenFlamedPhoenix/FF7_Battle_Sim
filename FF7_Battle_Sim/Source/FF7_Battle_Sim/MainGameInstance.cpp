@@ -196,6 +196,11 @@ void UMainGameInstance::BeginCombat()
 	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
 }
 
+void UMainGameInstance::SetCurrentMapName(FString inMapName)
+{
+	SavedProperMapName = inMapName;
+}
+
 void UMainGameInstance::CompleteCombat()
 {
 	UGameplayStatics::OpenLevel(this, SavedWorldMapFName);

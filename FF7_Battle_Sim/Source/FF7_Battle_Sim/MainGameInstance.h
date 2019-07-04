@@ -141,7 +141,10 @@ public:
 	FTransform SavedCombatTransform;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FString SavedMapName;
+	FString SavedProperMapName;
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentMapName(FString inMapName);
 
 	UPROPERTY()
 	FName MapFName;
