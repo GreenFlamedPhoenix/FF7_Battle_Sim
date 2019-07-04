@@ -7,11 +7,22 @@
 #include "CombatGameMode.h"
 #include "CombatPlayerCharacter.h"
 #include "ATB_Component.h"
+#include "ActionMenuWidget.h"
 
 AMidgarCommander::AMidgarCommander()
 {
 	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB Component"));
 	ATB_Component->ATB_Full.AddDynamic(this, &AMidgarCommander::ReadyForAction);
+
+	EnemyLevel = 4;
+	EnemyCurrentHP = 200;
+	EnemyMaxHP = 200;
+	EnemyCurrentMP = 25;
+	EnemyMaxMP = 25;
+	EnemyStrength = 8;
+	EnemyDexterity = 6;
+	EnemyExpWorth = 18;
+	EnemyVitality = 13;
 }
 
 void AMidgarCommander::BeginPlay()
@@ -32,10 +43,11 @@ void AMidgarCommander::StartCursorHover(UPrimitiveComponent* TouchComponent)
 	CombatController->GetHitResultUnderCursor(ECC_Pawn, true, ActorHit);
 	HoveredActor = ActorHit.GetActor();
 	EnemysEnemyInfoWidget->SetEnemyName(HoveredActor->GetName());
-	EnemysEnemyInfoWidget->SetEnemyCurrentHP(CurrentHP);
-	EnemysEnemyInfoWidget->SetEnemyMaxHP(MaxHP);
-	EnemysEnemyInfoWidget->SetEnemyCurrentMP(CurrentMP);
-	EnemysEnemyInfoWidget->SetEnemyMaxMP(MaxMP);
+	EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
+	EnemysEnemyInfoWidget->SetEnemyMaxHP(EnemyMaxHP);
+	EnemysEnemyInfoWidget->SetEnemyCurrentMP(EnemyCurrentMP);
+	EnemysEnemyInfoWidget->SetEnemyMaxMP(EnemyMaxMP);
+	EnemysEnemyInfoWidget->SetEnemyLevel(EnemyLevel);
 }
 
 void AMidgarCommander::EndCursorHover(UPrimitiveComponent* TouchComponent)
@@ -49,18 +61,41 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 {
 	Super::ActorBeingTargetted(TouchComponent, inKey);
 
-	CurrentHP -= 1000;
-
-	if (CurrentHP <= 0)
+	if (ActionMenuWidget->bAttemptingAttack == true)
 	{
-		OnDeathEvent.Broadcast();
-		CombatGameMode->SetupEnemyAttributes(-1, 0);
-		EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+		float IncomingDamage = ActionMenuWidget->CalculateDamageDealt();
+		float DamageReduction = (float(EnemyVitality * 5) / 1700);
+
+		int32 DamageTaken = FMath::FloorToInt(IncomingDamage - (IncomingDamage * DamageReduction));
+		EnemyCurrentHP -= DamageTaken;
+
+		DamageTakenNumberEvent.Broadcast(DamageTaken);
+
+		if (EnemyCurrentHP > 0)
+		{
+			OnDamageEvent.Broadcast();
+			ResetEnemyInfoStats();
+		}
+		else
+		{
+			OnDeathEvent.Broadcast();
+			CombatGameMode->SetupEnemyAttributes(-1, 0);
+			EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+		}
 		EnemiesCombatCharacter->ATB_Component->ResetATB();
+
+		ActionMenuWidget->bAttemptingAttack = false;
 	}
 }
 
 void AMidgarCommander::ReadyForAction()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Commander ready!"))
+
+}
+
+void AMidgarCommander::ResetEnemyInfoStats()
+{
+	EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
+	EnemysEnemyInfoWidget->SetWidgetVisibility(false);
+	EnemysEnemyInfoWidget->SetWidgetVisibility(true);
 }

@@ -28,6 +28,9 @@ public:
 	UFUNCTION()
 	void ReadyForAction();
 
+	UFUNCTION()
+	void ResetEnemyInfoStats();
+
 	UPROPERTY()
 	bool bReadyForAction;
 
