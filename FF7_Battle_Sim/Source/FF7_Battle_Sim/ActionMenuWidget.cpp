@@ -92,7 +92,6 @@ bool UActionMenuWidget::DetermineCriticalHit()
 
 	float CritPercentage = ((MyLuck * 2.75) + (MyStrength * 1.75) + (MyLevel / 1.05)) / 10;
 	float ChanceRoll = FMath::RandRange(0.f, 100.f);
-	UE_LOG(LogTemp, Warning, TEXT("Critical Chance: %f"), CritPercentage)
 	if (ChanceRoll < CritPercentage)
 	{
 		return true;

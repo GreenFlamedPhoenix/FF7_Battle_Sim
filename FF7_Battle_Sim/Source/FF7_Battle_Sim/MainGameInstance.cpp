@@ -86,7 +86,12 @@ void UMainGameInstance::CountUpPlayedTimer()
 
 void UMainGameInstance::CalculatePlayerExp(int32 inAwardedExp)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Awarding %i exp to player!"), inAwardedExp)
+
 	MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") + inAwardedExp;
+
+	UE_LOG(LogTemp, Warning, TEXT("New current exp is %i"), *MGI_StatMap.Find("CurrentExp"))
+
 	if (*MGI_StatMap.Find("CurrentExp") >= *MGI_StatMap.Find("ExpToLevel"))
 	{
 		LevelUp();
@@ -196,38 +201,35 @@ void UMainGameInstance::BeginCombat()
 	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
 }
 
-void UMainGameInstance::SetCurrentMapName(FString inMapName)
-{
-	SavedProperMapName = inMapName;
-}
-
 void UMainGameInstance::CompleteCombat()
 {
-	UGameplayStatics::OpenLevel(this, SavedWorldMapFName);
+	UGameplayStatics::OpenLevel(this, CurrentWorldMapFName);
 }
 
 void UMainGameInstance::LevelUp()
 {
-		MGI_StatMap.Emplace("Level") = *MGI_StatMap.Find("Level") + 1;
-		MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") - *MGI_StatMap.Find("ExpToLevel");
-		MGI_StatMap.Emplace("ExpToLevel") = FMath::FloorToInt(float(*MGI_StatMap.Find("ExpToLevel")) + float((*MGI_StatMap.Find("ExpToLevel") / 10)));
+	UE_LOG(LogTemp, Warning, TEXT("Leveling up!"))
 
-		MGI_StatMap.Emplace("Strength") = MGI_StatMap.FindOrAdd("Strength") + FMath::RandRange(1, 2);
-		MGI_StatMap.Emplace("Dexterity") = MGI_StatMap.FindOrAdd("Dexterity") + FMath::RandRange(1, 2);
-		MGI_StatMap.Emplace("Vitality") = MGI_StatMap.FindOrAdd("Vitality") + FMath::RandRange(1, 2);
-		MGI_StatMap.Emplace("Magic") = MGI_StatMap.FindOrAdd("Magic") + FMath::RandRange(1, 2);
-		MGI_StatMap.Emplace("Spirit") = MGI_StatMap.FindOrAdd("Spirit") + FMath::RandRange(1, 2);
-		MGI_StatMap.Emplace("Luck") = MGI_StatMap.FindOrAdd("Luck") + FMath::RandRange(1, 2);
+	MGI_StatMap.Emplace("Level") = *MGI_StatMap.Find("Level") + 1;
+	MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") - *MGI_StatMap.Find("ExpToLevel");
+	MGI_StatMap.Emplace("ExpToLevel") = FMath::FloorToInt(float(*MGI_StatMap.Find("ExpToLevel")) + float((*MGI_StatMap.Find("ExpToLevel") / 10)));
 
-		float LowestIncrease = float(*MGI_StatMap.Find("MaxHP") / 18);
-		float HighestIncrease = float(*MGI_StatMap.Find("MaxHP") / 15);
+	MGI_StatMap.Emplace("Strength") = MGI_StatMap.FindOrAdd("Strength") + FMath::RandRange(1, 2);
+	MGI_StatMap.Emplace("Dexterity") = MGI_StatMap.FindOrAdd("Dexterity") + FMath::RandRange(1, 2);
+	MGI_StatMap.Emplace("Vitality") = MGI_StatMap.FindOrAdd("Vitality") + FMath::RandRange(1, 2);
+	MGI_StatMap.Emplace("Magic") = MGI_StatMap.FindOrAdd("Magic") + FMath::RandRange(1, 2);
+	MGI_StatMap.Emplace("Spirit") = MGI_StatMap.FindOrAdd("Spirit") + FMath::RandRange(1, 2);
+	MGI_StatMap.Emplace("Luck") = MGI_StatMap.FindOrAdd("Luck") + FMath::RandRange(1, 2);
 
-		float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
+	float LowestIncrease = float(*MGI_StatMap.Find("MaxHP") / 18);
+	float HighestIncrease = float(*MGI_StatMap.Find("MaxHP") / 15);
 
-		MGI_StatMap.Emplace("MaxHP") = *MGI_StatMap.Find("MaxHP") + FMath::FloorToInt(RoughIncreaseAmount);
+	float RoughIncreaseAmount = FMath::RandRange(LowestIncrease, HighestIncrease);
 
-		if (*MGI_StatMap.Find("CurrentExp") > *MGI_StatMap.Find("ExpToLevel"))
-		{
-			LevelUp();
-		}
+	MGI_StatMap.Emplace("MaxHP") = *MGI_StatMap.Find("MaxHP") + FMath::FloorToInt(RoughIncreaseAmount);
+
+	if (*MGI_StatMap.Find("CurrentExp") > *MGI_StatMap.Find("ExpToLevel"))
+	{
+		LevelUp();
+	}
 }

@@ -140,17 +140,15 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FTransform SavedCombatTransform;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FString SavedProperMapName;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FString CurrentProperMapName;
 
-	UFUNCTION(BlueprintCallable)
-	void SetCurrentMapName(FString inMapName);
 
 	UPROPERTY()
 	FName MapFName;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	FName SavedWorldMapFName;
+	FName CurrentWorldMapFName;
 
 	UFUNCTION(BlueprintCallable)
 	void CompleteCombat();

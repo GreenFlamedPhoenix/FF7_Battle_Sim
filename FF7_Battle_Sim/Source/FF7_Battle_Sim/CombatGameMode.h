@@ -62,4 +62,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCombatStopped;
+
+	UFUNCTION()
+	void AwardPlayerExp(int32 inExpAwarded);
+
+	UFUNCTION()
+	void LevelUpCharacter();
 };

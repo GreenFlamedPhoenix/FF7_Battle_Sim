@@ -33,7 +33,6 @@ void AMidgarSoldier::BeginPlay()
 	else {UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
 	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1);}
 	else {UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
-	
 }
 
 void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
@@ -69,7 +68,6 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 
 		int32 DamageTaken = FMath::FloorToInt(IncomingDamage - (IncomingDamage * DamageReduction));
 		EnemyCurrentHP -= DamageTaken;
-		UE_LOG(LogTemp, Warning, TEXT("Damage Taken: %i"), DamageTaken);
 
 		DamageTakenNumberEvent.Broadcast(DamageTaken);
 
