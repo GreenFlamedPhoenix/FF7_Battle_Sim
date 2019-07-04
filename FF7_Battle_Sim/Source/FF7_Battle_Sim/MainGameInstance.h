@@ -146,6 +146,9 @@ public:
 	UPROPERTY()
 	FName MapFName;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FName SavedWorldMapFName;
+
 	UFUNCTION(BlueprintCallable)
 	void CompleteCombat();
 

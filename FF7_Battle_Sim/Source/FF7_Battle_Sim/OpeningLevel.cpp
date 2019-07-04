@@ -18,10 +18,10 @@ void AOpeningLevel::BeginPlay()
 
 	bCombatMap = true;
 
-	GameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
-	if (GameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from level!")); return;}
+	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
+	if (MainGameInstance == nullptr) {UE_LOG(LogTemp, Error, TEXT("Null GameInstance from level!")); return;}
 
-	GameInstance->SetMapCombatState(bCombatMap);
+	MainGameInstance->SetMapCombatState(bCombatMap);
 
 	WorldMapMode = Cast<AWorldMapMode>(UGameplayStatics::GetGameMode(GetWorld()));
 

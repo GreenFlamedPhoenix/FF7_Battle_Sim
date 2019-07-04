@@ -191,11 +191,6 @@ void UMainGameInstance::BeginCombat()
 
 	MGI_StatMap = ControlledCharacter->PC_StatMap;
 
-	SavedMapName = GetWorld()->GetMapName();
-	if (SavedMapName.Contains(TEXT("S1_A1_Level")))
-	{
-		MapFName = "S1_A1_Level";
-	}
 	SavedCombatTransform = ControlledCharacter->GetActorTransform();
 	SavedCameraName = CharacterController->MyCurrentCamera->GetName();
 	MapTransitionEnum = EMapTransitionEnum::SpawnFromCombat;
@@ -203,7 +198,7 @@ void UMainGameInstance::BeginCombat()
 
 void UMainGameInstance::CompleteCombat()
 {
-	UGameplayStatics::OpenLevel(this, MapFName);
+	UGameplayStatics::OpenLevel(this, SavedWorldMapFName);
 }
 
 void UMainGameInstance::LevelUp()

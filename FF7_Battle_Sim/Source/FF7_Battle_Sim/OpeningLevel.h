@@ -32,7 +32,7 @@ public:
 	bool bCombatMap;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
-	UMainGameInstance* GameInstance;
+	UMainGameInstance* MainGameInstance;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	AWorldMapMode* WorldMapMode;
