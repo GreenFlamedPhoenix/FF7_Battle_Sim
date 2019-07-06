@@ -57,6 +57,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	EMapTransitionEnum MapTransitionEnum;
 
+
 	//////////////////////////////
 	// Reference Pointers
 	// Pointers and setters for base references.
@@ -92,6 +93,7 @@ public:
 
 	UFUNCTION()
 	void SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget);
+
 
 	//////////////////////////////
 	// Combat control functions and variables.
@@ -148,9 +150,9 @@ public:
 	UFUNCTION()
 	void ManageCombatChance();
 
-
-
-
+	/*The camera we were possessing before combat was triggered.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FString SavedCameraName;
 
 
 	//////////////////////////////
@@ -225,13 +227,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FName CurrentWorldMapFName;
 
+	/*Function called when combat completes.*/
 	UFUNCTION(BlueprintCallable)
 	void CompleteCombat();
 
 
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FString SavedCameraName;
+
 
 
 	
