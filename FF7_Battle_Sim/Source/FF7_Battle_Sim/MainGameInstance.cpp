@@ -18,6 +18,39 @@ void UMainGameInstance::Init()
 	ItemInventory.Add("Potion", 99);
 }
 
+void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
+{
+	ControlledCharacter = inPlayerCharacter;
+	if (ControlledCharacter == nullptr) { UE_LOG(LogTemp, Error, TEXT("Null Character from GameInstance")) return; }
+}
+
+void UMainGameInstance::SetPlayerControllerReference(APlayerCharacterController* inPlayerController)
+{
+	CharacterController = inPlayerController;
+	if (CharacterController == nullptr) { UE_LOG(LogTemp, Error, TEXT("Null CharacterController from GameInstance"))return; }
+}
+
+
+void UMainGameInstance::SetEnemyInfoWidget(UEnemyInfoWidget* Widget)
+{
+	EnemyInfoWidget = Widget;
+}
+
+void UMainGameInstance::SetActionMenuWidget(UActionMenuWidget* Widget)
+{
+	PlayerActionMenuWidget = Widget;
+}
+
+void UMainGameInstance::SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget)
+{
+	WorldMainMenuWidget = inWidget;
+}
+
+/*Gets whether or not this is a combat map from the level*/
+void UMainGameInstance::SetMapCombatState(bool bCombatMap)
+{
+	bCurrentlyInCombatMap = bCombatMap;
+}
 
 void UMainGameInstance::StartGamePlayedTimer()
 {
@@ -90,54 +123,12 @@ void UMainGameInstance::CountUpPlayedTimer()
 
 void UMainGameInstance::CalculatePlayerExp(int32 inAwardedExp)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Awarding %i exp to player!"), inAwardedExp)
-
 	MGI_StatMap.Emplace("CurrentExp") = *MGI_StatMap.Find("CurrentExp") + inAwardedExp;
-
-	UE_LOG(LogTemp, Warning, TEXT("New current exp is %i"), *MGI_StatMap.Find("CurrentExp"))
 
 	if (*MGI_StatMap.Find("CurrentExp") >= *MGI_StatMap.Find("ExpToLevel"))
 	{
 		LevelUp();
 	}
-}
-
-void UMainGameInstance::SetPlayerStatusWidget(UPlayerStatusWidget* inWidget)
-{
-
-}
-
-void UMainGameInstance::SetCharacterReference(APlayerCharacter* inPlayerCharacter)
-{
-	ControlledCharacter = inPlayerCharacter;
-	if(ControlledCharacter == nullptr){UE_LOG(LogTemp,Error,TEXT("Null Character from GameInstance")) return;}
-}
-
-void UMainGameInstance::SetPlayerControllerReference(APlayerCharacterController* inPlayerController)
-{
-	CharacterController = inPlayerController;
-	if(CharacterController == nullptr){UE_LOG(LogTemp,Error,TEXT("Null CharacterController from GameInstance"))return;}
-}
-
-/*Gets whether or not this is a combat map from the level*/
-void UMainGameInstance::SetMapCombatState(bool bCombatMap)
-{
-	bCurrentlyInCombatMap = bCombatMap;
-}
-
-void UMainGameInstance::SetEnemyInfoWidget(UEnemyInfoWidget* Widget)
-{
-	EnemyInfoWidget = Widget;
-}
-
-void UMainGameInstance::SetActionMenuWidget(UActionMenuWidget* Widget)
-{
-	PlayerActionMenuWidget = Widget;
-}
-
-void UMainGameInstance::SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget)
-{
-	WorldMainMenuWidget = inWidget;
 }
 
 void UMainGameInstance::ClearGameInstance()

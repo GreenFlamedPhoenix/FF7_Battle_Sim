@@ -13,8 +13,6 @@ void UPlayerStatusWidget::NativeOnInitialized()
 	Super::NativeOnInitialized();
 
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if(MainGameInstance) {MainGameInstance->SetPlayerStatusWidget(this);}
-
 	ExitButton->OnClicked.AddDynamic(this, &UPlayerStatusWidget::CloseMenu);
 }
 

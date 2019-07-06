@@ -44,27 +44,6 @@ public:
 	bool bAbleToSave;
 
 	UPROPERTY()
-	int32 PlayerStrength = 1;
-
-	UPROPERTY()
-	int32 PlayerDexterity = 1;
-
-	UPROPERTY()
-	int32 PlayerVitality = 1;
-
-	UPROPERTY()
-	int32 PlayerMagic = 1;
-
-	UPROPERTY()
-	int32 PlayerSpirit = 1;
-
-	UPROPERTY()
-	int32 PlayerLuck = 1;
-
-	UFUNCTION()
-	void SetStats();
-
-	UPROPERTY()
 	AWorldMenuHUD* WorldMenuHUD;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

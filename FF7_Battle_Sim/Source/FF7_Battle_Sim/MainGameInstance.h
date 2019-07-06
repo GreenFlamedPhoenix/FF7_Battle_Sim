@@ -11,7 +11,6 @@ class ACameraActor;
 class UEnemyInfoWidget;
 class UActionMenuWidget;
 class UWorldMenuMainWidget;
-class UPlayerStatusWidget;
 
 /*Event to broadcast when combat triggers.*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCombatTriggered);
@@ -63,7 +62,7 @@ public:
 	// Pointers and setters for base references.
 	//////////////////////////////
 
-	//TODO Do we need this?
+	/*Reference for the PlayerCharacter. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
 	APlayerCharacter* ControlledCharacter;
 
@@ -78,12 +77,6 @@ public:
 
 	UPROPERTY()
 	UWorldMenuMainWidget* WorldMainMenuWidget;
-
-	UPROPERTY()
-	UPlayerStatusWidget* PlayerStatusWidget;
-
-	UFUNCTION()
-	void SetPlayerStatusWidget(UPlayerStatusWidget* inWidget);
 
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterReference(APlayerCharacter* inPlayerCharacter);
@@ -100,39 +93,44 @@ public:
 	UFUNCTION()
 	void SetWorldMenuMainWidget(UWorldMenuMainWidget* inWidget);
 
+	//////////////////////////////
+	// Combat control functions and variables.
+	// TODO Look into possibly moving this to its own component.
+	//////////////////////////////
+
+	/*Sets whether our current map is flagged for combat.*/
 	UFUNCTION()
 	void SetMapCombatState(bool bCombatMap);
 
+	/*Boolean for whether our current map is flagged for combat or not.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bCurrentlyInCombatMap;
 
+	/*Our current chance to enter combat. Increases as we walk around.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float CurrentCombatChance;
 
+	/*The highest our combat chance can get. Obviously 100% chance.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float MaxCombatChance = 100.f;
 
-	UFUNCTION(BlueprintCallable)
-	void ClearGameInstance();
-
-	UFUNCTION()
-	void ManageCombatChance();
-
+	/*Function called to control combat being triggered.*/
 	UFUNCTION(BlueprintCallable)
 	void BeginCombat();
 
-	UFUNCTION(BlueprintCallable)
-	void StartGamePlayedTimer();
-
+	/*Timer that generates random numbers for the purpose of triggering combat.*/
 	UPROPERTY()
 	FTimerHandle RandomNumberCounter;
 
+	/*Function called by the RandomNumberCounter timer that generates the number for combat triggering.*/
 	UFUNCTION()
 	void GenerateRandomCombatRoll();
 
+	/*Variable to hold our current generated roll*/
 	UPROPERTY()
 	float CombatChanceRoll = 0.f;
 
+	/*Boolean tracking when combat gets triggered.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bCombatTriggered;
 
@@ -140,81 +138,164 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FTransform SavedCombatTransform;
 
+	/*Event to broadcast once combat triggers.*/
+	UPROPERTY(BlueprintAssignable)
+	FCombatTriggered CombatTriggered;
+
+	UFUNCTION(BlueprintCallable)
+	void ClearGameInstance();
+
+	UFUNCTION()
+	void ManageCombatChance();
+
+
+
+
+
+
+	//////////////////////////////
+	// Game played timer control.
+	//////////////////////////////
+
+	/*Function that begins the game played counter at the proper time.*/
+	UFUNCTION(BlueprintCallable)
+	void StartGamePlayedTimer();
+
+	/*The actual timer for ticking up the time played counter.*/
+	UPROPERTY()
+	FTimerHandle GameTimeCounter;
+
+	/*The function called by the timer responsible for actually ticking up the time played counter,*/
+	UFUNCTION()
+	void CountUpPlayedTimer();
+
+	/*Variables for the different played counter digits.*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 SecondsPlayedOne;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 SecondsPlayedTwo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MinutesPlayedOne;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MinutesPlayedTwo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 HoursPlayedOne;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 HoursPlayedTwo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 DaysPlayedOne;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 DaysPlayedTwo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 DaysPlayedThree;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 DaysPlayedFour;
+	
+
+	//////////////////////////////
+	// Player attributes storage.
+	//////////////////////////////
+
+	/*Map holding all of out characters stats and attributes.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TMap<FString, int32> MGI_StatMap;
+
+	/*Current Gil for the player*/ //TODO Look into moving this into the Stat Map.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 CureentGil = 100;
+
+	/*Inventory of the player*/ //TODO Inventory not implemented in any real capacity.
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TMap<FString, int32> ItemInventory;
+
+	/*Variable to store the players spawn when loading a game.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FTransform LoadedPlayerTransform;
+
+
+	//////////////////////////////
+	// Map information storage.
+	//////////////////////////////
+
+	/*The map name as the player would know it.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FString CurrentProperMapName;
 
-
-	UPROPERTY()
-	FName MapFName;
-
+	/*The map name as the engine knows it in regards to opening levels.*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FName CurrentWorldMapFName;
 
 	UFUNCTION(BlueprintCallable)
 	void CompleteCombat();
 
-	UPROPERTY(BlueprintAssignable)
-	FCombatTriggered CombatTriggered;
+
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString SavedCameraName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CharacterOneCurrentHP = 140;
 
-	UPROPERTY()
-	int32 MaxHP = 140;
+	
+	//////////////////////////////
+	// Possible things to remove.
+	//////////////////////////////
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CharacterOneCurrentMP = 40;
+	//UPROPERTY()
+	//int32 CharacterOneCurrentExp;
 
-	UPROPERTY()
-	int32 CharacterOneMaxMP = 40;
+	//UPROPERTY()
+	//int32 CharacterOneExpToNext;
 
-	UPROPERTY()
-	FTimerHandle GameTimeCounter;
+	//UPROPERTY()
+	//int32 PlayerOneCurrentExp = 1990;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 SecondsPlayedOne;
+	//UPROPERTY()
+	//int32 PlayerOneExpToLevel = 2000;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 SecondsPlayedTwo;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	//int32 PlayerOneLevel = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MinutesPlayedOne;
+	//UPROPERTY()
+	//int32 GI_PlayerStrength = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MinutesPlayedTwo;
+	//UPROPERTY()
+	//int32 GI_PlayerDexterity = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 HoursPlayedOne;
+	//UPROPERTY()
+	//int32 GI_PlayerVitality = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 HoursPlayedTwo;
+	//UPROPERTY()
+	//int32 GI_PlayerMagic = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 DaysPlayedOne;
+	//UPROPERTY()
+	//int32 GI_PlayerSpirit = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 DaysPlayedTwo;
+	//UPROPERTY()
+	//int32 GI_PlayerLuck = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 DaysPlayedThree;
+	//UPROPERTY()
+	//FName MapFName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 DaysPlayedFour;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//int32 CharacterOneCurrentHP = 140;
 
-	UFUNCTION()
-	void CountUpPlayedTimer();
+	//UPROPERTY()
+	//int32 MaxHP = 140;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//int32 CharacterOneCurrentMP = 40;
+
+	//UPROPERTY()
+	//int32 CharacterOneMaxMP = 40;
+
+
+
+
+
 
 	UPROPERTY()
 	int32 ExpToAward;
 
-	UPROPERTY()
-	int32 CharacterOneCurrentExp;
 
-	UPROPERTY()
-	int32 CharacterOneExpToNext;
 
 	UPROPERTY()
 	int32 ExpToHold;
@@ -222,45 +303,15 @@ public:
 	UFUNCTION()
 	void CalculatePlayerExp(int32 inAwardedExp);
 
-	UPROPERTY()
-	int32 PlayerOneCurrentExp = 1990;
 
-	UPROPERTY()
-	int32 PlayerOneExpToLevel = 2000;
 
 	UFUNCTION()
 	void LevelUp();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	int32 PlayerOneLevel = 1;
 
-	UPROPERTY()
-	int32 GI_PlayerStrength = 1;
 
-	UPROPERTY()
-	int32 GI_PlayerDexterity = 1;
 
-	UPROPERTY()
-	int32 GI_PlayerVitality = 1;
 
-	UPROPERTY()
-	int32 GI_PlayerMagic = 1;
 
-	UPROPERTY()
-	int32 GI_PlayerSpirit = 1;
 
-	UPROPERTY()
-	int32 GI_PlayerLuck = 1;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	TMap<FString, int32> MGI_StatMap;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	FTransform LoadedPlayerTransform;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int32 CureentGil = 100;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	TMap<FString, int32> ItemInventory;
 };
