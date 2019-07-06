@@ -25,7 +25,7 @@ void AOpeningLevel::BeginPlay()
 
 	WorldMapMode = Cast<AWorldMapMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
-	GetWorldTimerManager().SetTimer(StupidDumbTimer, this, &AOpeningLevel::StupidDumbTimerFunction, 1.f, true, 0.f);
+	//GetWorldTimerManager().SetTimer(StupidDumbTimer, this, &AOpeningLevel::StupidDumbTimerFunction, 1.f, true, 0.f);
 }
 
 FString AOpeningLevel::GetMapName()
@@ -38,7 +38,7 @@ void AOpeningLevel::StupidDumbTimerFunction()
 	if (WorldMainMenuWidget)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Found it."))
-		WorldMainMenuWidget->SetLocationNameText(MapName);
+		//WorldMainMenuWidget->SetLocationNameText(MapName);
 	}
 	else
 	{

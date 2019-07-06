@@ -139,7 +139,7 @@ public:
 	void SetPlayerIcon();
 
 	UFUNCTION(BlueprintCallable)
-	void SetLocationNameText(FString inLevelName);
+	void SetLocationNameText();
 
 	UFUNCTION()
 	void SetCharacterOneStats();

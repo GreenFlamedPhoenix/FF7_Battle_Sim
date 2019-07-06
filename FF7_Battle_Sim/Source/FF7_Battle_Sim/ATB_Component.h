@@ -84,7 +84,7 @@ public:
 
 	// Event that fires when our ATB bar becomes full.
 	UPROPERTY()
-	FATB_Full ATB_Full;
+	FATB_Full ATB_FullEvent;
 	
 	// Function to quickly reset the ATB bar to empty and filling.
 	UFUNCTION()

@@ -44,38 +44,42 @@ void UMainGameInstance::CountUpPlayedTimer()
 				MinutesPlayedOne += 1; // Count up the ten minute.
 				MinutesPlayedTwo = 0; // Reset the single minute to 0.
 
-				if (MinutesPlayedOne > 5) // If the 10 minute exceeds 9.
+				if (MinutesPlayedOne > 5) // If the 10 minute exceeds 5.
 				{
 					HoursPlayedTwo += 1; // Count up the single hour.
 					MinutesPlayedOne = 0; // Reset the 10 minute to 0.
 
-					if (HoursPlayedOne == 2 && HoursPlayedTwo == 4) // If the 10 hours is 2 and the single hours played is 4.
+					if (HoursPlayedTwo > 3)
 					{
-						DaysPlayedFour += 1; // Count up the 4th days played digit.
-						HoursPlayedTwo = 0; // Reset the 10 hours to 0.
-
-						if (DaysPlayedFour > 9) // If days played 4th digit exceeds 9.
+						if (HoursPlayedOne == 2)
 						{
-							DaysPlayedThree += 1; // Count up the 3rd digit.
-							DaysPlayedFour = 0; // Reset the 4th digit to 0.
+							DaysPlayedFour += 1; // Count up the 4th days played digit.
+							HoursPlayedOne = 0; // Reset the 10 hours to 0.
+							HoursPlayedTwo = 0;
 
-							if (DaysPlayedThree > 9) // If the 3rd digit exceeds 9.
+							if (DaysPlayedFour > 9) // If days played 4th digit exceeds 9.
 							{
-								DaysPlayedTwo += 1; // Count up the 2nd digit.
-								DaysPlayedThree = 0; // Reset the 3rd digit to 0.
+								DaysPlayedThree += 1; // Count up the 3rd digit.
+								DaysPlayedFour = 0; // Reset the 4th digit to 0.
 
-								if (DaysPlayedTwo > 9) // If the 2nd digit exceeds 9.
+								if (DaysPlayedThree > 9) // If the 3rd digit exceeds 9.
 								{
-									DaysPlayedOne += 1; // Count up the first digit.
-									DaysPlayedTwo = 0; // Reset the 2nd digit to 0.
+									DaysPlayedTwo += 1; // Count up the 2nd digit.
+									DaysPlayedThree = 0; // Reset the 3rd digit to 0.
+
+									if (DaysPlayedTwo > 9) // If the 2nd digit exceeds 9.
+									{
+										DaysPlayedOne += 1; // Count up the first digit.
+										DaysPlayedTwo = 0; // Reset the 2nd digit to 0.
+									}
 								}
 							}
 						}
-					}
-					else // Unless we aren't ready to increase the day.
-					{
-						HoursPlayedOne += 1; // Count up the 10 hour.
-						HoursPlayedTwo = 0; // Reset the hours played two to 0.
+						else
+						{
+							HoursPlayedOne += 1; // Count up the 10 hour.
+							HoursPlayedTwo = 0; // Reset the hours played two to 0.
+						}
 					}
 				}	
 			}

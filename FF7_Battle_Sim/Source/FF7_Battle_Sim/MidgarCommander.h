@@ -16,47 +16,47 @@ class FF7_BATTLE_SIM_API AMidgarCommander : public AEnemyBase
 	GENERATED_BODY()
 
 public:
+	//////////////////////////////
+	//	Constructor
+	//////////////////////////////
 	AMidgarCommander();
+
+	/*ATB Component for managing ticking up for their turn. Created on construction.*/
+	UPROPERTY()
+	UATB_Component* ATB_Component;
+
+
+
+	//////////////////////////////
+	// Overridden functions for the parent EnemyBase class.
+	//////////////////////////////
 	virtual void BeginPlay() override;
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
 	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
+	//TODO Attack function.
 
-	UPROPERTY()
-	UATB_Component* ATB_Component;
 
+
+	//////////////////////////////
+	// ATB Control
+	//////////////////////////////
+
+	/*Function triggered when the ATB becomes full. Sets the ReadyForAction boolean. */
 	UFUNCTION()
-	void ReadyForAction();
+	void ATB_Full();
 
-	UFUNCTION()
-	void ResetEnemyInfoStats();
-
-	UPROPERTY()
+	/*Boolean used by the behavior tree to dictate if they can use their turn.*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bReadyForAction;
 
+
+
 	//////////////////////////////
-	//	Stats
-	//	Base stats
+	// Misc. functions
 	//////////////////////////////
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	int32 MyLevel = 5;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 CurrentHP = 200;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 MaxHP = 200;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 CurrentMP = 50;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 MaxMP = 50;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 Dexterity = 13;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
-	int32 ExpWorth = 20;
+	/*Shorthand function for resetting the view for the EnemyInfoWidget. Just to make things neater.*/
+	UFUNCTION()
+	void ResetEnemyInfoStats();
 };

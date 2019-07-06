@@ -53,7 +53,7 @@ void UATB_Component::TickUpATB()
 	else
 	{
 		bOwnerActionReady = true; 
-		ATB_Full.Broadcast();
+		ATB_FullEvent.Broadcast();
 		GetWorld()->GetTimerManager().PauseTimer(ATB_FillTimer);
 		DisplayActionenuWidget();
 		if (bOwnedByPlayer){UGameplayStatics::PlaySound2D(GetWorld(), ATB_ReadySoundCue);}

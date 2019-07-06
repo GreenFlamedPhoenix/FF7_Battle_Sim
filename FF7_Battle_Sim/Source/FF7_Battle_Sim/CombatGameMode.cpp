@@ -8,6 +8,7 @@ void ACombatGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	bCombatStopped = false;
 	MainGameInstance = Cast<UMainGameInstance>(GetWorld()->GetGameInstance());
 }
 

@@ -11,9 +11,11 @@
 
 AMidgarSoldier::AMidgarSoldier()
 {
+	// Create his ATB component and set up his ready event.
 	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB_Component"));
-	ATB_Component->ATB_Full.AddDynamic(this, &AMidgarSoldier::ReadyToAttack);
+	ATB_Component->ATB_FullEvent.AddDynamic(this, &AMidgarSoldier::EnemyATB_Full);
 
+	// Midgar Soldier enemy stats.
 	EnemyLevel = 2;
 	EnemyCurrentHP = 120;
 	EnemyMaxHP = 120;
@@ -21,16 +23,20 @@ AMidgarSoldier::AMidgarSoldier()
 	EnemyMaxMP = 20;
 	EnemyStrength = 6;
 	EnemyDexterity = 7;
-	EnemyExpWorth = 12;
 	EnemyVitality = 10;
+	EnemyLuck = 0;
+	EnemyExpWorth = 14;
 }
 
 void AMidgarSoldier::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Check in with the Combat Game Mode and let it know your Exp worth.
 	if (CombatGameMode){CombatGameMode->SetupEnemyAttributes(1, EnemyExpWorth);}
 	else {UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
+
+	// Determine how full your ATB bar is at the start of combat.
 	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1);}
 	else {UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
 }
@@ -39,6 +45,8 @@ void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
 {
 	Super::StartCursorHover(TouchComponent);
 
+	//When we hover over the commander update the Enemy Info Widget.
+	//TODO Compress this into one function, instead of several for each stat. Probably don't need to update max stats.
 	FHitResult ActorHit;
 	CombatController->GetHitResultUnderCursor(ECC_Pawn, true, ActorHit);
 	HoveredActor = ActorHit.GetActor();
@@ -53,8 +61,6 @@ void AMidgarSoldier::StartCursorHover(UPrimitiveComponent* TouchComponent)
 void AMidgarSoldier::EndCursorHover(UPrimitiveComponent* TouchComponent)
 {
 	Super::EndCursorHover(TouchComponent);
-
-
 }
 
 void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey)
@@ -82,8 +88,8 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 			CombatGameMode->SetupEnemyAttributes(-1, 0);
 			EnemysEnemyInfoWidget->SetWidgetVisibility(false);
 		}
-		EnemiesCombatCharacter->ATB_Component->ResetATB();
 
+		EnemiesCombatCharacter->ATB_Component->ResetATB();
 		ActionMenuWidget->bAttemptingAttack = false;
 	}
 }
@@ -91,7 +97,6 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 void AMidgarSoldier::Attack()
 {
 	Super::Attack();
-
 }
 
 
@@ -108,12 +113,12 @@ void AMidgarSoldier::DrinkPotion()
 	}
 	ResetEnemyInfoStats();
 	ATB_Component->ResetATB();
-	bReadyForAction = false;
+	bSoldierReadyForAction = false;
 }
 
-void AMidgarSoldier::ReadyToAttack()
+void AMidgarSoldier::EnemyATB_Full()
 {
-	bReadyForAction = true;
+	bSoldierReadyForAction = true;
 }
 
 void AMidgarSoldier::ResetEnemyInfoStats()

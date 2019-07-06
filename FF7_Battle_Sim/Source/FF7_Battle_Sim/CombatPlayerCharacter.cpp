@@ -12,7 +12,7 @@
 ACombatPlayerCharacter::ACombatPlayerCharacter()
 {
 	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB_Component"));
-	if (ATB_Component){ATB_Component->ATB_Full.AddDynamic(this, &ACombatPlayerCharacter::ReadyForAction);}
+	if (ATB_Component){ATB_Component->ATB_FullEvent.AddDynamic(this, &ACombatPlayerCharacter::ReadyForAction);}
 }
 
 // Called when the game starts or when spawned

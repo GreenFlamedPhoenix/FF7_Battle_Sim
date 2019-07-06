@@ -35,6 +35,7 @@ void UWorldMenuMainWidget::MenuOpened()
 	SetPlayerOneExp();
 	SetPlayerOneLevel();
 	SetPlayerOneExpBar();
+	SetLocationNameText();
 }
 
 void UWorldMenuMainWidget::SetWorldMenuHUD(AWorldMenuHUD* inWorldMenuHUD)
@@ -61,9 +62,10 @@ void UWorldMenuMainWidget::SetPlayerIcon()
 	}
 }
 
-void UWorldMenuMainWidget::SetLocationNameText(FString inLevelName)
+
+void UWorldMenuMainWidget::SetLocationNameText()
 {
-	LocationNameText->SetText(FText::FromString(inLevelName));
+	LocationNameText->SetText(FText::FromString(WorldMenuHUD->MainGameInstance->CurrentProperMapName));
 }
 
 void UWorldMenuMainWidget::SetCharacterOneStats()
