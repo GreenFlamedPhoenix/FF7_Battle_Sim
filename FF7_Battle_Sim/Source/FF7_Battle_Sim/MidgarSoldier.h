@@ -23,8 +23,8 @@ public:
 	AMidgarSoldier();
 
 	/*ATB Component for managing ticking up for their turn. Created on construction.*/
-	UPROPERTY()
-	UATB_Component* ATB_Component;
+	//UPROPERTY(VisibleAnywhere)
+	//UATB_Component* ATB_Component;
 
 
 

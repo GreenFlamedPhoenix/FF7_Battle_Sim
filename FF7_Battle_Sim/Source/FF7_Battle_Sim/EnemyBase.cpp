@@ -8,6 +8,7 @@
 #include "ActionMenuWidget.h"
 #include "CombatGameMode.h"
 #include "CombatPlayerCharacter.h"
+#include "ATB_Component.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -16,6 +17,7 @@ AEnemyBase::AEnemyBase()
 	CharacterCapsule->OnBeginCursorOver.AddDynamic(this, &AEnemyBase::StartCursorHover);
 	CharacterCapsule->OnEndCursorOver.AddDynamic(this, &AEnemyBase::EndCursorHover);
 	CharacterCapsule->OnClicked.AddDynamic(this, &AEnemyBase::ActorBeingTargetted);
+	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("My ATB Component"));
 }
 
 // Called when the game starts or when spawned
@@ -80,5 +82,4 @@ void AEnemyBase::Attack()
 
 	//UE_LOG(LogTemp, Warning, TEXT("Attacking for %f"), FinalDamageDealt)
 	EnemiesCombatCharacter->PlayerTakeDamage(FinalDamageDealt);
-	
 }

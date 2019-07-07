@@ -10,6 +10,7 @@ class UEnemyInfoWidget;
 class UActionMenuWidget;
 class ACombatGameMode;
 class ACombatPlayerCharacter;
+class UATB_Component;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamage);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
@@ -60,6 +61,9 @@ public:
 	//Our character. Testing usage with moving to enemies and attacking animations.
 	UPROPERTY()
 	ACombatPlayerCharacter* EnemiesCombatCharacter;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UATB_Component* ATB_Component;
 
 	//////////////////////////////
 	//	Enemy interactions.

@@ -22,8 +22,8 @@ public:
 	AMidgarCommander();
 
 	/*ATB Component for managing ticking up for their turn. Created on construction.*/
-	UPROPERTY()
-	UATB_Component* ATB_Component;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	//UATB_Component* ATB_Component;
 
 
 
@@ -34,7 +34,7 @@ public:
 	virtual void StartCursorHover(UPrimitiveComponent* TouchComponent) override;
 	virtual void EndCursorHover(UPrimitiveComponent* TouchComponent) override;
 	virtual void ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey) override;
-	//TODO Attack function.
+	virtual void Attack() override;
 
 
 

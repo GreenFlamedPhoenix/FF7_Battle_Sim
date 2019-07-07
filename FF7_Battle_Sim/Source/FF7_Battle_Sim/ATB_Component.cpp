@@ -27,7 +27,7 @@ void UATB_Component::BeginPlay()
 void UATB_Component::CalculateATB_FillSpeed(int32 inDexterity, int32 inStatusMultiplier)
 {
 	FString Owner = this->GetOwner()->GetName();
-	ATB_FillSpeed = ((inDexterity+200)*.001f/inStatusMultiplier);
+	ATB_FillSpeed = ((inDexterity+175)*.001f/inStatusMultiplier);
 }
 
 void UATB_Component::DetermineATB_InitialFill(bool bIsPlayer)
@@ -52,7 +52,7 @@ void UATB_Component::TickUpATB()
 	if(CurrentATB_Fill < MaxATB_Fill){CurrentATB_Fill += ATB_FillSpeed;}
 	else
 	{
-		bOwnerActionReady = true; 
+		OwnerActionReady = true; 
 		ATB_FullEvent.Broadcast();
 		GetWorld()->GetTimerManager().PauseTimer(ATB_FillTimer);
 		DisplayActionenuWidget();
@@ -62,7 +62,7 @@ void UATB_Component::TickUpATB()
 
 void UATB_Component::ResetATB()
 {
-	bOwnerActionReady = false;
+	OwnerActionReady = false;
 	CurrentATB_Fill = 0.f;
 	GetWorld()->GetTimerManager().UnPauseTimer(ATB_FillTimer);
 }

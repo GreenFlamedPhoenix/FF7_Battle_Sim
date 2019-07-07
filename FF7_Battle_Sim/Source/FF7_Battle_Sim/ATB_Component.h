@@ -63,7 +63,7 @@ public:
 	//////////////////////////////////////////////////
 
 	// How full our ATB bar currently is.
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float CurrentATB_Fill;
 
 	// The max out ATB can reach. Once at this level we can choose an action.
@@ -79,8 +79,8 @@ public:
 	void TickUpATB();
 	
 	// Boolean telling if we are ready to choose and action or not.
-	UPROPERTY()
-	bool bOwnerActionReady;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool OwnerActionReady;
 
 	// Event that fires when our ATB bar becomes full.
 	UPROPERTY()

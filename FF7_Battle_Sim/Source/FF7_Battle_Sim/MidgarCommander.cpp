@@ -12,7 +12,7 @@
 AMidgarCommander::AMidgarCommander()
 {
 	// Create his ATB component and set up his ready event.
-	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB Component"));
+	//ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB Component"));
 	ATB_Component->ATB_FullEvent.AddDynamic(this, &AMidgarCommander::ATB_Full);
 
 	// Base stats for the Midgar Commander.
@@ -22,8 +22,8 @@ AMidgarCommander::AMidgarCommander()
 	EnemyCurrentMP = 25;
 	EnemyMaxMP = 25;
 	EnemyStrength = 8;
-	EnemyDexterity = 6;
-	EnemyVitality = 18;
+	EnemyDexterity = 4;
+	EnemyVitality = 19;
 	EnemyLuck = 0;
 	EnemyExpWorth = 18;
 }
@@ -101,6 +101,13 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 		EnemiesCombatCharacter->ATB_Component->ResetATB();
 		ActionMenuWidget->bAttemptingAttack = false;
 	}
+}
+
+void AMidgarCommander::Attack()
+{
+	Super::Attack();
+
+	ATB_Component->ResetATB();
 }
 
 void AMidgarCommander::ResetEnemyInfoStats()

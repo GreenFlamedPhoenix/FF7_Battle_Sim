@@ -12,7 +12,7 @@
 AMidgarSoldier::AMidgarSoldier()
 {
 	// Create his ATB component and set up his ready event.
-	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB_Component"));
+	//ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("ATB_Component"));
 	ATB_Component->ATB_FullEvent.AddDynamic(this, &AMidgarSoldier::EnemyATB_Full);
 
 	// Midgar Soldier enemy stats.
@@ -37,7 +37,7 @@ void AMidgarSoldier::BeginPlay()
 	else {UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
 
 	// Determine how full your ATB bar is at the start of combat.
-	if (ATB_Component) {ATB_Component->DetermineATB_InitialFill(false); ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1);}
+	if (ATB_Component){ATB_Component->DetermineATB_InitialFill(false);ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1);}
 	else {UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
 }
 
@@ -97,6 +97,8 @@ void AMidgarSoldier::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FK
 void AMidgarSoldier::Attack()
 {
 	Super::Attack();
+
+	ATB_Component->ResetATB();
 }
 
 
