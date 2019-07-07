@@ -17,7 +17,7 @@ AEnemyBase::AEnemyBase()
 	CharacterCapsule->OnBeginCursorOver.AddDynamic(this, &AEnemyBase::StartCursorHover);
 	CharacterCapsule->OnEndCursorOver.AddDynamic(this, &AEnemyBase::EndCursorHover);
 	CharacterCapsule->OnClicked.AddDynamic(this, &AEnemyBase::ActorBeingTargetted);
-	ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("My ATB Component"));
+	Enemy_ATB_Component = CreateDefaultSubobject<UATB_Component>(TEXT("My ATB Component"));
 }
 
 // Called when the game starts or when spawned
@@ -43,7 +43,20 @@ void AEnemyBase::BeginPlay()
 // Function called when we hover over our enemy. Also called by children overriding this function, which hold most of the functionality.
 void AEnemyBase::StartCursorHover(UPrimitiveComponent* TouchComponent)
 {
-	if (EnemysEnemyInfoWidget){EnemysEnemyInfoWidget->SetWidgetVisibility(true);}
+	if (EnemysEnemyInfoWidget)
+	{
+		EnemysEnemyInfoWidget->SetWidgetVisibility(true);
+
+		FHitResult ActorHit;
+		CombatController->GetHitResultUnderCursor(ECC_Pawn, true, ActorHit);
+		HoveredActor = ActorHit.GetActor();
+		EnemysEnemyInfoWidget->SetEnemyName(HoveredActor->GetName());
+		EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
+		EnemysEnemyInfoWidget->SetEnemyMaxHP(EnemyMaxHP);
+		EnemysEnemyInfoWidget->SetEnemyCurrentMP(EnemyCurrentMP);
+		EnemysEnemyInfoWidget->SetEnemyMaxMP(EnemyMaxMP);
+		EnemysEnemyInfoWidget->SetEnemyLevel(EnemyLevel);
+	}
 	else{UE_LOG(LogTemp,Error,TEXT("No EnemyInfoWidget found!"));return;}
 }
 

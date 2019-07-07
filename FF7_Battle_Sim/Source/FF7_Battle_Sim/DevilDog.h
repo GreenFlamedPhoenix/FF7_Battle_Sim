@@ -4,22 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
-#include "MidgarCommander.generated.h"
-class UATB_Component;
+#include "DevilDog.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FF7_BATTLE_SIM_API AMidgarCommander : public AEnemyBase
+class FF7_BATTLE_SIM_API ADevilDog : public AEnemyBase
 {
 	GENERATED_BODY()
-
+	
 public:
 	//////////////////////////////
 	//	Constructor
 	//////////////////////////////
-	AMidgarCommander();
+	ADevilDog();
 
 
 

@@ -63,7 +63,7 @@ public:
 	ACombatPlayerCharacter* EnemiesCombatCharacter;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UATB_Component* ATB_Component;
+	UATB_Component* Enemy_ATB_Component;
 
 	//////////////////////////////
 	//	Enemy interactions.

@@ -1,68 +1,55 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MidgarCommander.h"
-#include "CombatPlayerCharacterController.h"
-#include "EnemyInfoWidget.h"
+#include "DevilDog.h"
 #include "CombatGameMode.h"
-#include "CombatPlayerCharacter.h"
 #include "ATB_Component.h"
 #include "ActionMenuWidget.h"
+#include "EnemyInfoWidget.h"
+#include "CombatPlayerCharacter.h"
 
-AMidgarCommander::AMidgarCommander()
+
+ADevilDog::ADevilDog()
 {
 	// Base stats for the Midgar Commander.
-	EnemyLevel = 4;
+	EnemyLevel = 6;
 	EnemyCurrentHP = 200;
 	EnemyMaxHP = 200;
 	EnemyCurrentMP = 25;
 	EnemyMaxMP = 25;
-	EnemyStrength = 8;
-	EnemyDexterity = 4;
-	EnemyVitality = 19;
+	EnemyStrength = 6;
+	EnemyDexterity = 10;
+	EnemyVitality = 10;
 	EnemyLuck = 0;
-	EnemyExpWorth = 18;
+	EnemyExpWorth = 25;
 }
 
-void AMidgarCommander::BeginPlay()
+void ADevilDog::BeginPlay()
 {
 	Super::BeginPlay();
 
 	// Check in with the Combat Game Mode and let it know your Exp worth.
-	if (CombatGameMode){CombatGameMode->SetupEnemyAttributes(1, EnemyExpWorth);}
-	else{UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!"));}
+	if (CombatGameMode) { CombatGameMode->SetupEnemyAttributes(1, EnemyExpWorth); }
+	else { UE_LOG(LogTemp, Error, TEXT("No CombatGameMode!")); }
 
 	// Determine how full your ATB bar is at the start of combat.
-	if (Enemy_ATB_Component){ Enemy_ATB_Component->DetermineATB_InitialFill(false); Enemy_ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1);}
-	else{UE_LOG(LogTemp, Error, TEXT("No ATB Component found!"));}
+	if (Enemy_ATB_Component) { Enemy_ATB_Component->DetermineATB_InitialFill(false); Enemy_ATB_Component->CalculateATB_FillSpeed(EnemyDexterity, 1); }
+	else { UE_LOG(LogTemp, Error, TEXT("No ATB Component found!")); }
 }
 
-void AMidgarCommander::StartCursorHover(UPrimitiveComponent* TouchComponent)
+void ADevilDog::StartCursorHover(UPrimitiveComponent* TouchComponent)
 {
 	Super::StartCursorHover(TouchComponent);
 
-	//When we hover over the commander update the Enemy Info Widget.
-	//TODO Compress this into one function, instead of several for each stat. Probably don't need to update max stats.
-	/*
-	FHitResult ActorHit;
-	CombatController->GetHitResultUnderCursor(ECC_Pawn, true, ActorHit);
-	HoveredActor = ActorHit.GetActor();
-	EnemysEnemyInfoWidget->SetEnemyName(HoveredActor->GetName());
-	EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
-	EnemysEnemyInfoWidget->SetEnemyMaxHP(EnemyMaxHP);
-	EnemysEnemyInfoWidget->SetEnemyCurrentMP(EnemyCurrentMP);
-	EnemysEnemyInfoWidget->SetEnemyMaxMP(EnemyMaxMP);
-	EnemysEnemyInfoWidget->SetEnemyLevel(EnemyLevel);
-	*/
 }
 
-void AMidgarCommander::EndCursorHover(UPrimitiveComponent* TouchComponent)
+void ADevilDog::EndCursorHover(UPrimitiveComponent* TouchComponent)
 {
 	Super::EndCursorHover(TouchComponent);
 
 }
 
-void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey)
+void ADevilDog::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, FKey inKey)
 {
 	Super::ActorBeingTargetted(TouchComponent, inKey);
 
@@ -102,14 +89,14 @@ void AMidgarCommander::ActorBeingTargetted(UPrimitiveComponent* TouchComponent, 
 	}
 }
 
-void AMidgarCommander::Attack()
+void ADevilDog::Attack()
 {
 	Super::Attack();
 
 	Enemy_ATB_Component->ResetATB();
 }
 
-void AMidgarCommander::ResetEnemyInfoStats()
+void ADevilDog::ResetEnemyInfoStats()
 {
 	EnemysEnemyInfoWidget->SetEnemyCurrentHP(EnemyCurrentHP);
 	EnemysEnemyInfoWidget->SetWidgetVisibility(false);
