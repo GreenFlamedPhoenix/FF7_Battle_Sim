@@ -9,6 +9,7 @@
 #include "CombatGameMode.h"
 #include "CombatPlayerCharacter.h"
 #include "ATB_Component.h"
+#include "CombatHUD.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -25,17 +26,16 @@ void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-
 	EnemiesCombatCharacter = Cast<ACombatPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-
-
 	CombatController = Cast<ACombatPlayerCharacterController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	CombatController->SetEnemyBaseReference(this);
 
 	MainGameInstance = Cast<UMainGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	EnemysEnemyInfoWidget = MainGameInstance->EnemyInfoWidget;
+	CombatHUD = Cast<ACombatHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
+	EnemysEnemyInfoWidget = CombatHUD->EnemyInfoWidget;
+	if (EnemysEnemyInfoWidget) {UE_LOG(LogTemp, Warning, TEXT("Info widget good!"))}
+	//EnemysEnemyInfoWidget = MainGameInstance->EnemyInfoWidget;
 	ActionMenuWidget = MainGameInstance->PlayerActionMenuWidget;
-
 
 	CombatGameMode = Cast<ACombatGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }

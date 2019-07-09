@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
 #include "MidgarCommander.generated.h"
-class UATB_Component;
+//class UATB_Component;
 
 /**
  * 

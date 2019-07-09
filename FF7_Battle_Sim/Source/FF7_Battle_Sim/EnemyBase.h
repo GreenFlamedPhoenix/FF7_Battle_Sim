@@ -11,6 +11,7 @@ class UActionMenuWidget;
 class ACombatGameMode;
 class ACombatPlayerCharacter;
 class UATB_Component;
+class ACombatHUD;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamage);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
@@ -64,6 +65,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UATB_Component* Enemy_ATB_Component;
+
+	UPROPERTY()
+	ACombatHUD* CombatHUD;
 
 	//////////////////////////////
 	//	Enemy interactions.

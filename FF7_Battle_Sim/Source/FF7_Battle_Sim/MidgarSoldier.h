@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
 #include "MidgarSoldier.generated.h"
-class ACombatGameMode;
-class UATB_Component;
+//class ACombatGameMode;
+//class UATB_Component;
 
 /**
  * 

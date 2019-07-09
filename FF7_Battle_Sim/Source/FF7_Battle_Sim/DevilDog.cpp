@@ -2,11 +2,12 @@
 
 
 #include "DevilDog.h"
+#include "CombatPlayerCharacterController.h"
+#include "EnemyInfoWidget.h"
 #include "CombatGameMode.h"
+#include "CombatPlayerCharacter.h"
 #include "ATB_Component.h"
 #include "ActionMenuWidget.h"
-#include "EnemyInfoWidget.h"
-#include "CombatPlayerCharacter.h"
 
 
 ADevilDog::ADevilDog()
